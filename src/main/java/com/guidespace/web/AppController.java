@@ -15,6 +15,6 @@ public class AppController {
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello Boys!";
+        return "Hello Boys!!";
     }
 }
