@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.sql.Timestamp;
 
-
 @MappedSuperclass
 class BaseEntity {
 
