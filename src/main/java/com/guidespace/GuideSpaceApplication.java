@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class GuideSpaceApplication {
-
+//useless comment
+//HUEHUEHUE
 	public static void main(String[] args) {
 		SpringApplication.run(GuideSpaceApplication.class, args);
 	}
