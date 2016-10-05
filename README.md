@@ -7,5 +7,5 @@
 ### [WIKI](https://github.com/VladAlenitsev/GuideSpace/wiki)
 
 ### How to run from cmd : 
-## Go to the project root, write mvn install, then cd target and java -jar GuideSpace-0.0.1-SNAPSHOT
-## Maven should be installed also JAVA 8.
+#### Go to the project root, write mvn install, then cd target and java -jar GuideSpace-0.0.1-SNAPSHOT
+#### Maven should be installed also JAVA 8.
