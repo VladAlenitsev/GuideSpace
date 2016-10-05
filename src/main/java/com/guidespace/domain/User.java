@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 
 
-@Entity(name = "USER")
+@Entity(name = "GUIDES")
 public class User extends BaseEntity {
 
     @NotNull

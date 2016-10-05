@@ -12,7 +12,7 @@ $(document).on("submit", "#loginform", function(){
         url: '/login'
 
     }).done(function(data, textStatus, jqXHR) {
-        window.location = '/loggedin';
+        window.location = '/';
 
 
     }).fail(function(jqXHR, textStatus, errorThrown) {
