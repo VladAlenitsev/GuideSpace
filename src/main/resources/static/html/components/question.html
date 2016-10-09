@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Question adding</title>
+</head>
+<body>
+<div class="sidebar-wrapper">
+    <form action="./result.html" th:action="@{/question}" th:object="${question}" method="post">
+        <label for="question">Question: </label>
+        <input id="question" type="text" th:field="*{questionText}" placeholder="Write new question here" required>
+        <input type="submit" value="Add">
+    </form>
+</div>
+</body>
+</html>

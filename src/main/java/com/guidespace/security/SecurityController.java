@@ -1,17 +1,33 @@
 package com.guidespace.security;
 
 
+import com.guidespace.domain.Question;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 @RequestMapping("/rest")
 public class SecurityController {
 
+//    @RequestMapping("/")
+//    public String question() {
+//        return "html/question.html";
+//    }
+
+    @GetMapping("/html/question")
+    public String greetingForm(Model model) {
+        model.addAttribute("question", new Question());
+        return "question";
+    }
+
+    @PostMapping("/html/question")
+    public String greetingSubmit(@ModelAttribute Question question) {
+        return "result";
+    }
 
     @RequestMapping(value = "/getCSRF", method = RequestMethod.GET)
     public ResponseEntity<SecurityController> getCSRF() {
