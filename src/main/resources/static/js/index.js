@@ -1,13 +1,4 @@
 
-$(document).ready(function() {
-        var question = $('#question');
-        var submit = $('#addQuestion');
-        submit.click(function() {
-//            alert(question.val());
-            document.getElementById("outputDiv").innerHTML = "Was added new question: " + question.val();
-        });
-    });
-
 jQuery(document).ready(function($) {
 //  CSRF tokeni küsimine sessiooni alguses
     $.ajax({
@@ -34,7 +25,14 @@ jQuery(document).ready(function($) {
             console.error('Houston, we have a problem...');
         }
     });
-
+//    Navbaril question akna avamine
+    $('#questionNavbar').on('click', function(event) {
+        if (isAuth() == "true") {
+            window.location = '/question';
+        } else {
+            displayLoginWindow();
+        }
+    });
 //    Navbaril login akna avamine
     $('#loginNavbar').on('click', function(event) {
         displayLoginWindow();
