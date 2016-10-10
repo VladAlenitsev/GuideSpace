@@ -1,8 +1,6 @@
 ### GuideSpace
 
-### [heroku NO autodeploy](https://guidespace.herokuapp.com/)
-
-### [heroku WITH autodeploy](https://guidespaceautodeploy.herokuapp.com/)
+### [new heroku WITH autodeploy](https://guidespace.herokuapp.com/)
 
 ## [Iteration 1](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-1)
 
