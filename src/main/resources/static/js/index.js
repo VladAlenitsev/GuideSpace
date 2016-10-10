@@ -1,3 +1,13 @@
+
+$(document).ready(function() {
+        var question = $('#question');
+        var submit = $('#addQuestion');
+        submit.click(function() {
+//            alert(question.val());
+            document.getElementById("outputDiv").innerHTML = "Was added new question: " + question.val();
+        });
+    });
+
 jQuery(document).ready(function($) {
 //  CSRF tokeni küsimine sessiooni alguses
     $.ajax({
