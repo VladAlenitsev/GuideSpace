@@ -24,6 +24,11 @@ public class AppController {
         return "html/index.html";
     }
 
+    @RequestMapping("/question")
+    public String question() {
+        return "html/question.html";
+    }
+
     @RequestMapping("/loggedin")
     @ResponseBody
     public String loged() {
