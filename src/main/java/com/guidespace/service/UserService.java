@@ -19,6 +19,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    //makes login
     public boolean authenticate(String username, String password) {
         Person user = userRepository.findByUsername(username);
         if (user != null) {

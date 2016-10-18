@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 @MappedSuperclass
@@ -15,34 +15,33 @@ class BaseEntity {
     private Long id;
 
     @Column(name = "createdAt")
-    private Timestamp createdAt;
-
-    @Column(name = "createdBy")
-    private String createdBy;
+    private Date createdAt;
 
     @Column(name = "changedAt")
-    private Timestamp changeddAt;
-
-    @Column(name = "changedBy")
-    private String changedBy;
+    private Date changeddAt;
 
     public Long getId() {
         return id;
     }
 
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public Timestamp getChangeddAt() {
+    public Date getChangeddAt() {
         return changeddAt;
     }
 
-    public String getChangedBy() {
-        return changedBy;
+    public void setId(Long id) {
+        this.id = id;
     }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setChangeddAt(Date changeddAt) {
+        this.changeddAt = changeddAt;
+    }
+
 }
