@@ -29,17 +29,6 @@ public class AppController {
         return "html/question.html";
     }
 
-    @RequestMapping("/loggedin")
-    @ResponseBody
-    public String loged() {
-        return "Logged In";
-    }
-
-    @RequestMapping("/registered")
-    @ResponseBody
-    public String registered() {
-        return "Registered";
-    }
 
 
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)

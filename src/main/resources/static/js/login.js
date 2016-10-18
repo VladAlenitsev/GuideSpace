@@ -26,6 +26,7 @@ $(document).on("submit", "#registerForm", function(){
 
     var cookie = JSON.parse($.cookie('CSRF'));
     var data = 'username=' + $('#usernameRegister').val() + '&password=' + $('#passwordRegister').val() + '&email=' + $('#emailRegister').val();
+    var data2 = 'username=' + $('#usernameRegister').val() + '&password=' + $('#passwordRegister').val();
     $.ajax({
         data: data,
         headers: {'X-CSRF-TOKEN': cookie.csrf},
@@ -34,7 +35,19 @@ $(document).on("submit", "#registerForm", function(){
         url: '/register'
 
     }).done(function(data, textStatus, jqXHR) {
-        window.location = '/registered';
+        var cookie2 = JSON.parse($.cookie('CSRF'));
+        $.ajax({
+            data: data2,
+            headers: {'X-CSRF-TOKEN': cookie2.csrf},
+            timeout: 1000,
+            type: 'POST',
+            url: '/login'
+
+        }).done(function(data, textStatus, jqXHR) {
+            window.location = '/';
+        });
+
+
     }).fail(function(jqXHR, textStatus, errorThrown) {
 
         if(jqXHR.status = 406){
