@@ -1,23 +1,34 @@
+.logo{
+    max-width:50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .navbar {
-    background: #2C3E50;
-    opacity: 0.9;
+    background: #090a0a;
     margin: 0;
     border-radius: 0;
     color:#fbfbfb;
+    font-size: 11px;
+    text-transform: uppercase;
 }
 
+.navbar-brand{
+    margin-left: 10%;
+    margin-right: auto;
+}
 .navbar a{
-    color:#fbfbfb;
+    color:#ffffff;
 }
 
 .navbar ul li a:hover{
-    background: #16A085;
-    color: #ddd;
+    background: #20d317;
+    color: #fbfbfb;
 }
 
 .navbar ul li a:focus{
-    background: #1abc9c;
-    color: #ddd;
+    background: #20d317;
+    color: #fbfbfb;
 }
 
 #loginNavbar{
@@ -31,3 +42,52 @@
 .alertMessage{
     color: red;
 }
+/* See headeri muudetud osa menüü jaoks */
+.nav2 {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  float:right;
+  margin-right: 20%;
+  margin-left: auto;
+}
+.nav2 > li {
+  position: relative;
+  display: block;
+}
+.nav2 > li > a {
+  position: relative;
+  display: block;
+  padding: 15px 15px;
+}
+.nav2 > li > a:hover,
+.nav2 > li > a:focus {
+  text-decoration: none;
+  background-color: #eee;
+}
+.nav2 > li.disabled > a {
+  color: #777;
+}
+.nav2 > li.disabled > a:hover,
+.nav2 > li.disabled > a:focus {
+  color: #777;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+.nav2 .open > a,
+.nav2 .open > a:hover,
+.nav2 .open > a:focus {
+  background-color: #eee;
+  border-color: #337ab7;
+}
+.nav2 .nav-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.nav2 > li > a > img {
+  max-width: none;
+}
+/* See headeri muudetud osa menüü jaoks */
