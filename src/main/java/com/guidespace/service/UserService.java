@@ -1,7 +1,7 @@
 package com.guidespace.service;
 
 
-import com.guidespace.domain.User;
+import com.guidespace.domain.Person;
 import com.guidespace.repository.UserRepository;
 import com.guidespace.utils.SecurityUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public boolean authenticate(String username, String password) {
-        User user = userRepository.findByUsername(username);
+        Person user = userRepository.findByUsername(username);
         if (user != null) {
             if (SecurityUtility.hashPassword(password, user.getPasswordSalt(), algorithm).equals(user.getPasswordHash())) {
                 return true;
@@ -37,7 +37,7 @@ public class UserService {
         } else {
             String salt = SecurityUtility.generateSalt();
             String passwordHash = SecurityUtility.hashPassword(password, salt, algorithm);
-            User newUser = new User(username, passwordHash, salt, email);
+            Person newUser = new Person(username, passwordHash, salt, email);
             userRepository.save(newUser);
         }
     }

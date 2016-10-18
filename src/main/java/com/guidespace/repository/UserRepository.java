@@ -1,21 +1,21 @@
 package com.guidespace.repository;
 
 
-import com.guidespace.domain.User;
+import com.guidespace.domain.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
 
 
-public interface UserRepository extends Repository<User, Long> {
+public interface UserRepository extends Repository<Person, Long> {
 
-    Page<User> findAll(Pageable pageable);
+    Page<Person> findAll(Pageable pageable);
 
-    User findByUsername(String username);
+    Person findByUsername(String username);
 
-    User save(User user);
+    Person save(Person user);
 
-    User findByEmailAddress(String emailAddress);
+    Person findByEmailAddress(String emailAddress);
 
 }
