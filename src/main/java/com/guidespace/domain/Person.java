@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 
 
 
-@Entity(name = "Person")
-public class User extends BaseEntity {
+@Entity(name = "PERSON")
+public class Person extends BaseEntity {
 
     @NotNull
     @Column(name = "USERNAME", unique = true)
@@ -29,18 +29,18 @@ public class User extends BaseEntity {
     @Column(name = "EMAIL_ADDRESS", unique = true)
     private String emailAddress;
 
-    public User() {
+    public Person() {
     }
 
 
-    public User(String username, String passwordHash, String passwordSalt, String emailAddress) {
+    public Person(String username, String passwordHash, String passwordSalt, String emailAddress) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
         this.emailAddress = emailAddress;
     }
 
-    public String getUsername() {
+    public String getPersonName() {
         return username;
     }
 
