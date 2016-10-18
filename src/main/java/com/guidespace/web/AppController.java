@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class AppController {
@@ -53,5 +56,15 @@ public class AppController {
     @ResponseBody
     public void addQuestion(String question){
         examQuestionService.addQuestion(new ExamQuestion(question));
+    }
+
+    @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<String> getQuestions() {
+        ArrayList<String> result = new ArrayList<String>();
+        for (ExamQuestion eq: examQuestionService.getQuestions()){
+            result.add(eq.getQuestion());
+        }
+        return result;
     }
 }

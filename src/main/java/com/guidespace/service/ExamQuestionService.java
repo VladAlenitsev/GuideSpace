@@ -5,6 +5,8 @@ import com.guidespace.repository.ExamQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Vlad on 18.10.2016.
  */
@@ -12,9 +14,14 @@ import org.springframework.stereotype.Service;
 public class ExamQuestionService {
 
     @Autowired
-    private ExamQuestionRepository ExamQuestionRepository;
+    private ExamQuestionRepository examQuestionRepository;
 
     public void addQuestion(ExamQuestion question){
-        ExamQuestionRepository.save(question);
+        examQuestionRepository.save(question);
+    }
+
+    public List<ExamQuestion> getQuestions(){
+        return examQuestionRepository.findAll();
     }
 }
+

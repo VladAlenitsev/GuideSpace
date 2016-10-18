@@ -26,6 +26,8 @@ public class ExamQuestion extends BaseEntity {
 
     }
 
+    public ExamQuestion(){}
+
     public String getQuestion() {
         return question;
     }

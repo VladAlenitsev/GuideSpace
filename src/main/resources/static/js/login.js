@@ -7,7 +7,7 @@ $(document).on("submit", "#loginform", function(){
     $.ajax({
         data: data,
         headers: {'X-CSRF-TOKEN': cookie.csrf},
-        timeout: 1000,
+        timeout: 2000,
         type: 'POST',
         url: '/login'
 
