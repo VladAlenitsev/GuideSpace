@@ -14,10 +14,30 @@
 
 <div id="headers"></div>
 
+<form class="teine">
+    <div>
+        <h1>Küsimuste lisamine:</h1>
 
-<label for="question">Question: </label>
-<input type="text" id="question" placeholder="Write new question here" required>
-<input type="button" value="Add question" id="addQuestion" name="addQuestion" />
-<div id="outputDiv"></div>
+        <label for="question">
+            <span>Küsimus:</span>
+            <input type="text" id="question" placeholder="Write new question here" required>
+            <input type="button" value="Add question" id="addQuestion" name="addQuestion" />
+            <div id="outputDiv"></div>
+        </label>
+        <label >
+            <span>Vastused:</span>
+            <div class="input_fields_wrap">
+                <button class="add_field_button">Lisa rohkem vastuseid</button>
+                <div><input type="text" name="oigevastus[]"></div>
+                <p></p>
+            </div>
+        </label>
+    </div>
+
+
+</form>
+
+
+
 </body>
 </html>

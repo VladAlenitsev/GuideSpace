@@ -24,6 +24,16 @@ public class AppController {
         return "html/index.html";
     }
 
+    @RequestMapping("/kkk")
+    public String kkk() {
+        return "html/kkk.html";
+    }
+
+    @RequestMapping("/kontakt")
+    public String kontakt() {
+        return "html/kontakt.html";
+    }
+
     @RequestMapping("/question")
     public String question() {
         return "html/question.html";
