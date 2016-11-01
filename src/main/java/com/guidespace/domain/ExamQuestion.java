@@ -23,7 +23,6 @@ public class ExamQuestion extends BaseEntity {
     public ExamQuestion(String question){
         this.setCreatedAt(new Date(Calendar.getInstance().getTime().getTime()));
         this.question = question;
-
     }
 
     public ExamQuestion(){}
