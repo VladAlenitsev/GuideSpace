@@ -81,6 +81,10 @@ public class Person extends BaseEntity {
         return cert_exp_date;
     }
 
+    public void setUser_role_id(Integer user_role_id) {
+        this.user_role_id = user_role_id;
+    }
+
     public Integer getUser_role_id() {
         return user_role_id;
     }

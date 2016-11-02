@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-
+import java.util.List;
 
 
 @Service
@@ -39,9 +39,25 @@ public class UserService {
             String salt = SecurityUtility.generateSalt();
             String passwordHash = SecurityUtility.hashPassword(password, salt, algorithm);
             Person newUser = new Person(username, passwordHash, salt, email);
+            newUser.setUser_role_id(1);
             userRepository.save(newUser);
         }
     }
 
+
+
+
+    public List<Person> getUsers() {
+        return userRepository.findAll();
+    }
+
+    public Person getUser(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+
+    public void update(Person person) {
+        userRepository.save(person);
+    }
 
 }

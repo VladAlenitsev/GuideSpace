@@ -20,7 +20,7 @@ public class ExamQuestionService {
         examQuestionRepository.save(question);
     }
 
-    public List<ExamQuestion> getQuestions(){
+    public List<ExamQuestion> getQuestions() {
         return examQuestionRepository.findAll();
     }
 }
