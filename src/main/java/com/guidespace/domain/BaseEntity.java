@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 
 @MappedSuperclass
@@ -15,7 +17,7 @@ class BaseEntity {
     private Long id;
 
     @Column(name = "createdAt")
-    private Date createdAt;
+    private Date createdAt = new Date(Calendar.getInstance(TimeZone.getTimeZone("EET")).getTime().getTime());
 
     @Column(name = "changedAt")
     private Date changeddAt;

@@ -16,11 +16,9 @@ public class ExamQuestionService {
     @Autowired
     private ExamQuestionRepository examQuestionRepository;
 
-    public void addQuestion(ExamQuestion question){
-        examQuestionRepository.save(question);
-    }
+    public void addQuestion(ExamQuestion question){examQuestionRepository.save(question);}
 
-    public List<ExamQuestion> getQuestions(){
+    public List<ExamQuestion> getQuestions() {
         return examQuestionRepository.findAll();
     }
 }

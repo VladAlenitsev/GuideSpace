@@ -6,9 +6,9 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 
 /**
- * Created by Vitali on 11/1/2016.
+ * Created by Vlad on 02.11.2016.
  */
-public interface ExamResultRepository extends Repository<ExamResult, Long> {
+public interface ExamResultRepository extends Repository<ExamResult, Long>{
 
     ExamResult save(ExamResult result);
 

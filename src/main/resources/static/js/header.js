@@ -42,6 +42,21 @@ if (isAuth() == "true") {
 }
 
 
+if (isAdmin() == "true") {
+    displayQuestion()
+} else {
+    hideQuestion();
+}
+
+
+function displayQuestion() {
+    $("#questionNavbar").css("display", "block");
+}
+
+function hideQuestion() {
+    $("#questionNavbar").css("display", "none");
+}
+
 function displayLogin() {
     $("#loginNavbar").css("display", "block");
     $("#logoutNavbar").css("display", "null");
@@ -66,6 +81,14 @@ function displayLoginWindow() {
 function isAuth() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", "/isAuth", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
+
+
+function isAdmin() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isAdmin", false);
     xmlHttp.send(null);
     return (xmlHttp.responseText);
 }

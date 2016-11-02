@@ -47,6 +47,10 @@
     display:none;
 }
 
+#questionNavbar{
+    display:none;
+}
+
 .alertMessage{
     color: red;
 }
