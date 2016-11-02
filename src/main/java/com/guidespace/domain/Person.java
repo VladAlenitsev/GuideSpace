@@ -4,9 +4,10 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 
 @Entity
@@ -45,6 +46,9 @@ public class Person extends BaseEntity {
     @Column(name = "EXAM_REGISTER_DATE")
     private Date exam_register_date;
 
+    @OneToMany
+    @JoinColumn(name = "EXAM_RESULT_ID")
+    private List<ExamResult> results = new ArrayList<ExamResult>();
 
     public Person() {
     }
@@ -54,7 +58,6 @@ public class Person extends BaseEntity {
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
         this.emailAddress = emailAddress;
-        this.setCreatedAt(new Date(Calendar.getInstance().getTime().getTime()));
     }
 
     public String getUsername() {
@@ -95,6 +98,46 @@ public class Person extends BaseEntity {
 
     public Date getExam_register_date() {
         return exam_register_date;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setActive_cert_location(String active_cert_location) {
+        this.active_cert_location = active_cert_location;
+    }
+
+    public void setCert_exp_date(Date cert_exp_date) {
+        this.cert_exp_date = cert_exp_date;
+    }
+
+    public void setRegistered_exam_id(Integer registered_exam_id) {
+        this.registered_exam_id = registered_exam_id;
+    }
+
+    public void setExam_register_date(Date exam_register_date) {
+        this.exam_register_date = exam_register_date;
+    }
+
+    public List<ExamResult> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ExamResult> results) {
+        this.results = results;
     }
 
 
