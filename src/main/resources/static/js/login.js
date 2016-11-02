@@ -1,5 +1,5 @@
 //  Login vormi esitamine
-$(document).on("submit", "#loginform", function(){
+$(document).on("submit", "#loginform", function(event){
     event.preventDefault();
 
     var cookie = JSON.parse($.cookie('CSRF'));
@@ -21,7 +21,7 @@ $(document).on("submit", "#loginform", function(){
 });
 
 //  Registreerimine
-$(document).on("submit", "#registerForm", function(){
+$(document).on("submit", "#registerForm", function(event){
     event.preventDefault();
 
     var cookie = JSON.parse($.cookie('CSRF'));

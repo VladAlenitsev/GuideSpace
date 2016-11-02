@@ -13,8 +13,8 @@
             <br>
             <div class="bs-example bs-example-tabs">
                 <ul id="myTab" class="nav nav-tabs">
-                    <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-                    <li class=""><a href="#signup" data-toggle="tab">Register</a></li>
+                    <li class="active"><a href="#signin" data-toggle="tab" id="signintab">Sign In</a></li>
+                    <li class=""><a href="#signup" data-toggle="tab" id="signuptab">Register</a></li>
                 </ul>
             </div>
             <div class="modal-body">
@@ -106,7 +106,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="passwordRegister">Password</label>
                                     <div class="controls">
-                                        <input id="passwordRegister" class="form-control input-large" type="password"
+                                        <input id="passwordRegister" class="form-control input-large" type="text"
                                                placeholder="password"
                                                pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$" required
                                                title="Minimum of 6 characters, 1 uppercase letter and 1 number">
@@ -118,7 +118,7 @@
                                 <div class="control-group">
                                     <div class="controls">
                                         <input id="passwordRegister2" required class="form-control input-large"
-                                               name="passwordRegister2" type="password" placeholder="Confirm password"
+                                               name="passwordRegister2" type="text" placeholder="Confirm password"
                                                pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$">
                                     </div>
                                 </div>
