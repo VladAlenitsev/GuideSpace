@@ -68,14 +68,6 @@ public class Person extends BaseEntity {
         return passwordHash;
     }
 
-    private void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    private void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
-    }
-
     public String getPasswordSalt() {
         return passwordSalt;
     }
