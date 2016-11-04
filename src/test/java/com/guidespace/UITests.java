@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Console;
 
@@ -14,7 +15,7 @@ import java.io.Console;
 /**
  * Created by Vitali on 11/2/2016.
  */
-
+@Transactional
 public class UITests {
 
     private static WebDriver webDriver;
@@ -29,35 +30,35 @@ public class UITests {
     }
 
     @Test
-    public void registrationTest() throws InterruptedException {
+    public void aregistrationTest() throws InterruptedException {
         webDriver.findElement(By.id("loginNavbar")).click();
         synchronized (webDriver) {
-            webDriver.wait(200);
+            webDriver.wait(300);
             webDriver.findElement(By.id("signuptab")).click();
-            webDriver.wait(200);
+            webDriver.wait(300);
             webDriver.findElement(By.id("emailRegister")).sendKeys("test"+randNum+"@gmail.com");
             webDriver.findElement(By.id("usernameRegister")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("passwordRegister")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("passwordRegister2")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("confirmsignup")).click();
-            webDriver.wait(200);
+            webDriver.wait(300);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
 
     @Test
-    public void loginTest() throws InterruptedException {
+    public void bloginTest() throws InterruptedException {
         synchronized (webDriver) {
             if(webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) {
                 webDriver.findElement(By.id("logoutNavbar")).click();
-                webDriver.wait(200);
+                webDriver.wait(300);
             }
             webDriver.findElement(By.id("loginNavbar")).click();
-            webDriver.wait(200);
+            webDriver.wait(300);
             webDriver.findElement(By.id("username")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("password")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("signinButton")).click();
-            webDriver.wait(200);
+            webDriver.wait(300);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
