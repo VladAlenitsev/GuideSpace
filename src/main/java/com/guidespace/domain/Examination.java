@@ -1,11 +1,15 @@
 package com.guidespace.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Vlad on 02.11.2016.
@@ -25,7 +29,7 @@ public class Examination extends BaseEntity{
 
     @OneToMany
     @JoinColumn(name = "EXAM_RESULT_ID")
-    private List<ExamResult> results = new ArrayList<ExamResult>();
+    private List<ExamResult> results = new ArrayList<>();
 
     public Examination(){}
 

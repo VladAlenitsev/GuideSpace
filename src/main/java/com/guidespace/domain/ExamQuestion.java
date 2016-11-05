@@ -15,7 +15,7 @@ public class ExamQuestion extends BaseEntity {
     @Column(name = "QUESTION")
     private String question;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "EXAM_QUESTION_ANSWER_ID")
     private List<ExamQuestionAnswer> answers = new ArrayList<ExamQuestionAnswer>();
 

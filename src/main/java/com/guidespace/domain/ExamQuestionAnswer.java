@@ -20,6 +20,11 @@ public class ExamQuestionAnswer extends BaseEntity{
     @Column(name = "ANSWER")
     private String answer;
 
+    @Override
+    public String toString() {
+        return " "+answer+" ";
+    }
+
     @ManyToOne
     @JoinColumn(name = "EXAM_QUESTION_ID")
     private ExamQuestion examQuestion;
