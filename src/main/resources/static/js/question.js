@@ -1,25 +1,39 @@
 $(document).ready(function() {
-    var question = $('#question');
     var submit = $('#addQuestion');
     submit.click(function() {
-        document.getElementById("outputDiv").innerHTML = "Was added new question: " + question.val();
-
+        var question = $('#question');
+         var map = getData();
          var cookie = JSON.parse($.cookie('CSRF'));
-         var data = 'question=' + question.val();
+         //var data = 'question=' + $('#question').val();
+         console.log(map);
          $.ajax({
-             data: data,
+             data: JSON.stringify(map),
              headers: {'X-CSRF-TOKEN': cookie.csrf},
              timeout: 1000,
+             contentType: 'application/json',
              type: 'POST',
              url: '/addQuestion'
 
          }).done(function(data, textStatus, jqXHR) {
-         alert("done");
+		 alert("Question saved.");
+         document.getElementById("outputDiv").innerHTML = "New question was added: " + question.val();
+         document.getElementById("question").innerHTML = "";
+         document.getElementById("answer1").innerHTML = "";
+         document.getElementById("answer2").innerHTML = "";
+         document.getElementById("answer3").innerHTML = "";
+         document.getElementById("answer4").innerHTML = "";
          }).fail(function(jqXHR, textStatus, errorThrown) {
             alert("Error while adding question.");
          });
     });
     $('#headers').load('/html/components/header.html');
+
+    //[Vlad comment @06.11.2016]
+    // IDK wtf is this stuff
+    // imo this all bullshit
+    //          ||
+    //          ||
+    //          \/
 
     // siin teha eraldi kaks identiti õigete ja valede vastuste jaoks
     var max_fields      = 5; //maximum input boxes allowed
@@ -38,8 +52,23 @@ $(document).ready(function() {
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
+    //          /\
+    //          ||
+    //          ||
 });
 
+function getData(){
+
+    var question = $('#question').val();
+    var answer1 = $('#answer1').val();
+    var answer2 = $('#answer2').val();
+    var answer3 = $('#answer3').val();
+    var answer4 = $('#answer4').val();
+
+    var map = {'question' : question, 'answer1' : answer1, 'answer2' : answer2, 'answer3' : answer3, 'answer4' : answer4}
+
+    return map;
+}
 
 
 

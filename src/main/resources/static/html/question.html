@@ -16,20 +16,27 @@
 
 <form class="teine">
     <div>
-        <h1>Küsimuste lisamine:</h1>
+        <h1>Add question:</h1>
 
         <label for="question">
-            <span>Küsimus:</span>
+            <span>Question:</span>
             <input type="text" id="question" placeholder="Write new question here" required>
-            <input type="button" value="Add question" id="addQuestion" name="addQuestion" />
-            <div id="outputDiv"></div>
         </label>
-        <label >
-            <span>Vastused:</span>
+        <label>
+            <span>Answer:</span>
             <div class="input_fields_wrap">
-                <button class="add_field_button">Lisa rohkem vastuseid</button>
+                <!--
                 <div><input type="text" name="oigevastus[]"></div>
+                -->
+                <div><input id="answer1" type="text" name="answer" placeholder="Write first answer here">
+                <input id='aTF1' type="checkbox" name="aTF" value="correct"> Is CORRECT answer
+                </div>
+                <div><input id="answer2" type="text" name="answer" placeholder="Write second answer here"></div>
+                <div><input id="answer3" type="text" name="answer" placeholder="Write third answer here"></div>
+                <div><input id="answer4" type="text" name="answer" placeholder="Write fourth answer here"></div>
                 <p></p>
+                <input type="button" value="Add question" id="addQuestion" name="addQuestion" />
+                <div id="outputDiv"></div>
             </div>
         </label>
     </div>

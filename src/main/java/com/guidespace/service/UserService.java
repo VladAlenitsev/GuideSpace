@@ -28,6 +28,7 @@ public class UserService {
             }
         }
         return false;
+
     }
 
     public void register(String username, String password, String email) throws DuplicateUsernameException, DuplicateEmailException {
