@@ -194,7 +194,20 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-        /**
+
+        final String type = "LOCATION";
+
+        final String code = "LOCATION_NORTH";
+        final String name = "Põhja-Eesti";
+        final String code2 = "LOCATION_SOUTH";
+        final String name2 = "Lõuna-Eesti";
+
+        Classificator c = new Classificator(type, code, name);
+        Classificator c2 = new Classificator(type, code2, name2);
+        classificatorService.addClassificator(c);
+        classificatorService.addClassificator(c2);
+
+
         ExamQuestion b = new ExamQuestion("Esimene Küsimus");
         ExamQuestion b1 = new ExamQuestion("Teine Küsimus");
         ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus");
@@ -222,6 +235,6 @@ public class AppController {
         examQuestionAnswerService.addQuestionAnswer(ea1);
         examQuestionAnswerService.addQuestionAnswer(ea2);
         examQuestionAnswerService.addQuestionAnswer(ea3);
-        examQuestionAnswerService.addQuestionAnswer(ea4);*/
+        examQuestionAnswerService.addQuestionAnswer(ea4);
     }
 }
