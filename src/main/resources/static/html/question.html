@@ -17,36 +17,44 @@
 <form class="teine">
     <div>
         <h1>Add question:</h1>
-
         <label for="question">
-            <span>Question:</span>
-            <input type="text" id="question" placeholder="Write new question here" required>
+            <span>Question:</span><br/>
+            <input type="text" id="question" placeholder="Write new question here" required><br/>
+            <select id="classificatorSelection" style="color:black">
+                <option>            </option>
+                <option value="1">Pohja-Eesti</option>
+            </select>
         </label>
-        <label>
-            <span>Answer:</span>
+        <label for="answer">
+            <span>Answer:</span><br/>
             <div class="input_fields_wrap">
-                <!--
-                <div><input type="text" name="oigevastus[]"></div>
-                -->
-                <div><input id="answer1" type="text" name="answer" placeholder="Write first answer here"></div>
-                <input id='atf1' type="checkbox" name="atf" value="correct">
-                <div><input id="answer2" type="text" name="answer" placeholder="Write second answer here"></div>
-                <input id='atf2' type="checkbox" name="atf" value="correct">
-                <div><input id="answer3" type="text" name="answer" placeholder="Write third answer here"></div>
-                <input id='atf3' type="checkbox" name="atf" value="correct">
-                <div><input id="answer4" type="text" name="answer" placeholder="Write fourth answer here"></div>
-                <input id='atf4' type="checkbox" name="atf" value="correct">
+                <div>
+                    <input id="answer1" type="text" name="answer" placeholder="Write first answer here">
+                    <input id='atf1' type="checkbox" name="aTF" value="correct">
+                    Is CORRECT answer<br/>
+                </div>
+                <div>
+                    <input id="answer2" type="text" name="answer" placeholder="Write second answer here">
+                    <input id='atf2' type="checkbox" name="aTF" value="correct">
+                    Is CORRECT answer<br/>
+                </div>
+                <div>
+                    <input id="answer3" type="text" name="answer" placeholder="Write third answer here">
+                    <input id='atf3' type="checkbox" name="aTF" value="correct">
+                    Is CORRECT answer<br/>
+                </div>
+                <div>
+                    <input id="answer4" type="text" name="answer" placeholder="Write fourth answer here">
+                    <input id='atf4' type="checkbox" name="aTF" value="correct">
+                    Is CORRECT answer<br/>
+                </div>
                 <p></p>
-                <input type="button" value="Add question" id="addQuestion" name="addQuestion" />
+                <input style="color:black" type="button" value="Add question" id="addQuestion" name="addQuestion" />
                 <div id="outputDiv"></div>
             </div>
         </label>
     </div>
-
-
 </form>
-
-
 
 </body>
 </html>

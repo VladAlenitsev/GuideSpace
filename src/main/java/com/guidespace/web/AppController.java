@@ -1,5 +1,6 @@
 package com.guidespace.web;
 
+import com.guidespace.domain.Classificator;
 import com.guidespace.domain.ExamQuestion;
 import com.guidespace.domain.ExamQuestionAnswer;
 import com.guidespace.domain.Person;
@@ -32,6 +33,9 @@ public class AppController {
 
     @Autowired
     private ExamQuestionAnswerService examQuestionAnswerService;
+
+    @Autowired
+    private ClassificatorService classificatorService;
 
 
     @RequestMapping("/")
@@ -118,9 +122,6 @@ public class AppController {
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST, consumes="application/json")
     @ResponseBody
     public void addQuestion(@RequestBody Map<String, List<String>> params){
-        System.out.println("Printing stuff");
-        System.out.println(params);
-
         ExamQuestion q = new ExamQuestion(params.get("question").get(0));
         List<ExamQuestionAnswer> answers = new ArrayList<>();
 
@@ -136,6 +137,7 @@ public class AppController {
         for(ExamQuestionAnswer a: answers){
             examQuestionAnswerService.addQuestionAnswer(a);
         }
+        System.out.println("Hibernate: New exam question saved. Question id: " + q.getId());
     }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
@@ -144,6 +146,16 @@ public class AppController {
         ArrayList<String> result = new ArrayList<String>();
         for (ExamQuestion eq: examQuestionService.getQuestions()){
             result.add(eq.getQuestion());
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/getClassificators", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<Classificator> getClassificators() {
+        ArrayList<Classificator> result = new ArrayList<Classificator>();
+        for (Classificator eq: classificatorService.getClassificators()){
+            result.add(eq);
         }
         return result;
     }
@@ -178,10 +190,11 @@ public class AppController {
 
 
 
-/**
+
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
+        /**
         ExamQuestion b = new ExamQuestion("Esimene Küsimus");
         ExamQuestion b1 = new ExamQuestion("Teine Küsimus");
         ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus");
@@ -209,6 +222,6 @@ public class AppController {
         examQuestionAnswerService.addQuestionAnswer(ea1);
         examQuestionAnswerService.addQuestionAnswer(ea2);
         examQuestionAnswerService.addQuestionAnswer(ea3);
-        examQuestionAnswerService.addQuestionAnswer(ea4);
-    }*/
+        examQuestionAnswerService.addQuestionAnswer(ea4);*/
+    }
 }

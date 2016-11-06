@@ -7,27 +7,33 @@ $(document).ready(function() {
          $.ajax({
              data: JSON.stringify(map),
              headers: {'X-CSRF-TOKEN': cookie.csrf},
-             timeout: 1000,
              contentType: 'application/json',
+             timeout: 5000,
              type: 'POST',
-             url: '/addQuestion'
-
-         }).done(function(data, textStatus, jqXHR) {
-         document.getElementById("outputDiv").innerHTML = "New question was added: " + question.val();
-         document.getElementById("question").value = "";
-         document.getElementById("answer1").value = "";
-         document.getElementById("answer2").value = "";
-         document.getElementById("answer3").value = "";
-         document.getElementById("answer4").value = "";
-         }).fail(function(jqXHR, textStatus, errorThrown) {
-            alert("Error while adding question.");
-         });
+             url: '/addQuestion',
+             success: function(data){
+                document.getElementById("outputDiv").innerHTML = "New question was added: " + question.val();
+                document.getElementById("question").value = "";
+                document.getElementById("answer1").value = "";
+                document.getElementById("answer2").value = "";
+                document.getElementById("answer3").value = "";
+                document.getElementById("answer4").value = "";
+                $("#atf1").prop("checked", false);
+                $("#atf2").prop("checked", false);
+                $("#atf3").prop("checked", false);
+                $("#atf4").prop("checked", false);
+             },
+             error: function(errorThrown){
+                console.log(errorThrown);
+                alert("Error while adding question.");
+             }
+         })
     });
     $('#headers').load('/html/components/header.html');
 
     //[Vlad comment @06.11.2016]
     // IDK wtf is this stuff
-    // imo this all bullshit
+    // imo this all bullshit :/
     //          ||
     //          ||
     //          \/
@@ -54,52 +60,28 @@ $(document).ready(function() {
     //          ||
 });
 
-function getData(){
+$.ajax({
+        url: "/getClassificators", success: function (result) {
+            console.log(result);
+        }
+    });
 
-    var question = [$('#question').val()];
-    var correctAnswers = [];
-    var wrongAnswers = [];
+function getData(){
 
     var answer1 = $('#answer1').val();
     var answer2 = $('#answer2').val();
     var answer3 = $('#answer3').val();
     var answer4 = $('#answer4').val();
 
-    if (document.getElementById('atf1').checked) {
-        console.log('Checkbox 1 was checked');
-        correctAnswers.push(answer1);
-    }else{
-        console.log('Checkbox 1 was NOT checked');
-        wrongAnswers.push(answer1);
-    }
+    var correctAnswers = [];
+    var wrongAnswers = [];
 
-    if (document.getElementById('atf2').checked) {
-        console.log('Checkbox 2 was checked');
-        correctAnswers.push(answer2);
-    }else{
-        console.log('Checkbox 2 was NOT checked');
-        wrongAnswers.push(answer2);
-    }
+    document.getElementById('atf1').checked ? correctAnswers.push(answer1):wrongAnswers.push(answer1);
+    document.getElementById('atf2').checked ? correctAnswers.push(answer2):wrongAnswers.push(answer2);
+    document.getElementById('atf3').checked ? correctAnswers.push(answer3):wrongAnswers.push(answer3);
+    document.getElementById('atf4').checked ? correctAnswers.push(answer4):wrongAnswers.push(answer4);
 
-    if (document.getElementById('atf3').checked) {
-        console.log('Checkbox 3 was checked');
-        correctAnswers.push(answer3);
-    }else{
-        console.log('Checkbox 3 was NOT checked');
-        wrongAnswers.push(answer3);
-    }
-
-    if (document.getElementById('atf4').checked) {
-        console.log('Checkbox 4 was checked');
-        correctAnswers.push(answer4);
-    }else{
-        console.log('Checkbox 4 was NOT checked');
-        wrongAnswers.push(answer4);
-    }
-
-    var map = {'question' : question, 'correctAnswers' : correctAnswers, 'wrongAnswers' : wrongAnswers}
-
-    return map;
+    return {'question' :[$('#question').val()], 'correctAnswers' : correctAnswers, 'wrongAnswers' : wrongAnswers};
 }
 
 
