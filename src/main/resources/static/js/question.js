@@ -1,4 +1,14 @@
 $(document).ready(function() {
+
+    $.ajax({url: "/getClassificators", success: function(result){
+        for (i = 0; i < result.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = result[i].id;
+            opt.innerHTML = result[i].classif_name;
+            $('#classificatorSelection').append(opt);
+        }
+    }});
+
     var submit = $('#addQuestion');
     submit.click(function() {
         var question = $('#question');
@@ -60,12 +70,6 @@ $(document).ready(function() {
     //          ||
 });
 
-$.ajax({
-        url: "/getClassificators", success: function (result) {
-            console.log(result);
-        }
-    });
-
 function getData(){
 
     var answer1 = $('#answer1').val();
@@ -81,7 +85,8 @@ function getData(){
     document.getElementById('atf3').checked ? correctAnswers.push(answer3):wrongAnswers.push(answer3);
     document.getElementById('atf4').checked ? correctAnswers.push(answer4):wrongAnswers.push(answer4);
 
-    return {'question' :[$('#question').val()], 'correctAnswers' : correctAnswers, 'wrongAnswers' : wrongAnswers};
+    return {'question' :[$('#question').val()], 'correctAnswers' : correctAnswers,
+        'wrongAnswers' : wrongAnswers, 'classif' : [$('#classificatorSelection').val()]};
 }
 
 

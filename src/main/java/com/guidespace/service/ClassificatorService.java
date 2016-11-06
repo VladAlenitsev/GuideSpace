@@ -19,4 +19,6 @@ public class ClassificatorService {
     public void addClassificator(Classificator c){classificatorRepository.save(c);}
 
     public List<Classificator> getClassificators(){return classificatorRepository.findAll();}
+
+    public Classificator getClassifById(Long id){return classificatorRepository.findOne(id);}
 }

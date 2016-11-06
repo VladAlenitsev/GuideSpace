@@ -13,4 +13,6 @@ public interface ClassificatorRepository extends Repository<Classificator, Long>
     Classificator save(Classificator classificator);
 
     List<Classificator> findAll();
+
+    Classificator findOne(Long id);
 }

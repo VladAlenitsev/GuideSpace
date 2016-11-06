@@ -1,19 +1,15 @@
 package com.guidespace.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
 
 @MappedSuperclass
 class BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     @Column(name = "createdAt")

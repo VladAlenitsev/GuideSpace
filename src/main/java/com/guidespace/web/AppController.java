@@ -105,7 +105,6 @@ public class AppController {
         userService.register(username, password, email);
     }
 
-
     @RequestMapping(value = "/getAnswers", method = RequestMethod.POST)
     @ResponseBody
     public ArrayList<String> getAnswers(String question)  {
@@ -117,11 +116,13 @@ public class AppController {
         return result;
     }
 
-
     //saves question and 4 answers
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST, consumes="application/json")
     @ResponseBody
     public void addQuestion(@RequestBody Map<String, List<String>> params){
+
+        Classificator classif = classificatorService.getClassifById(Long.valueOf(params.get("classif").get(0)));
+
         ExamQuestion q = new ExamQuestion(params.get("question").get(0));
         List<ExamQuestionAnswer> answers = new ArrayList<>();
 
@@ -131,6 +132,7 @@ public class AppController {
         for(String s: params.get("wrongAnswers")){
             answers.add(new ExamQuestionAnswer(true, s, q));
         }
+        q.setClassificator(classif);
         q.setAnswers(answers);
 
         examQuestionService.addQuestion(q);
@@ -160,7 +162,6 @@ public class AppController {
         return result;
     }
 
-
     @RequestMapping(value = "/getAll", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public HashMap<String,List<String>> getAll() {
@@ -175,9 +176,6 @@ public class AppController {
         return uus;
     }
 
-
-
-
     @RequestMapping(value = "/getUsers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<String> getUsers() {
@@ -188,26 +186,10 @@ public class AppController {
         return result;
     }
 
-
-
-
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-
-        final String type = "LOCATION";
-
-        final String code = "LOCATION_NORTH";
-        final String name = "Põhja-Eesti";
-        final String code2 = "LOCATION_SOUTH";
-        final String name2 = "Lõuna-Eesti";
-
-        Classificator c = new Classificator(type, code, name);
-        Classificator c2 = new Classificator(type, code2, name2);
-        classificatorService.addClassificator(c);
-        classificatorService.addClassificator(c2);
-
-
+        /**
         ExamQuestion b = new ExamQuestion("Esimene Küsimus");
         ExamQuestion b1 = new ExamQuestion("Teine Küsimus");
         ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus");
@@ -235,6 +217,6 @@ public class AppController {
         examQuestionAnswerService.addQuestionAnswer(ea1);
         examQuestionAnswerService.addQuestionAnswer(ea2);
         examQuestionAnswerService.addQuestionAnswer(ea3);
-        examQuestionAnswerService.addQuestionAnswer(ea4);
+        examQuestionAnswerService.addQuestionAnswer(ea4);*/
     }
 }

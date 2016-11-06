@@ -9,15 +9,13 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Classificator extends BaseEntity {
-    @NotNull
+
     @Column(name = "CLASSIF_TYPE")
     private String classif_type;
 
-    @NotNull
     @Column(name = "CLASSIF_CODE")
     private String classif_code;
 
-    @NotNull
     @Column(name = "CLASSIF_NAME", unique = true)
     private String classif_name;
 
