@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    var submit = $('#addQuestion');
+    var submit = $('#checkAnswers');
     $.ajax({
         url: "/getAll", success: function (result) {
             var radioInput;

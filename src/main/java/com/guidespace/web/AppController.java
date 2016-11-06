@@ -189,10 +189,10 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-
-        ExamQuestion b = new ExamQuestion("Esimene Küsimus");
-        ExamQuestion b1 = new ExamQuestion("Teine Küsimus");
-        ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus");
+        /**
+        ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
+        ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
+        ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus(first 2 are correct)");
         String a1 = "Yes this is.";
         String a2 = "No, it's not.";
         String a3 = "Maybe.";
@@ -257,7 +257,7 @@ public class AppController {
         examQuestionAnswerService.addQuestionAnswer(ed1);
         examQuestionAnswerService.addQuestionAnswer(ed2);
         examQuestionAnswerService.addQuestionAnswer(ed3);
-        examQuestionAnswerService.addQuestionAnswer(ed4);
+        examQuestionAnswerService.addQuestionAnswer(ed4);*/
     }
 
 
