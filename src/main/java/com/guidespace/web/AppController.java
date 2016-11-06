@@ -250,14 +250,14 @@ public class AppController {
         examQuestionAnswerService.addQuestionAnswer(ea2);
         examQuestionAnswerService.addQuestionAnswer(ea3);
         examQuestionAnswerService.addQuestionAnswer(ea4);
-        examQuestionAnswer.addQuestionAnswer(ec1);
-        examQuestionAnswer.addQuestionAnswer(ec2);
-        examQuestionAnswer.addQuestionAnswer(ec3);
-        examQuestionAnswer.addQuestionAnswer(ec4);
-        examQuestionAnswer.addQuestionAnswer(ed1);
-        examQuestionAnswer.addQuestionAnswer(ed2);
-        examQuestionAnswer.addQuestionAnswer(ed3);
-        examQuestionAnswer.addQuestionAnswer(ed4);
+        examQuestionAnswerService.addQuestionAnswer(ec1);
+        examQuestionAnswerService.addQuestionAnswer(ec2);
+        examQuestionAnswerService.addQuestionAnswer(ec3);
+        examQuestionAnswerService.addQuestionAnswer(ec4);
+        examQuestionAnswerService.addQuestionAnswer(ed1);
+        examQuestionAnswerService.addQuestionAnswer(ed2);
+        examQuestionAnswerService.addQuestionAnswer(ed3);
+        examQuestionAnswerService.addQuestionAnswer(ed4);
     }
 
 

@@ -2,7 +2,6 @@ jQuery(document).ready(function($) {
     var submit = $('#addQuestion');
     $.ajax({
         url: "/getAll", success: function (result) {
-            alert(JSON.stringify(result));
             var radioInput;
             for (var i = 0, keys = Object.keys(result), ii = keys.length; i < ii; i++) {
                 console.log('key : ' + keys[i] + ' val : ' + result[keys[i]]);
