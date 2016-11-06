@@ -65,4 +65,6 @@ public class ExamQuestionAnswer extends BaseEntity{
     public void setExamQuestion(ExamQuestion examQuestion) {
         this.examQuestion = examQuestion;
     }
+
+
 }

@@ -31,7 +31,7 @@ public class AppController {
     private ExamQuestionService examQuestionService;
 
     @Autowired
-    private ExamQuestionAnswerService examQuestionAnswer;
+    private ExamQuestionAnswerService examQuestionAnswerService;
 
 
     @RequestMapping("/")
@@ -114,13 +114,28 @@ public class AppController {
     }
 
 
-
+    //saves question and 4 answers
     @RequestMapping(value = "/addQuestion", method = RequestMethod.POST, consumes="application/json")
     @ResponseBody
-    public void addQuestion(@RequestBody Map<String, String> params){
+    public void addQuestion(@RequestBody Map<String, List<String>> params){
         System.out.println("Printing stuff");
         System.out.println(params);
-        //examQuestionService.addQuestion(new ExamQuestion(question));
+
+        ExamQuestion q = new ExamQuestion(params.get("question").get(0));
+        List<ExamQuestionAnswer> answers = new ArrayList<>();
+
+        for(String s: params.get("correctAnswers")){
+            answers.add(new ExamQuestionAnswer(false, s, q));
+        }
+        for(String s: params.get("wrongAnswers")){
+            answers.add(new ExamQuestionAnswer(true, s, q));
+        }
+        q.setAnswers(answers);
+
+        examQuestionService.addQuestion(q);
+        for(ExamQuestionAnswer a: answers){
+            examQuestionAnswerService.addQuestionAnswer(a);
+        }
     }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
@@ -163,7 +178,7 @@ public class AppController {
 
 
 
-
+/**
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
@@ -191,9 +206,9 @@ public class AppController {
         examQuestionService.addQuestion(b);
         examQuestionService.addQuestion(b1);
         examQuestionService.addQuestion(b2);
-        examQuestionAnswer.addQuestionAnswer(ea1);
-        examQuestionAnswer.addQuestionAnswer(ea2);
-        examQuestionAnswer.addQuestionAnswer(ea3);
-        examQuestionAnswer.addQuestionAnswer(ea4);
-    }
+        examQuestionAnswerService.addQuestionAnswer(ea1);
+        examQuestionAnswerService.addQuestionAnswer(ea2);
+        examQuestionAnswerService.addQuestionAnswer(ea3);
+        examQuestionAnswerService.addQuestionAnswer(ea4);
+    }*/
 }

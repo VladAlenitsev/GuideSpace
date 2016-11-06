@@ -4,8 +4,6 @@ $(document).ready(function() {
         var question = $('#question');
          var map = getData();
          var cookie = JSON.parse($.cookie('CSRF'));
-         //var data = 'question=' + $('#question').val();
-         console.log(map);
          $.ajax({
              data: JSON.stringify(map),
              headers: {'X-CSRF-TOKEN': cookie.csrf},
@@ -15,13 +13,12 @@ $(document).ready(function() {
              url: '/addQuestion'
 
          }).done(function(data, textStatus, jqXHR) {
-		 alert("Question saved.");
          document.getElementById("outputDiv").innerHTML = "New question was added: " + question.val();
-         document.getElementById("question").innerHTML = "";
-         document.getElementById("answer1").innerHTML = "";
-         document.getElementById("answer2").innerHTML = "";
-         document.getElementById("answer3").innerHTML = "";
-         document.getElementById("answer4").innerHTML = "";
+         document.getElementById("question").value = "";
+         document.getElementById("answer1").value = "";
+         document.getElementById("answer2").value = "";
+         document.getElementById("answer3").value = "";
+         document.getElementById("answer4").value = "";
          }).fail(function(jqXHR, textStatus, errorThrown) {
             alert("Error while adding question.");
          });
@@ -59,13 +56,48 @@ $(document).ready(function() {
 
 function getData(){
 
-    var question = $('#question').val();
+    var question = [$('#question').val()];
+    var correctAnswers = [];
+    var wrongAnswers = [];
+
     var answer1 = $('#answer1').val();
     var answer2 = $('#answer2').val();
     var answer3 = $('#answer3').val();
     var answer4 = $('#answer4').val();
 
-    var map = {'question' : question, 'answer1' : answer1, 'answer2' : answer2, 'answer3' : answer3, 'answer4' : answer4}
+    if (document.getElementById('atf1').checked) {
+        console.log('Checkbox 1 was checked');
+        correctAnswers.push(answer1);
+    }else{
+        console.log('Checkbox 1 was NOT checked');
+        wrongAnswers.push(answer1);
+    }
+
+    if (document.getElementById('atf2').checked) {
+        console.log('Checkbox 2 was checked');
+        correctAnswers.push(answer2);
+    }else{
+        console.log('Checkbox 2 was NOT checked');
+        wrongAnswers.push(answer2);
+    }
+
+    if (document.getElementById('atf3').checked) {
+        console.log('Checkbox 3 was checked');
+        correctAnswers.push(answer3);
+    }else{
+        console.log('Checkbox 3 was NOT checked');
+        wrongAnswers.push(answer3);
+    }
+
+    if (document.getElementById('atf4').checked) {
+        console.log('Checkbox 4 was checked');
+        correctAnswers.push(answer4);
+    }else{
+        console.log('Checkbox 4 was NOT checked');
+        wrongAnswers.push(answer4);
+    }
+
+    var map = {'question' : question, 'correctAnswers' : correctAnswers, 'wrongAnswers' : wrongAnswers}
 
     return map;
 }
