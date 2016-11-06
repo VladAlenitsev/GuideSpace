@@ -25,11 +25,23 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (userService.authenticate(username, password)) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
             if(userService.getUser(username).getUser_role_id()==1){
-                grantedAuths.add(new SimpleGrantedAuthority("USER"));
+                grantedAuths.add(new SimpleGrantedAuthority("UNVERIFIED"));
+                return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
+            }
+            else if(userService.getUser(username).getUser_role_id()==2){
+                grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
+                return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
+            }
+            else if(userService.getUser(username).getUser_role_id()==4){
+                grantedAuths.add(new SimpleGrantedAuthority("VERIFIED"));
+                return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
+            }
+            else if(userService.getUser(username).getUser_role_id()==6){
+                grantedAuths.add(new SimpleGrantedAuthority("INFOADDER"));
                 return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
             }
             else {
-                grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
+                grantedAuths.add(new SimpleGrantedAuthority("UNVERIFIED"));
                 return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
             }
         } else {
