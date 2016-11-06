@@ -110,7 +110,6 @@ form.teine{
   width: 500px;
   height: 50%;
   font-size: 14px;
-  font-family: 'FontAwesome';
   line-height: 24px;
   font-weight: bold;
   color: #fbfbfb;
@@ -127,9 +126,6 @@ form.teine input[type=text]{
   height: 25px;
   color: #090a0a;
   font-family: 'FontAwesome';
-  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 .add_field_button{
     color: #090a0a;
@@ -152,8 +148,8 @@ p{
     background: #090a0a;
     margin: auto;
     position: relative;
-    width: 500px;
-    height: 50%;
+    width: 30%;
+    height: 250px;
     font-size: 14px;
     font-family: 'FontAwesome';
     line-height: 24px;
@@ -167,18 +163,11 @@ p{
     margin-right:auto;
     float:left;
 }
-.rightpanel{
-    background: #090a0a;
-    margin: auto;
-    position: relative;
-    width: 25%;
-    height: 50%;
-    font-size: 14px;
-    font-family: 'FontAwesome';
-    line-height: 24px;
-    color: #fbfbfb;
-    text-decoration: none;
-    padding: 10px;
-    border: 1px solid #3d4242;
-    float: left;
+
+select[name=selection]{
+    color:black;
+}
+
+option{
+    color:black;
 }

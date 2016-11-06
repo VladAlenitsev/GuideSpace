@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="/js/login.js"></script>
+</head>
+<body>
+<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <br>
+            <div class="bs-example bs-example-tabs">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#signin" data-toggle="tab" id="signintab">Sign In</a></li>
+                    <li class=""><a href="#signup" data-toggle="tab" id="signuptab">Register</a></li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+
+                    <div class="tab-pane fade active in" id="signin">
+
+                        <!--SIGN IN FORM-->
+                        <form id="loginform" class="form-horizontal" name="loginform" action="/login">
+                            <fieldset>
+                                <!-- Sign In Form -->
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div id="signupWarning" class="alertMessage"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="control-group">
+                                    <label class="control-label" for="username"></label>
+                                    <div class="controls">
+                                        <input id="username" name="username" type="text"
+                                               class="form-control input-medium" placeholder="Username" required>
+                                    </div>
+                                </div>
+
+                                <!-- Password input-->
+                                <div class="control-group">
+                                    <label class="control-label" for="password"></label>
+                                    <div class="controls">
+                                        <input id="password" name="password" class="form-control input-medium"
+                                               type="password" placeholder="********" required>
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="control-group">
+                                    <label class="control-label" for="signinButton"></label>
+                                    <div class="controls">
+                                        <button type="submit" id="signinButton" name="signin" class="btn btn-success">
+                                            Sign in
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="signup">
+
+                        <!--REGISTRATION-->
+                        <form id="registerForm" class="form-horizontal" role="form">
+                            <fieldset>
+                                <!-- Sign Up Form -->
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div id="emailWarning" class="alertMessage"></div>
+                                    </div>
+                                </div>
+                                <!-- Email-->
+                                <div class="control-group">
+                                    <label class="control-label" for="EmailRegister">Email</label>
+                                    <div class="controls">
+                                        <input type="email" id="emailRegister" class="form-control input-large"
+                                               placeholder="example@mail.com"
+                                               pattern="^(([a-zA-Z]|[0-9])|([-]|[_]|[.]))+[@](([a-zA-Z0-9])|([-])){2,63}[.](([a-zA-Z0-9]){2,63})+$"
+                                               data-error="Please enter valid email address" required>
+                                        <span id="emailHelp" class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div id="usernameWarning" class="alertMessage"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Username-->
+                                <div class="control-group">
+                                    <label class="control-label" for="usernameRegister">Username</label>
+                                    <div class="controls">
+                                        <input id="usernameRegister" class="form-control input-large" type="text"
+                                               placeholder="Username" required
+                                               pattern="^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{3,15}$"
+                                               data-error="Username must be 3-15 characters">
+                                    </div>
+                                </div>
+
+                                <!-- Password input-->
+                                <div class="control-group">
+                                    <label class="control-label" for="passwordRegister">Password</label>
+                                    <div class="controls">
+                                        <input id="passwordRegister" class="form-control input-large" type="password"
+                                               placeholder="password"
+                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$" required
+                                               title="Minimum of 6 characters, 1 uppercase letter and 1 number">
+                                    </div>
+                                    <div class="help-block">Minimum of 6 characters</div>
+                                </div>
+
+                                <!-- Password2 input-->
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="passwordRegister2" required class="form-control input-large"
+                                               name="passwordRegister2" type="password" placeholder="Confirm password"
+                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$">
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="control-group">
+                                    <label class="control-label" for="confirmsignup"></label>
+                                    <div class="controls">
+                                        <button type="submit" id="confirmsignup" name="confirmsignup"
+                                                class="btn btn-success">Sign Up
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

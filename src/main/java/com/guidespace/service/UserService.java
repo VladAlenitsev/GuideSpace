@@ -46,7 +46,6 @@ public class UserService {
     }
 
 
-
     public List<Person> getUsers() {
         return userRepository.findAll();
     }
@@ -55,6 +54,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+
+    public Person getUser(long id) {
+        return userRepository.findById(id);
+    }
 
     public void update(Person person) {
         userRepository.save(person);

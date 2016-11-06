@@ -33,15 +33,15 @@ public class UITests {
     public void aregistrationTest() throws InterruptedException {
         webDriver.findElement(By.id("loginNavbar")).click();
         synchronized (webDriver) {
-            webDriver.wait(300);
+            webDriver.wait(500);
             webDriver.findElement(By.id("signuptab")).click();
-            webDriver.wait(300);
+            webDriver.wait(500);
             webDriver.findElement(By.id("emailRegister")).sendKeys("test"+randNum+"@gmail.com");
             webDriver.findElement(By.id("usernameRegister")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("passwordRegister")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("passwordRegister2")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("confirmsignup")).click();
-            webDriver.wait(300);
+            webDriver.wait(500);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
@@ -51,14 +51,14 @@ public class UITests {
         synchronized (webDriver) {
             if(webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) {
                 webDriver.findElement(By.id("logoutNavbar")).click();
-                webDriver.wait(300);
+                webDriver.wait(500);
             }
             webDriver.findElement(By.id("loginNavbar")).click();
-            webDriver.wait(300);
+            webDriver.wait(500);
             webDriver.findElement(By.id("username")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("password")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("signinButton")).click();
-            webDriver.wait(300);
+            webDriver.wait(500);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
