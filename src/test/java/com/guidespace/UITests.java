@@ -47,21 +47,21 @@ public class UITests {
     public void aregistrationTest() throws InterruptedException {
         webDriver.findElement(By.id("loginNavbar")).click();
         synchronized (webDriver) {
-            webDriver.wait(600);
+            webDriver.wait(1600);
             webDriver.findElement(By.id("signuptab")).click();
-            webDriver.wait(600);
+            webDriver.wait(1600);
             webDriver.findElement(By.id("emailRegister")).sendKeys("test"+randNum+"@gmail.com");
             webDriver.findElement(By.id("usernameRegister")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("passwordRegister")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("passwordRegister2")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("confirmsignup")).click();
-            webDriver.wait(800);
+            webDriver.wait(1800);
             webDriver.get("http://localhost:8080/giveAdmin");
-            webDriver.wait(100);
+            webDriver.wait(2000);
             webDriver.get("http://localhost:8080");
-            webDriver.wait(600);
+            Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
+            webDriver.findElement(By.id("logoutNavbar")).click();
         }
-        Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
 
     @Test
@@ -69,14 +69,14 @@ public class UITests {
         synchronized (webDriver) {
             if(webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) {
                 webDriver.findElement(By.id("logoutNavbar")).click();
-                webDriver.wait(600);
+                webDriver.wait(1600);
             }
             webDriver.findElement(By.id("loginNavbar")).click();
-            webDriver.wait(600);
+            webDriver.wait(1600);
             webDriver.findElement(By.id("username")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("password")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("signinButton")).click();
-            webDriver.wait(500);
+            webDriver.wait(1500);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
@@ -87,10 +87,10 @@ public class UITests {
             if(!webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) {
                 bloginTest();
             }
-            webDriver.wait(500);
+            webDriver.wait(1500);
             if("Add Question".toLowerCase().equalsIgnoreCase(webDriver.findElement(By.id("questionNavbar")).getText())) {
                 webDriver.findElement(By.id("questionNavbar")).click();
-                webDriver.wait(1000);
+                webDriver.wait(2000);
             }
             webDriver.findElement(By.id("question")).sendKeys("Mis on Eesti pindala?");
             webDriver.findElement(By.id("answer1")).sendKeys("45339km2");
@@ -99,7 +99,7 @@ public class UITests {
             webDriver.findElement(By.id("answer3")).sendKeys("45533km2");
             webDriver.findElement(By.id("answer4")).sendKeys("45534km2");
             webDriver.findElement(By.id("addQuestion")).click();
-            webDriver.wait(500);
+            webDriver.wait(1500);
         }
         Assert.assertTrue(webDriver.findElement(By.id("outputDiv")).getText() ,webDriver.findElement(By.id("outputDiv")).getText().toLowerCase().contains("New question was added".toLowerCase()));
     }

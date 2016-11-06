@@ -279,7 +279,7 @@ public class AppController {
     public ArrayList<Classificator> getClassificators() {
         ArrayList<Classificator> result = new ArrayList<Classificator>();
         for (Classificator eq : classificatorService.getClassificators()) {
-            result.add(eq);
+            if(eq.getId() != 506) result.add(eq); //classif 'General Question' with id=506 added by default
         }
         return result;
     }
