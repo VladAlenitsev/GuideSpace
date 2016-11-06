@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -103,7 +105,7 @@ public class AppController {
     @RequestMapping(value = "/getAnswers", method = RequestMethod.POST)
     @ResponseBody
     public ArrayList<String> getAnswers(String question)  {
-        ExamQuestion uus = examQuestionService.getQuestion(question).get(0);
+        ExamQuestion uus = examQuestionService.getQuestion(question);
         ArrayList<String> result = new ArrayList<String>();
         for (ExamQuestionAnswer eq: uus.getAnswers()){
             result.add(eq.getAnswer());
@@ -170,20 +172,52 @@ public class AppController {
         String a2 = "No, it's not.";
         String a3 = "Maybe.";
         String a4 = "It's classified.";
+        String c1 = "Yes this is.";
+        String c2 = "No, it's not.";
+        String c3 = "Maybe.";
+        String c4 = "It's classified.";
+        String d1 = "Yes this is.";
+        String d2 = "No, it's not.";
+        String d3 = "Maybe.";
+        String d4 = "It's classified.";
         Boolean tf = true;
         Boolean mf = false;
         ExamQuestionAnswer ea1 = new ExamQuestionAnswer(tf, a1);
         ExamQuestionAnswer ea2 = new ExamQuestionAnswer(tf, a2);
         ExamQuestionAnswer ea3 = new ExamQuestionAnswer(mf, a3);
         ExamQuestionAnswer ea4 = new ExamQuestionAnswer(mf, a4);
+        ExamQuestionAnswer ec1 = new ExamQuestionAnswer(tf, c1);
+        ExamQuestionAnswer ec2 = new ExamQuestionAnswer(tf, c2);
+        ExamQuestionAnswer ec3 = new ExamQuestionAnswer(mf, c3);
+        ExamQuestionAnswer ec4 = new ExamQuestionAnswer(mf, c4);
+        ExamQuestionAnswer ed1 = new ExamQuestionAnswer(tf, d1);
+        ExamQuestionAnswer ed2 = new ExamQuestionAnswer(tf, d2);
+        ExamQuestionAnswer ed3 = new ExamQuestionAnswer(mf, d3);
+        ExamQuestionAnswer ed4 = new ExamQuestionAnswer(mf, d4);
         b.getAnswers().add(ea1);
         b.getAnswers().add(ea2);
         b.getAnswers().add(ea3);
         b.getAnswers().add(ea4);
+        b1.getAnswers().add(ec1);
+        b1.getAnswers().add(ec2);
+        b1.getAnswers().add(ec3);
+        b1.getAnswers().add(ec4);
+        b2.getAnswers().add(ed1);
+        b2.getAnswers().add(ed2);
+        b2.getAnswers().add(ed3);
+        b2.getAnswers().add(ed4);
         ea1.setExamQuestion(b);
         ea2.setExamQuestion(b);
         ea3.setExamQuestion(b);
         ea4.setExamQuestion(b);
+        ec1.setExamQuestion(b1);
+        ec2.setExamQuestion(b1);
+        ec3.setExamQuestion(b1);
+        ec4.setExamQuestion(b1);
+        ed1.setExamQuestion(b2);
+        ed2.setExamQuestion(b2);
+        ed3.setExamQuestion(b2);
+        ed4.setExamQuestion(b2);
         examQuestionService.addQuestion(b);
         examQuestionService.addQuestion(b1);
         examQuestionService.addQuestion(b2);
@@ -191,5 +225,44 @@ public class AppController {
         examQuestionAnswer.addQuestionAnswer(ea2);
         examQuestionAnswer.addQuestionAnswer(ea3);
         examQuestionAnswer.addQuestionAnswer(ea4);
+        examQuestionAnswer.addQuestionAnswer(ec1);
+        examQuestionAnswer.addQuestionAnswer(ec2);
+        examQuestionAnswer.addQuestionAnswer(ec3);
+        examQuestionAnswer.addQuestionAnswer(ec4);
+        examQuestionAnswer.addQuestionAnswer(ed1);
+        examQuestionAnswer.addQuestionAnswer(ed2);
+        examQuestionAnswer.addQuestionAnswer(ed3);
+        examQuestionAnswer.addQuestionAnswer(ed4);
     }
+
+
+
+
+
+    @RequestMapping(value = "/listTest", method=RequestMethod.POST, consumes="application/json")
+    @ResponseBody
+    public String getValues(@RequestBody Map<String, List<String>> hmap) {
+        int size = hmap.size();
+        int counter = 0;
+        for (String key : hmap.keySet()) {
+            ExamQuestion examQuestion = examQuestionService.getQuestion(key);
+            System.err.println(examQuestion.getQuestion());
+            List<String> trueQuestionAnswers = examQuestion.getRightAnswers();
+            List<String> gotQuestionAnswers = hmap.get(key);
+            if(trueQuestionAnswers.size()==gotQuestionAnswers.size()) {
+                for (String gotQuest : gotQuestionAnswers) {
+                    if (!trueQuestionAnswers.contains(gotQuest)) {
+                        counter += 1;
+                        break;
+                    }
+                }
+            }
+            else counter+=1;
+        }
+        return "Valesti vastatuid on: "+ Integer.toString(counter);
+    }
+
+
+
+
 }

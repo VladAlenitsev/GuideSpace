@@ -22,8 +22,8 @@ public class ExamQuestionService {
         return examQuestionRepository.findAll();
     }
 
-    public List<ExamQuestion> getQuestion(String question) {
-        return examQuestionRepository.findByQuestion(question);
+    public ExamQuestion getQuestion(String question) {
+        return examQuestionRepository.findByQuestion(question).get(0);
     }
 
 }

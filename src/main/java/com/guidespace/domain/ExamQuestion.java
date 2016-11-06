@@ -17,7 +17,7 @@ public class ExamQuestion extends BaseEntity {
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "EXAM_QUESTION_ANSWER_ID")
-    private List<ExamQuestionAnswer> answers = new ArrayList<ExamQuestionAnswer>();
+    private List<ExamQuestionAnswer> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "CLASSIFICATOR_ID")
@@ -50,6 +50,15 @@ public class ExamQuestion extends BaseEntity {
 
     public List<ExamQuestionAnswer> getAnswers() {
         return answers;
+    }
+    public List<String> getRightAnswers() {
+        List<String> rightAnswers = new ArrayList<>();
+        for(ExamQuestionAnswer exqa : answers){
+            if(exqa.getIs_false()){
+                rightAnswers.add(exqa.getAnswer());
+            }
+        }
+        return rightAnswers;
     }
 
     public void setAnswers(List<ExamQuestionAnswer> answers) {
