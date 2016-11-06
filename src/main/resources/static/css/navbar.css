@@ -107,7 +107,7 @@ form.teine{
   background: #090a0a;
   margin: auto;
   position: relative;
-  width: 30%;
+  width: 500px;
   height: 50%;
   font-size: 14px;
   font-family: 'FontAwesome';
@@ -121,9 +121,8 @@ form.teine{
   margin-left:20%;
   margin-right:auto;
 }
-form.teine input{
-  width: 375px;
-  display: block;
+form.teine input[type=text]{
+  width: 320px;
   border: 1px solid #090a0a;
   height: 25px;
   color: #090a0a;
