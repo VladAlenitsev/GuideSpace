@@ -148,3 +148,37 @@ p{
 .kontakt{
     margin-left:20%;
 }
+.leftpanel{
+    background: #090a0a;
+    margin: auto;
+    position: relative;
+    width: 500px;
+    height: 50%;
+    font-size: 14px;
+    font-family: 'FontAwesome';
+    line-height: 24px;
+    font-weight: bold;
+    color: #fbfbfb;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #3d4242;
+    border: inset 1px solid #3d4242;
+    margin-left:20%;
+    margin-right:auto;
+    float:left;
+}
+.rightpanel{
+    background: #090a0a;
+    margin: auto;
+    position: relative;
+    width: 25%;
+    height: 50%;
+    font-size: 14px;
+    font-family: 'FontAwesome';
+    line-height: 24px;
+    color: #fbfbfb;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #3d4242;
+    float: left;
+}

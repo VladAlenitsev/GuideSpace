@@ -8,6 +8,13 @@ $('#questionNavbar').on('click', function(event) {
         displayLoginWindow();
     }
 });
+$('#adminNavbar').on('click', function(event) {
+    if (isAuth() == "true") {
+        window.location = '/adminpanel';
+    } else {
+        displayLoginWindow();
+    }
+});
 //    Navbaril login akna avamine
 $('#loginNavbar').on('click', function(event) {
     displayLoginWindow();
@@ -56,7 +63,9 @@ function displayQuestion() {
 function hideQuestion() {
     $("#questionNavbar").css("display", "none");
 }
-
+function hideAdminPanel(){
+    $("#adminNavbar").css("display","none")
+}
 function displayLogin() {
     $("#loginNavbar").css("display", "block");
     $("#logoutNavbar").css("display", "null");

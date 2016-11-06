@@ -53,6 +53,10 @@ public class AppController {
         return "html/kontakt.html";
     }
 
+    @RequestMapping("/adminpanel")
+    public String panel() {
+        return "html/adminpanel.html";
+    }
 
     @RequestMapping("/exam")
     public String exam() {
@@ -64,6 +68,8 @@ public class AppController {
     public String question() {
         return "html/question.html";
     }
+
+
 
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
