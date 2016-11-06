@@ -242,7 +242,6 @@ public class AppController {
     public void addQuestion(@RequestBody Map<String, List<String>> params) {
 
         Classificator classif = classificatorService.getClassifById(Long.valueOf(params.get("classif").get(0)));
-
         ExamQuestion q = new ExamQuestion(params.get("question").get(0));
         List<ExamQuestionAnswer> answers = new ArrayList<>();
 
