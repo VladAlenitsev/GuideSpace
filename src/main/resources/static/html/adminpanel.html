@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+    <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
+    <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/exam.js"></script>
+    <script src="/js/adminpanel.js"></script>
+
+</head>
+<body>
+<div id="headers"></div>
+
+<div>
+    <div class="leftpanel">
+        <span>Change user permission</span>
+        <select id="userSelection" name="selection">
+            <option></option>
+        </select>
+        <select id="permissionSelection" name="selection">
+            <option value="/giveAdminToSomeone">Admin</option>
+            <option value=/giveUnverifiedToSomeone>Unverified user</option>
+            <option value="/giveVerifiedToSomeone">Verified user</option>
+            <option value="/giveQuestionAdderToSomeone">Question adder</option>
+        </select>
+        <input style="color:black" type="button" value="Muuda" id="changePermissions" name="changePermissions"/>
+    </div>
+</div>
+</body>
+</html>

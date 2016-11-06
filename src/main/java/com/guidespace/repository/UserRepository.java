@@ -14,6 +14,7 @@ public interface UserRepository extends Repository<Person, Long> {
     Page<Person> findAll(Pageable pageable);
 
     Person findByUsername(String username);
+    Person findById(long id);
 
     Person save(Person user);
 

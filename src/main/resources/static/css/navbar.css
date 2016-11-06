@@ -108,7 +108,6 @@ form.teine{
   width: 40%;
   height: 50%;
   font-size: 14px;
-  font-family: 'FontAwesome';
   line-height: 24px;
   font-weight: bold;
   color: #fbfbfb;
@@ -137,4 +136,31 @@ p{
 }
 .kontakt{
     margin-left:20%;
+}
+.leftpanel{
+    background: #090a0a;
+    margin: auto;
+    position: relative;
+    width: 30%;
+    height: 250px;
+    font-size: 14px;
+    font-family: 'FontAwesome';
+    line-height: 24px;
+    font-weight: bold;
+    color: #fbfbfb;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #3d4242;
+    border: inset 1px solid #3d4242;
+    margin-left:20%;
+    margin-right:auto;
+    float:left;
+}
+
+select[name=selection]{
+    color:black;
+}
+
+option{
+    color:black;
 }

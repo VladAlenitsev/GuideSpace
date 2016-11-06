@@ -8,6 +8,13 @@ $('#questionNavbar').on('click', function(event) {
         displayLoginWindow();
     }
 });
+$('#adminNavbar').on('click', function(event) {
+    if (isAuth() == "true") {
+        window.location = '/adminpanel';
+    } else {
+        displayLoginWindow();
+    }
+});
 //    Navbaril login akna avamine
 $('#loginNavbar').on('click', function(event) {
     displayLoginWindow();
@@ -35,19 +42,59 @@ $('#logoutNavbar').on('click', function(event) {
     });
 });
 
-if (isAuth() == "true") {
+
+if(isAuth() == "true"){
     displayLogout();
-} else {
+    if (isVerified() == "true") {
+        displayExam();
+        hideAdminPanel();
+        hideQuestion();
+    }
+    else if (isQuestionAdder() == "true"){
+        displayQuestion();
+        hideAdminPanel();
+        hideExam();
+    }
+    else if (isAdmin() == "true") {
+        displayExam();
+        displayQuestion();
+        displayAdminPanel();
+    }
+    else if (isUnVerified() == "true"){
+        hideAdminPanel();
+        hideQuestion();
+        hideExam();
+    }
+}
+
+else {
     displayLogin();
-}
-
-
-if (isAdmin() == "true") {
-    displayQuestion()
-} else {
+    hideAdminPanel();
     hideQuestion();
+    hideExam();
 }
 
+
+function isUnVerified() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isUnVerified", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
+
+function isVerified() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isVerified", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
+
+function isQuestionAdder() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isQuestionAdder", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
 
 function displayQuestion() {
     $("#questionNavbar").css("display", "block");
@@ -55,6 +102,21 @@ function displayQuestion() {
 
 function hideQuestion() {
     $("#questionNavbar").css("display", "none");
+}
+
+function hideAdminPanel(){
+    $("#adminNavbar").css("display","none")
+}
+
+function hideExam(){
+    $("#examNavbar").css("display","none")
+}
+
+function displayExam() {
+     $("#examNavbar").css("display", "block");
+ }
+function displayAdminPanel() {
+    $("#adminNavbar").css("display", "block");
 }
 
 function displayLogin() {
