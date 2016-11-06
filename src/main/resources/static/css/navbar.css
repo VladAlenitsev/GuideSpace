@@ -105,19 +105,26 @@
 /* See headeri muudetud osa menüü jaoks */
 form.teine{
   background: #090a0a;
-  width: 40%;
+  margin: auto;
+  position: relative;
+  width: 500px;
   height: 50%;
   font-size: 14px;
   line-height: 24px;
   font-weight: bold;
   color: #fbfbfb;
+  text-decoration: none;
   padding: 10px;
+  border: 1px solid #3d4242;
+  border: inset 1px solid #3d4242;
   margin-left:20%;
+  margin-right:auto;
 }
 form.teine input[type=text]{
-  width: 50%;
+  width: 320px;
+  border: 1px solid #090a0a;
   height: 25px;
-  color:red;
+  color: #090a0a;
   font-family: 'FontAwesome';
 }
 .add_field_button{

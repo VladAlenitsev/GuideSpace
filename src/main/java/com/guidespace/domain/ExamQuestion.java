@@ -51,10 +51,11 @@ public class ExamQuestion extends BaseEntity {
     public List<ExamQuestionAnswer> getAnswers() {
         return answers;
     }
+
     public List<String> getRightAnswers() {
         List<String> rightAnswers = new ArrayList<>();
         for(ExamQuestionAnswer exqa : answers){
-            if(exqa.getIs_false()){
+            if(exqa.getIsCorrect()){
                 rightAnswers.add(exqa.getAnswer());
             }
         }

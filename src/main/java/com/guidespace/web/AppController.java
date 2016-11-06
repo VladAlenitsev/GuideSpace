@@ -247,10 +247,10 @@ public class AppController {
         List<ExamQuestionAnswer> answers = new ArrayList<>();
 
         for (String s : params.get("correctAnswers")) {
-            answers.add(new ExamQuestionAnswer(false, s, q));
+            answers.add(new ExamQuestionAnswer(true, s, q));
         }
         for (String s : params.get("wrongAnswers")) {
-            answers.add(new ExamQuestionAnswer(true, s, q));
+            answers.add(new ExamQuestionAnswer(false, s, q));
         }
         q.setClassificator(classif);
         q.setAnswers(answers);

@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 public class ExamQuestionAnswer extends BaseEntity{
 
     @NotNull
-    @Column(name = "IS_FALSE")
-    private Boolean is_false;
+    @Column(name = "IS_CORRECT")
+    private Boolean is_correct;
 
     @NotNull
     @Column(name = "ANSWER")
@@ -32,22 +32,22 @@ public class ExamQuestionAnswer extends BaseEntity{
     public ExamQuestionAnswer(){}
 
     public ExamQuestionAnswer(Boolean b, String answer){
-        this.is_false = b;
+        this.is_correct = b;
         this.answer = answer;
     }
 
     public ExamQuestionAnswer(Boolean b, String answer, ExamQuestion examQuestion){
-        this.is_false = b;
+        this.is_correct = b;
         this.answer = answer;
         this.examQuestion = examQuestion;
     }
 
-    public Boolean getIs_false() {
-        return is_false;
+    public Boolean getIsCorrect() {
+        return is_correct;
     }
 
-    public void setIs_false(Boolean is_false) {
-        this.is_false = is_false;
+    public void setIsCorrect(Boolean b) {
+        this.is_correct = b;
     }
 
     public String getAnswer() {
