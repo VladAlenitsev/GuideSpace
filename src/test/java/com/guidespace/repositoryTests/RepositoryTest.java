@@ -2,6 +2,7 @@ package com.guidespace.repositoryTests;
 
 import com.guidespace.domain.*;
 import com.guidespace.repository.*;
+import com.guidespace.service.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,26 +21,28 @@ import java.util.List;
 /**
  * Created by Vlad on 02.11.2016.
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional //rolls back any changes in DB after test, kek
 public class RepositoryTest {
 
     @Autowired
-    ExamQuestionRepository examQuestionRepository;
+    ExamQuestionService examQuestionService;
 
     @Autowired
-    ExamQuestionAnswerRepository examQuestionAnswerRepository;
+    ExamQuestionAnswerService examQuestionAnswerService;
 
     @Autowired
-    ClassificatorRepository classificatorRepository;
+    ClassificatorService classificatorService;
 
     @Autowired
-    ExaminationRepository examinationRepository;
+    ExaminationService examinationService;
 
     @Autowired
-    ExamResultRepository examResultRepository;
+    ExamResultService examResultService;
+
+    @Autowired
+    UserService personService;
 
     @Autowired
     UserRepository personRepository;
@@ -51,16 +54,13 @@ public class RepositoryTest {
 
         ExamQuestion eq = new ExamQuestion(q);
 
-        examQuestionRepository.save(eq);
+        examQuestionService.addQuestion(eq);
 
-        List<ExamQuestion> dbq = examQuestionRepository.findAll();
+        ExamQuestion dbq = examQuestionService.getQuestionById(Long.valueOf(eq.getId()));
 
-        ExamQuestion dbq1 = dbq.get(0);
-
-        Assert.assertNotNull(dbq1);
-        Assert.assertEquals(1, dbq.size());
-        Assert.assertEquals(dbq1.getQuestion(), q);
-        Assert.assertEquals(0, dbq1.getAnswers().size());
+        Assert.assertNotNull(dbq);
+        Assert.assertEquals(dbq.getQuestion(), q);
+        Assert.assertEquals(0, dbq.getAnswers().size());
     }
 
     @Test
@@ -92,27 +92,29 @@ public class RepositoryTest {
         ea3.setExamQuestion(eq1);
         ea4.setExamQuestion(eq1);
 
-        examQuestionRepository.save(eq1);
-        examQuestionRepository.save(eq2);
+        examQuestionService.addQuestion(eq1);
+        examQuestionService.addQuestion(eq2);
 
-        examQuestionAnswerRepository.save(ea1);
-        examQuestionAnswerRepository.save(ea2);
-        examQuestionAnswerRepository.save(ea3);
-        examQuestionAnswerRepository.save(ea4);
+        examQuestionAnswerService.addQuestionAnswer(ea1);
+        examQuestionAnswerService.addQuestionAnswer(ea2);
+        examQuestionAnswerService.addQuestionAnswer(ea3);
+        examQuestionAnswerService.addQuestionAnswer(ea4);
 
-        List<ExamQuestion> dbquestion = examQuestionRepository.findAll();
-        ExamQuestion dbq1 = dbquestion.get(0);
-        List<ExamQuestionAnswer> dbanswer = examQuestionAnswerRepository.findAll();
+        ExamQuestion dbq1 = examQuestionService.getQuestionById(Long.valueOf(eq1.getId()));
+        ExamQuestion dbq2 = examQuestionService.getQuestionById(Long.valueOf(eq2.getId()));
 
-        Assert.assertEquals(2, dbquestion.size());
+        List<ExamQuestionAnswer> dbanswer = dbq1.getAnswers();
+        List<ExamQuestionAnswer> initialAnswers = new ArrayList<>();
+
+        initialAnswers.add(ea1);
+        initialAnswers.add(ea2);
+        initialAnswers.add(ea3);
+        initialAnswers.add(ea4);
+
         Assert.assertEquals(4, dbanswer.size());
         Assert.assertEquals(0, eq2.getAnswers().size());
-        Assert.assertEquals(4, eq1.getAnswers().size());
+        Assert.assertEquals(initialAnswers, dbanswer);
 
-        Assert.assertEquals(eq1, dbq1);
-        for(ExamQuestionAnswer eqa: dbanswer){
-            Assert.assertEquals(dbq1.getId(), eqa.getExamQuestion().getId());
-        }
     }
 
     @Test
@@ -123,16 +125,16 @@ public class RepositoryTest {
         final String name = "Pohja-Eesti";
 
         Classificator c = new Classificator(type, code, name);
-        classificatorRepository.save(c);
+        classificatorService.addClassificator(c);
 
         ExamQuestion q = new ExamQuestion(q1);
         q.setClassificator(c);
-        examQuestionRepository.save(q);
+        examQuestionService.addQuestion(q);
 
-        List<ExamQuestion> dbq = examQuestionRepository.findAll();
-        Assert.assertEquals(q ,dbq.get(0));
-        Assert.assertEquals(c, dbq.get(0).getClassificator());
-        Assert.assertEquals(code, dbq.get(0).getClassificator().getClassif_code());
+        ExamQuestion dbq = examQuestionService.getQuestionById(Long.valueOf(q.getId()));
+        Assert.assertEquals(q ,dbq);
+        Assert.assertEquals(c, dbq.getClassificator());
+        Assert.assertEquals(code, dbq.getClassificator().getClassif_code());
 
     }
 
@@ -159,17 +161,13 @@ public class RepositoryTest {
         e3.setStart_date(sd3);
         e3.setEnd_date(ed3);
 
-        examinationRepository.save(e1);
-        examinationRepository.save(e2);
-        examinationRepository.save(e3);
+        examinationService.addExamination(e1);
+        examinationService.addExamination(e2);
+        examinationService.addExamination(e3);
 
-        List<Examination> dbexams = examinationRepository.findAll();
-
-        Assert.assertEquals(3, dbexams.size());
-
-        Examination dbExam1 = dbexams.get(0);
-        Examination dbExam2 = dbexams.get(1);
-        Examination dbExam3 = dbexams.get(2);
+        Examination dbExam1 = examinationService.getById(Long.valueOf(e1.getId()));
+        Examination dbExam2 = examinationService.getById(Long.valueOf(e2.getId()));
+        Examination dbExam3 = examinationService.getById(Long.valueOf(e3.getId()));
 
         Assert.assertNotNull(dbExam1);
         Assert.assertNotNull(dbExam2);
@@ -180,70 +178,7 @@ public class RepositoryTest {
         Assert.assertEquals(e3.getId(), dbExam3.getId());
 
         Assert.assertEquals(new ArrayList<ExamResult>(), dbExam1.getResults());
-    }
-
-    @Test
-    public void examResultPersonExamSaveTest() throws ParseException {
-        final Boolean tf = true;
-        final Boolean mf = false;
-        final Integer s1 = 99;
-        final Integer s2 = 32;
-        final DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        final Date sd1 = df.parse("02-11-2016 09:00");
-        final Date ed1 = df.parse("02-11-2016 12:00");
-        final String username = "VasjaPupkin";
-        final String email = "vasjapupkin@gmail.com";
-        final String hash = "NKUxcRLwTiUlxfR4Z4EXrWGXVkU/o9bJMT6sma2J6SmoOjV/QhjXn3PP/jqE4XV1qvqqifN3lbqVHEL9wjo5ZA==";
-        final String salt = "+U43D57Z4gPq4rcHduvhWGrwzR4UngHQpQJcCs02XZo=";
-
-        Examination e = new Examination(sd1, ed1);
-        ExamResult er1 = new ExamResult(tf, s1);
-        ExamResult er2 = new ExamResult(mf, s2);
-        Person p1 = new Person();
-
-        e.getResults().add(er1);
-        e.getResults().add(er2);
-
-        er1.setExamination(e);
-        er2.setExamination(e);
-        er1.setPerson(p1);
-        er2.setPerson(p1);
-
-        p1.setUsername(username);
-        p1.setEmailAddress(email);
-        p1.setPasswordHash(hash);
-        p1.setPasswordSalt(salt);
-        p1.getResults().add(er1);
-        p1.getResults().add(er2);
-
-        examinationRepository.save(e);
-        examResultRepository.save(er1);
-        examResultRepository.save(er2);
-        personRepository.save(p1);
-
-        Examination dbE = examinationRepository.findAll().get(0);
-        List<ExamResult> dbER = examResultRepository.findAll();
-        ExamResult dbER1 = dbER.get(0);
-        ExamResult dbER2 = dbER.get(1);
-        Person dbp = personRepository.findAll().get(0);
-        Person dbp1 = personRepository.findByUsername(username);
-        List<ExamResult> personsER = dbp.getResults();
-
-        Assert.assertNotNull(dbE);
-        Assert.assertNotNull(dbER);
-        Assert.assertNotNull(dbp);
-        Assert.assertNotNull(dbp1);
-
-        Assert.assertEquals(er1, dbER1);
-        Assert.assertEquals(er2, dbER2);
-        Assert.assertEquals(dbp, dbp1);
-
-        Assert.assertEquals(p1, dbp);
-        Assert.assertEquals(p1, dbp1);
-
-        Assert.assertEquals(dbER1.getPerson().getId(), dbp.getId());
-        Assert.assertEquals(dbER2.getPerson().getId(), dbp.getId());
-        Assert.assertEquals(dbER, personsER);
-
+        Assert.assertEquals(new ArrayList<ExamResult>(), dbExam2.getResults());
+        Assert.assertEquals(new ArrayList<ExamResult>(), dbExam3.getResults());
     }
 }

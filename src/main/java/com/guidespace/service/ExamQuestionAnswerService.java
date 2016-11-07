@@ -1,5 +1,6 @@
 package com.guidespace.service;
 
+import com.guidespace.domain.ExamQuestion;
 import com.guidespace.domain.ExamQuestionAnswer;
 import com.guidespace.repository.ExamQuestionAnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,7 @@ public class ExamQuestionAnswerService {
         examQuestionAnswerRepository.save(answer);
     }
 
-    public List<ExamQuestionAnswer>  getAnswers(){return examQuestionAnswerRepository.findAll();}
+    public List<ExamQuestionAnswer>  getAllAnswers(){return examQuestionAnswerRepository.findAll();}
+
+    public ExamQuestionAnswer getAnswerById(Long id){return examQuestionAnswerRepository.findById(id);}
 }

@@ -13,4 +13,6 @@ public interface ExamQuestionAnswerRepository extends Repository<ExamQuestionAns
     ExamQuestionAnswer save(ExamQuestionAnswer answer);
 
     List<ExamQuestionAnswer> findAll();
+
+    ExamQuestionAnswer findById(Long id);
 }

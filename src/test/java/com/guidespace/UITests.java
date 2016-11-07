@@ -1,7 +1,6 @@
 package com.guidespace;
 
-import com.guidespace.domain.Person;
-import com.guidespace.repository.UserRepository;
+import com.guidespace.service.UserService;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -12,8 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Console;
-
 
 /**
  * Created by Vitali on 11/2/2016.
@@ -21,16 +18,8 @@ import java.io.Console;
 @Transactional
 public class UITests {
 
-    @Autowired
-    private static UserRepository personRepository;
     private static WebDriver webDriver;
     private static long randNum;
-
-//    private static Person person;
-//    private static final String username = "VasjaPupkin";
-//    private static final String email = "vasjapupkin@gmail.com";
-//    private static final String hash = "NKUxcRLwTiUlxfR4Z4EXrWGXVkU/o9bJMT6sma2J6SmoOjV/QhjXn3PP/jqE4XV1qvqqifN3lbqVHEL9wjo5ZA==";
-//    private static final String salt = "+U43D57Z4gPq4rcHduvhWGrwzR4UngHQpQJcCs02XZo=";
 
     @BeforeClass
     public static void setUp(){
@@ -38,9 +27,6 @@ public class UITests {
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/");
         randNum = Math.round(Math.random()*10000);
-//        person = new Person(username, hash, salt, email);
-//        person.setUser_role_id(2);
-//        personRepository.save(person);
     }
 
     @Test
@@ -99,14 +85,17 @@ public class UITests {
             webDriver.findElement(By.id("answer3")).sendKeys("45533km2");
             webDriver.findElement(By.id("answer4")).sendKeys("45534km2");
             webDriver.findElement(By.id("addQuestion")).click();
-            webDriver.wait(1500);
+            webDriver.wait(2500);
         }
         Assert.assertTrue(webDriver.findElement(By.id("outputDiv")).getText() ,webDriver.findElement(By.id("outputDiv")).getText().toLowerCase().contains("New question was added".toLowerCase()));
+
     }
+
 
 
     @AfterClass
     public static void cleanUp(){
+
         if (webDriver != null) {
             webDriver.close();
             webDriver.quit();

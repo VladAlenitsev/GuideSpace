@@ -13,5 +13,8 @@ public interface ExamQuestionRepository extends Repository<ExamQuestion, Long> {
     ExamQuestion save(ExamQuestion question);
 
     List<ExamQuestion> findAll();
+
     List<ExamQuestion> findByQuestion(String question);
+
+    ExamQuestion findById(Long id);
 }

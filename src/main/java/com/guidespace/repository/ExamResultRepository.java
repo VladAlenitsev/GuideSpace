@@ -13,4 +13,6 @@ public interface ExamResultRepository extends Repository<ExamResult, Long>{
     ExamResult save(ExamResult result);
 
     List<ExamResult> findAll();
+
+    ExamResult findById(Long id);
 }

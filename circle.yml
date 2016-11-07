@@ -1,13 +1,8 @@
 machine:
     timezone:
-        Europe/Tallinn
-
-    java:
-        version: openjdk8
-        
+        Europe/Tallinn        
 general:
     branches:
         only:
             - master
-            - develop
     

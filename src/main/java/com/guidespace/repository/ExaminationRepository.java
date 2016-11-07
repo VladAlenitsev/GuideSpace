@@ -13,4 +13,6 @@ public interface ExaminationRepository extends Repository<Examination, Long>{
     Examination save(Examination examination);
 
     List<Examination> findAll();
+
+    Examination findById(Long id);
 }

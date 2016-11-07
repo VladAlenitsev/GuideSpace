@@ -26,5 +26,6 @@ public class ExamQuestionService {
         return examQuestionRepository.findByQuestion(question).get(0);
     }
 
+    public ExamQuestion getQuestionById(Long id) {return examQuestionRepository.findById(id);}
 }
 

@@ -19,4 +19,6 @@ public class ExamResultService {
     public void addExamResult(ExamResult result){examResultRepository.save(result);}
 
     public List<ExamResult> getExamResults(){return examResultRepository.findAll();}
+
+    public ExamResult getById(Long id){return examResultRepository.findById(id);}
 }

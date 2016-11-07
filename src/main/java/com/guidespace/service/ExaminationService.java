@@ -19,4 +19,6 @@ public class ExaminationService {
     public void addExamination(Examination e){examinationRepository.save(e);}
 
     public List<Examination> getExaminations(){return examinationRepository.findAll();}
+
+    public Examination getById(Long id){return examinationRepository.findById(id);}
 }
