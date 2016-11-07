@@ -114,6 +114,7 @@ form.teine{
   color: #fbfbfb;
   padding: 10px;
   margin-left:20%;
+  border: 1px solid #3d4242;
 }
 form.teine input[type=text]{
   width: 320px;
