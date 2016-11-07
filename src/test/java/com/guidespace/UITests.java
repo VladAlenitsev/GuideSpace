@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by Vitali on 11/2/2016.
  */
 @Transactional
-public class UI {
+public class UITests {
 
     private static WebDriver webDriver;
     private static long randNum;
