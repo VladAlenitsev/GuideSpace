@@ -1,7 +1,13 @@
 machine:
-  java:
-    version: openjdk8
+    timezone:
+        Europe/Tallinn
+
+    java:
+        version: openjdk8
+        
+general:
+    branches:
+        only:
+            - master
+            - develop
     
-test:
-    override:
-        - java -cp .:./junit.jar org.junit.runner.JUnitCore src/test/java/com/guidespace/repositoryTests/RepositoryTest
