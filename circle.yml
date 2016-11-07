@@ -4,4 +4,4 @@ machine:
     
 test:
     override:
-        - junit src/test/java/com/guidespace/repositoryTests
+        - java -cp .:./junit.jar org.junit.runner.JUnitCore src/test/java/com/guidespace/repositoryTests/RepositoryTest
