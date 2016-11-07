@@ -16,14 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by Vitali on 11/2/2016.
  */
 @Transactional
-public class UITests {
+public class UI {
 
     private static WebDriver webDriver;
     private static long randNum;
 
     @BeforeClass
     public static void setUp(){
-        System.setProperty("webdriver.chrome.driver", ".\\src\\test\\java\\com\\guidespace\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/src/test/java/com/guidespace/chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.get("http://localhost:8080/");
         randNum = Math.round(Math.random()*10000);
@@ -45,6 +45,7 @@ public class UITests {
             webDriver.get("http://localhost:8080/giveAdmin");
             webDriver.wait(2000);
             webDriver.get("http://localhost:8080");
+            webDriver.wait(2000);
             Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
             webDriver.findElement(By.id("logoutNavbar")).click();
         }
