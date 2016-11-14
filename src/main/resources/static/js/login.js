@@ -39,7 +39,7 @@ $(document).on("submit", "#registerForm", function(event){
         $.ajax({
             data: data2,
             headers: {'X-CSRF-TOKEN': cookie2.csrf},
-            timeout: 1000,
+            timeout: 3000,
             type: 'POST',
             url: '/login'
 
