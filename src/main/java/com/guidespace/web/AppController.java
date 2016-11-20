@@ -1,9 +1,6 @@
 package com.guidespace.web;
 
-import com.guidespace.domain.Classificator;
-import com.guidespace.domain.ExamQuestion;
-import com.guidespace.domain.ExamQuestionAnswer;
-import com.guidespace.domain.Person;
+import com.guidespace.domain.*;
 import com.guidespace.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -62,6 +59,8 @@ public class AppController {
         return "html/exam.html";
     }
 
+    @RequestMapping("/examreg")
+    public String examreg(){ return "html/examreg.html"; }
 
     @RequestMapping("/question")
     public String question() {
@@ -263,6 +262,13 @@ public class AppController {
         System.out.println("Hibernate: New exam question saved. Question id: " + q.getId());
     }
 
+    @RequestMapping(value = "/addExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void addExamination(@RequestBody Map<String, String> params) {
+
+
+    }
+
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -414,6 +420,7 @@ public class AppController {
         }
         return "Valesti vastatuid on: " + Integer.toString(counter);
     }
+
 
 
 }

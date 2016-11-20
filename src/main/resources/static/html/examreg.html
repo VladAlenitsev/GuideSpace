@@ -9,31 +9,17 @@
     <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
     <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
     <script src="/js/index.js"></script>
-
+    <script src="/js/examreg.js"></script>
 </head>
-
 <body>
 <div id="headers"></div>
-<div class="kontakt"> <!-- using info from kutselisedgiidid.ee -->
-    <div>
-        <h1>Kontakt</h1>
-        <p></p>
-        <h4>Eesti Kutseliste Giidide Ühing (EKGÜ)</h4>
-        <p></p>
-        <h4>Salme 2D, Tartu 50103</h4>
-        <p></p>
-        <h4>Reg.nr. xxxxxxxx</h4>
-        <p></p>
-        <h4>Kontaktisik:</h4>
-        <p></p>
-        <h4>hetkel puudub</h4>
-        <p></p>
-        <h4>e-post: hetkel ka puudub</h4>
-    </div>
-</div>
+    <h1>Add Exam:</h1>
+    <input id="startdate" type="datetime" name="startdate" value="">
+    <input id="enddate" type="datetime" name="enddate">
+    <select id="classifSelect" name="selection">
+        <option value="506">General question</option>
+    </select>
+    <input id="examreg" type="button" value="Add exam" name="examreg">
 
-
-
-<!--See script peab olema peale map div-i, vastasel juhul ei laeta scripti korralikult lõpuni-->
 </body>
 </html>
