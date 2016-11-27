@@ -143,7 +143,6 @@ public class AppController {
     @RequestMapping(value = "/giveUnverifiedToSomeone", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public String isAuthenticated11(@RequestBody Long id) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person leo = userService.getUser(id);
         leo.setUser_role_id(1);
@@ -184,42 +183,6 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/isTest", method = RequestMethod.GET)
-    @ResponseBody
-    public String isAuthenticated3() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getAuthorities().toString();
-    }
-
-    @RequestMapping(value = "/giveVerified", method = RequestMethod.GET)
-    @ResponseBody
-    public String isAuthenticated4() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person leo = userService.getUser(authentication.getName());
-        leo.setUser_role_id(4);
-        userService.update(leo);
-        return authentication.getAuthorities().toString();
-    }
-
-    @RequestMapping(value = "/giveUnverified", method = RequestMethod.GET)
-    @ResponseBody
-    public String isAuthenticated1() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person leo = userService.getUser(authentication.getName());
-        leo.setUser_role_id(1);
-        userService.update(leo);
-        return authentication.getAuthorities().toString();
-    }
-
-    @RequestMapping(value = "/giveQuestionAdder", method = RequestMethod.GET)
-    @ResponseBody
-    public String isAuthenticated6() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person leo = userService.getUser(authentication.getName());
-        leo.setUser_role_id(6);
-        userService.update(leo);
-        return authentication.getAuthorities().toString();
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
