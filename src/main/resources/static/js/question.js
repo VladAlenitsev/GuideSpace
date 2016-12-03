@@ -11,7 +11,7 @@ $(document).ready(function() {
 
     var submit = $('#addQuestion');
     submit.click(function() {
-        var question = $('#question');
+         var question = $('#question');
          var map = getData();
          var cookie = JSON.parse($.cookie('CSRF'));
          $.ajax({

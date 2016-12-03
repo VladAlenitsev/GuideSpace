@@ -31,6 +31,12 @@ public class Examination extends BaseEntity{
     @JoinColumn(name = "EXAM_RESULT_ID")
     private List<ExamResult> results = new ArrayList<>();
 
+    @Column(name = "CLASSIF_ID")
+    private Long classif_id;
+
+    @Column(name = "IS_OPEN")
+    private Boolean is_open;
+
     public Examination(){}
 
     //date format "dd-MM-yyyy HH:mm"
@@ -89,5 +95,19 @@ public class Examination extends BaseEntity{
         this.results = results;
     }
 
+    public Long getClassif_id() {
+        return classif_id;
+    }
 
+    public void setClassif_id(Long classif_id) {
+        this.classif_id = classif_id;
+    }
+
+    public Boolean getIs_open() {
+        return is_open;
+    }
+
+    public void setIs_open(Boolean is_open) {
+        this.is_open = is_open;
+    }
 }
