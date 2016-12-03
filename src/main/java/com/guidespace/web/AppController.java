@@ -288,6 +288,28 @@ public class AppController {
         return r;
     }
 
+    @RequestMapping(value = "/startExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void startExamination(@RequestBody Map<String, String> params) throws ParseException {
+        Examination e = examinationService.getById(Long.valueOf(params.get("id")));
+        e.setIs_open(true);
+        examinationService.addExamination(e);
+    }
+
+    @RequestMapping(value = "/closeExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void closeExamination(@RequestBody Map<String, String> params) throws ParseException {
+        Examination e = examinationService.getById(Long.valueOf(params.get("id")));
+        e.setIs_open(false);
+        examinationService.addExamination(e);
+    }
+
+    @RequestMapping(value = "/deleteExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void deleteExamination(@RequestBody Map<String, String> params) throws ParseException {
+        examinationService.deleteExamination(examinationService.getById(Long.valueOf(params.get("id"))));
+    }
+
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<String> getQuestions() {
@@ -357,19 +379,6 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-        Classificator c1 = new Classificator("LOCATION_NORTH", "LOCATION", "North Estonia");
-        Classificator c2 = new Classificator("LOCATION_SOUTH", "LOCATION", "South Estonia");
-        Classificator c3 = new Classificator("LOCATION_EAST", "LOCATION", "East Estonia");
-        Classificator c4 = new Classificator("LOCATION_WEST", "LOCATION", "West Estonia");
-        Classificator c5 = new Classificator("LOCATION_CENTER", "LOCATION", "Central Estonia");
-        Classificator c6 = new Classificator("OVERALL_QUESTION", "OVERALL", "General Question");
-
-        classificatorService.addClassificator(c1);
-        classificatorService.addClassificator(c2);
-        classificatorService.addClassificator(c3);
-        classificatorService.addClassificator(c4);
-        classificatorService.addClassificator(c5);
-        classificatorService.addClassificator(c6);
         /**
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
