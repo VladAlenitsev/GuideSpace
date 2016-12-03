@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+    $("#startdate").datetimepicker({
+        format:'d-m-Y H:i',
+    	minDate:'0',
+    	dayOfWeekStart:1
+    });
+    $("#enddate").datetimepicker({
+        format:'d-m-Y H:i',
+    	minDate:'0',
+    	dayOfWeekStart:1
+    });
+
     $.ajax({url: "/getClassificators", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
@@ -8,6 +19,7 @@ $(document).ready(function() {
             $('#classifSelect').append(opt);
         }
     }});
+
 
     $('#examreg').click(function(){
         var cookie = JSON.parse($.cookie('CSRF'));
@@ -21,11 +33,11 @@ $(document).ready(function() {
             type: 'POST',
             url: '/addExamination',
             success: function(data){
-
+            document.getElementById("outputDiv").innerHTML = "New exam has been added";
             },
             error: function(errorThrown){
                console.log(errorThrown)
-               alert("Error while adding new Examination.")
+               document.getElementById("outputDiv").innerHTML = "Error while trying to create new examination.";
             }
         })
     });
@@ -33,10 +45,6 @@ $(document).ready(function() {
 });
 
 function getExamData(){
-    var startdate = $('#startdate').val();
-    var enddate = $('#enddate').val();
-    var classif_id = $('#classifSelect').val();
-
-    return {'startdate':startdate,'enddate':enddate,'classif_id':classif_id}
-
+    return {'startdate': $('#startdate').val(),'enddate': $('#enddate').val(),'classif':$('#classifSelect').val()}
 }
+

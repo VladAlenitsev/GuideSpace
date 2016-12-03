@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,9 @@ public class AppController {
 
     @Autowired
     private ExamQuestionService examQuestionService;
+
+    @Autowired
+    private ExaminationService examinationService;
 
     @Autowired
     private ExamQuestionAnswerService examQuestionAnswerService;
@@ -87,13 +91,6 @@ public class AppController {
         }
         return false;
     }
-
-//    @RequestMapping(value = "/isAdmin", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Boolean isAdmin() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
-//    }
 
     @RequestMapping(value = "/isVerified", method = RequestMethod.GET)
     @ResponseBody
@@ -264,11 +261,32 @@ public class AppController {
 
     @RequestMapping(value = "/addExamination", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public void addExamination(@RequestBody Map<String, String> params) {
+    public void addExamination(@RequestBody Map<String, String> params) throws ParseException {
 
-
+        Examination e = new Examination(params.get("startdate"), params.get("enddate"));
+        e.setClassif_id(Long.valueOf(params.get("classif")));
+        e.setIs_open(false);
+        examinationService.addExamination(e);
+        System.out.println("Hibernate: New examination saved. Examination id: " + e.getId());
     }
 
+    @RequestMapping(value = "/getExaminations", method = {RequestMethod.GET} , produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<HashMap<String, String>> getExaminations() {
+        ArrayList<HashMap<String, String>> r = new ArrayList<HashMap<String,String>>();
+        for(Examination e: examinationService.getExaminations()){
+           HashMap<String, String> map = new HashMap<>();
+            map.put("id", e.getId().toString());
+            map.put("startdate", e.getStart_date().toString());
+            map.put("enddate", e.getEnd_date().toString());
+            map.put("participants", e.getParticipants_amount().toString());
+            map.put("classif_id", e.getClassif_id().toString());
+            map.put("classif_name", classificatorService.getClassifById(e.getClassif_id()).getClassif_name());
+            map.put("is_open", e.getIs_open().toString());
+            r.add(map);
+        }
+        return r;
+    }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -285,7 +303,7 @@ public class AppController {
     public ArrayList<Classificator> getClassificators() {
         ArrayList<Classificator> result = new ArrayList<Classificator>();
         for (Classificator eq : classificatorService.getClassificators()) {
-            if(eq.getId() != 506) result.add(eq); //classif 'General Question' with id=506 added by default
+            result.add(eq);
         }
         return result;
     }
@@ -324,9 +342,34 @@ public class AppController {
         return result;
     }
 
+    /**
+     * this method use for developing adding
+     * classificator
+     * question
+     * answer
+     * etc
+     * to local database which is blown up after app restart
+     *
+     * keep method empty on master & heroku or if you
+     * don't want to add anything
+     *
+     * */
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
+        Classificator c1 = new Classificator("LOCATION_NORTH", "LOCATION", "North Estonia");
+        Classificator c2 = new Classificator("LOCATION_SOUTH", "LOCATION", "South Estonia");
+        Classificator c3 = new Classificator("LOCATION_EAST", "LOCATION", "East Estonia");
+        Classificator c4 = new Classificator("LOCATION_WEST", "LOCATION", "West Estonia");
+        Classificator c5 = new Classificator("LOCATION_CENTER", "LOCATION", "Central Estonia");
+        Classificator c6 = new Classificator("OVERALL_QUESTION", "OVERALL", "General Question");
+
+        classificatorService.addClassificator(c1);
+        classificatorService.addClassificator(c2);
+        classificatorService.addClassificator(c3);
+        classificatorService.addClassificator(c4);
+        classificatorService.addClassificator(c5);
+        classificatorService.addClassificator(c6);
         /**
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");

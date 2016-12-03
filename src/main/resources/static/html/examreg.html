@@ -5,21 +5,24 @@
     <title>GuideSpace</title>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery.datetimepicker.css">
     <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
     <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="/js/jquery.datetimepicker.full.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/examreg.js"></script>
 </head>
 <body>
 <div id="headers"></div>
     <h1>Add Exam:</h1>
-    <input id="startdate" type="datetime" name="startdate" value="">
-    <input id="enddate" type="datetime" name="enddate">
+    <input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
+    <input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
     <select id="classifSelect" name="selection">
-        <option value="506">General question</option>
     </select>
     <input id="examreg" type="button" value="Add exam" name="examreg">
+    <div id="outputDiv"> </div>
 
 </body>
 </html>
