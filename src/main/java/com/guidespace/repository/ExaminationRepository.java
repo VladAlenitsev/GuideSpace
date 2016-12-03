@@ -15,4 +15,6 @@ public interface ExaminationRepository extends Repository<Examination, Long>{
     List<Examination> findAll();
 
     Examination findById(Long id);
+
+    void delete(Examination examination);
 }
