@@ -470,7 +470,7 @@ public class AppController {
                 }
             } else counter += 1;
         }
-        return "Valesti vastatuid on: " + Integer.toString(counter);
+        return "Wrong answers: " + Integer.toString(counter);
     }
 
 

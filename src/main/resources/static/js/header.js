@@ -15,6 +15,20 @@ $('#adminNavbar').on('click', function(event) {
         displayLoginWindow();
     }
 });
+$('#examregNavbar').on('click', function(event) {
+    if (isAuth() == "true") {
+        window.location = '/examreg';
+    } else {
+        displayLoginWindow();
+    }
+});
+$('#examNavbar').on('click', function(event) {
+    if (isAuth() == "true") {
+        window.location = '//exam';
+    } else {
+        displayLoginWindow();
+    }
+});
 //    Navbaril login akna avamine
 $('#loginNavbar').on('click', function(event) {
     displayLoginWindow();
@@ -49,21 +63,25 @@ if(isAuth() == "true"){
         displayExam();
         hideAdminPanel();
         hideQuestion();
+        hideManageExamination();
     }
     else if (isQuestionAdder() == "true"){
         displayQuestion();
         hideAdminPanel();
         hideExam();
+        hideManageExamination();
     }
     else if (isAdmin() == "true") {
         displayExam();
         displayQuestion();
         displayAdminPanel();
+        displayManageExamination();
     }
     else if (isUnVerified() == "true"){
         hideAdminPanel();
         hideQuestion();
         hideExam();
+        hideManageExamination();
     }
 }
 
@@ -72,6 +90,7 @@ else {
     hideAdminPanel();
     hideQuestion();
     hideExam();
+    hideManageExamination();
 }
 
 
@@ -96,10 +115,6 @@ function isQuestionAdder() {
     return (xmlHttp.responseText);
 }
 
-function displayQuestion() {
-    $("#questionNavbar").css("display", "block");
-}
-
 function hideQuestion() {
     $("#questionNavbar").css("display", "none");
 }
@@ -110,6 +125,18 @@ function hideAdminPanel(){
 
 function hideExam(){
     $("#examNavbar").css("display","none")
+}
+
+function hideManageExamination(){
+    $("#examregNavbar").css("display","none")
+}
+
+function displayManageExamination(){
+    $("#examregNavbar").css("display","block")
+}
+
+function displayQuestion() {
+    $("#questionNavbar").css("display", "block");
 }
 
 function displayExam() {
