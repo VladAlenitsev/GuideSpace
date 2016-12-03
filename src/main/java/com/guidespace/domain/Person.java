@@ -28,6 +28,22 @@ public class Person extends BaseEntity {
     private String passwordSalt;
 
     @NotNull
+    @Column(name = "NAME")
+    private String name;
+
+    @NotNull
+    @Column(name = "SURNAME")
+    private String surname;
+
+    @NotNull
+    @Column(name = "USER_BIRTH_DATE")
+    private Date userBirthDate;
+
+    @NotNull
+    @Column(name = "CERT_WORK_LANGS")
+    private String certWorkLangs;
+
+    @NotNull
     @Column(name = "EMAIL_ADDRESS", unique = true)
     private String emailAddress;
 
@@ -53,11 +69,51 @@ public class Person extends BaseEntity {
     public Person() {
     }
 
-    public Person(String username, String passwordHash, String passwordSalt, String emailAddress) {
+    public Person(String username, String passwordHash, String passwordSalt, String emailAddress,
+                  String name, String surname, Date userBirthDate, String certWorkLangs, String active_cert_location, Date cert_exp_date) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;
         this.emailAddress = emailAddress;
+        this.name = name;
+        this.surname = surname;
+        this.userBirthDate = userBirthDate;
+        this.certWorkLangs = certWorkLangs;
+        this.active_cert_location = active_cert_location;
+        this.cert_exp_date = cert_exp_date;
+    }
+
+
+    public Date getUserBirthDate() {
+        return userBirthDate;
+    }
+
+    public void setUserBirthDate(Date userBirthDate) {
+        this.userBirthDate = userBirthDate;
+    }
+
+    public String getCertWorkLangs() {
+        return certWorkLangs;
+    }
+
+    public void setCertWorkLangs(String certWorkLangs) {
+        this.certWorkLangs = certWorkLangs;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getUsername() {

@@ -34,21 +34,12 @@ $(document).ready(function() {
                 $("#atf4").prop("checked", false);
              },
              error: function(errorThrown){
-                console.log(errorThrown);
                 alert("Error while adding question.");
              }
          })
     });
     $('#headers').load('/html/components/header.html');
 
-    //[Vlad comment @06.11.2016]
-    // IDK wtf is this stuff
-    // imo this all bullshit :/
-    //          ||
-    //          ||
-    //          \/
-
-    // siin teha eraldi kaks identiti õigete ja valede vastuste jaoks
     var max_fields      = 5; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
@@ -65,9 +56,6 @@ $(document).ready(function() {
         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
-    //          /\
-    //          ||
-    //          ||
 });
 
 function getData(){

@@ -25,7 +25,15 @@ $(document).on("submit", "#registerForm", function(event){
     event.preventDefault();
 
     var cookie = JSON.parse($.cookie('CSRF'));
-    var data = 'username=' + $('#usernameRegister').val() + '&password=' + $('#passwordRegister').val() + '&email=' + $('#emailRegister').val();
+    var data = 'username=' + $('#usernameRegister').val() +
+    '&password=' + $('#passwordRegister').val() +
+    '&email=' + $('#emailRegister').val() +
+    '&name=' + $('#nameRegister').val() +
+    '&surname=' + $('#surnameRegister').val() +
+    '&userBirthDate=' + $('#dateOfBirthRegister').val() +
+    '&certWorkLangs=' + $('#certWorkLangRegister').val() +
+    '&active_cert_location=' + $('#certMarkLoc').val() +
+    '&cert_exp_date=' + $('#certExpirationDateRegister').val();
     var data2 = 'username=' + $('#usernameRegister').val() + '&password=' + $('#passwordRegister').val();
     $.ajax({
         data: data,
@@ -74,3 +82,7 @@ $(document).on("submit", "#registerForm", function(event){
         }
             password.onchange = validatePassword;
             confirm_password.onkeyup = validatePassword;
+
+//"adaf sdf asdf"
+//var langs = document.getElementById("certWorkLangRegister").val();
+//var langsList = langs.split(" ");

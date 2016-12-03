@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Text input-->
+                                <!-- Username input-->
                                 <div class="control-group">
                                     <label class="control-label" for="username"></label>
                                     <div class="controls">
@@ -78,6 +78,7 @@
                                     <label class="control-label" for="EmailRegister">Email</label>
                                     <div class="controls">
                                         <input type="email" id="emailRegister" class="form-control input-large"
+                                               name="emailRegister"
                                                placeholder="example@mail.com"
                                                pattern="^(([a-zA-Z]|[0-9])|([-]|[_]|[.]))+[@](([a-zA-Z0-9])|([-])){2,63}[.](([a-zA-Z0-9]){2,63})+$"
                                                data-error="Please enter valid email address" required>
@@ -96,9 +97,78 @@
                                     <label class="control-label" for="usernameRegister">Username</label>
                                     <div class="controls">
                                         <input id="usernameRegister" class="form-control input-large" type="text"
-                                               placeholder="Username" required
+                                               name="usernameRegister"
+                                               placeholder="username"
                                                pattern="^(?=.*[a-zA-Z]{1,})(?=.*[\d]{0,})[a-zA-Z0-9]{3,15}$"
-                                               data-error="Username must be 3-15 characters">
+                                               data-error="Username must be 3-15 characters" required>
+                                    </div>
+                                </div>
+
+                                <!--Name-->
+                                <div class="control-group">
+                                    <label class="control-label" for="nameRegister">Name</label>
+                                    <div class="controls">
+                                        <input id="nameRegister" class="form-control input-large" type="text"
+                                               name="nameRegister"
+                                               placeholder="name"
+                                               pattern="([a-zõüäöA-ZÕÜÄÖ-]{2,30}\s*)+"
+                                               data-error="Name contains illegal symbols" required>
+                                    </div>
+                                </div>
+
+                                <!--Surname-->
+                                <div class="control-group">
+                                    <label class="control-label" for="surnameRegister">Surname</label>
+                                    <div class="controls">
+                                        <input id="surnameRegister" class="form-control input-large" type="text"
+                                               name="surnameRegister"
+                                               placeholder="surname"
+                                               pattern="([a-zõüäöA-ZÕÜÄÖ-]{3,30}\s*)+"
+                                               data-error="Surname contains illegal symbols" required>
+                                    </div>
+                                </div>
+
+                                <!--Date of birth-->
+                                <div class="control-group">
+                                    <label class="control-label" for="dateOfBirthRegister">Date of birth</label>
+                                    <div class="controls">
+                                        <input id="dateOfBirthRegister" class="form-control input-large"
+                                               name="dateOfBirthRegister" type="date"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <!--Location marked on the active work certificate-->
+                                <div class="control-group">
+                                    <label class="control-label" for="certMarkLoc">Active certificate location</label>
+                                    <div class="controls">
+                                        <input id="certMarkLoc" class="form-control input-large" type="text"
+                                               name="certMarkLoc"
+                                               placeholder="location of the active work certificate"
+                                               pattern="([a-zõüäöA-ZÕÜÄÖ-]{3,30}\s*)+"
+                                               data-error="Location contains illegal symbols" required>
+                                    </div>
+                                </div>
+
+                                <!--Certificate expiration date-->
+                                <div class="control-group">
+                                    <label class="control-label" for="certExpirationDateRegister">Certificate expiration date</label>
+                                    <div class="controls">
+                                        <input id="certExpirationDateRegister" class="form-control input-large"
+                                               name="certExpirationDateRegister" type="date"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <!--Certified working languages-->
+                                <div class="control-group">
+                                    <label class="control-label" for="certWorkLangRegister">Certified working languages</label>
+                                    <div class="controls">
+                                        <input id="certWorkLangRegister" class="form-control input-large" type="text"
+                                               name="certWorkLangRegister"
+                                               placeholder="example:'estonian finnish german'"
+                                               pattern="([a-zõüäöA-ZÕÜÄÖ- ]{3,30}\s*)+"
+                                               data-error="Languages contain illegal symbols" required>
                                     </div>
                                 </div>
 
@@ -107,9 +177,10 @@
                                     <label class="control-label" for="passwordRegister">Password</label>
                                     <div class="controls">
                                         <input id="passwordRegister" class="form-control input-large" type="password"
+                                               name="passwordRegister"
                                                placeholder="password"
-                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$" required
-                                               title="Minimum of 6 characters, 1 uppercase letter and 1 number">
+                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$"
+                                               title="Minimum of 6 characters, 1 uppercase letter and 1 number" required>
                                     </div>
                                     <div class="help-block">Minimum of 6 characters</div>
                                 </div>
@@ -117,9 +188,9 @@
                                 <!-- Password2 input-->
                                 <div class="control-group">
                                     <div class="controls">
-                                        <input id="passwordRegister2" required class="form-control input-large"
-                                               name="passwordRegister2" type="password" placeholder="Confirm password"
-                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$">
+                                        <input id="passwordRegister2" class="form-control input-large"
+                                               name="passwordRegister2" type="password" placeholder="confirm password"
+                                               pattern="^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$" required>
                                     </div>
                                 </div>
 
