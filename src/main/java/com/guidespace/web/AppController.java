@@ -3,6 +3,7 @@ package com.guidespace.web;
 import com.guidespace.domain.*;
 import com.guidespace.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +37,11 @@ public class AppController {
 
     @Autowired
     private ClassificatorService classificatorService;
+
+    @Value("${exam.limit}")
+    private int timeLimit;
+
+
 
 
     @RequestMapping("/")
@@ -80,6 +86,11 @@ public class AppController {
                 !(authentication instanceof AnonymousAuthenticationToken);
     }
 
+    @RequestMapping(value = "/time", method = RequestMethod.GET)
+    @ResponseBody
+    public int timeLimit() {
+        return timeLimit;
+    }
 
     @RequestMapping(value = "/isAdmin", method = RequestMethod.GET)
     @ResponseBody
@@ -139,6 +150,7 @@ public class AppController {
     @RequestMapping(value = "/giveUnverifiedToSomeone", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public String isAuthenticated11(@RequestBody Long id) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person leo = userService.getUser(id);
         leo.setUser_role_id(1);
@@ -179,6 +191,42 @@ public class AppController {
     }
 
 
+    @RequestMapping(value = "/isTest", method = RequestMethod.GET)
+    @ResponseBody
+    public String isAuthenticated3() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().toString();
+    }
+
+    @RequestMapping(value = "/giveVerified", method = RequestMethod.GET)
+    @ResponseBody
+    public String isAuthenticated4() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        leo.setUser_role_id(4);
+        userService.update(leo);
+        return authentication.getAuthorities().toString();
+    }
+
+    @RequestMapping(value = "/giveUnverified", method = RequestMethod.GET)
+    @ResponseBody
+    public String isAuthenticated1() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        leo.setUser_role_id(1);
+        userService.update(leo);
+        return authentication.getAuthorities().toString();
+    }
+
+    @RequestMapping(value = "/giveQuestionAdder", method = RequestMethod.GET)
+    @ResponseBody
+    public String isAuthenticated6() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        leo.setUser_role_id(6);
+        userService.update(leo);
+        return authentication.getAuthorities().toString();
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -238,7 +286,7 @@ public class AppController {
     public ArrayList<HashMap<String, String>> getExaminations() {
         ArrayList<HashMap<String, String>> r = new ArrayList<HashMap<String,String>>();
         for(Examination e: examinationService.getExaminations()){
-           HashMap<String, String> map = new HashMap<>();
+            HashMap<String, String> map = new HashMap<>();
             map.put("id", e.getId().toString());
             map.put("startdate", e.getStart_date().toString());
             map.put("enddate", e.getEnd_date().toString());
