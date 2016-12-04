@@ -24,7 +24,7 @@ $('#examregNavbar').on('click', function(event) {
 });
 $('#examNavbar').on('click', function(event) {
     if (isAuth() == "true") {
-        window.location = '//exam';
+        window.location = '/exam';
     } else {
         displayLoginWindow();
     }
