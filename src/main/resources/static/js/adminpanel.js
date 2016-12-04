@@ -7,7 +7,6 @@ $(document).ready(function() {
             opt.innerHTML = result[i].username;
             $('#userSelection').append(opt);
         }
-        console.log(perSel());
     }});
     var submit = $('#changePermissions');
         submit.click(function() {

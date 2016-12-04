@@ -18,6 +18,8 @@ public class ExaminationService {
 
     public void addExamination(Examination e){examinationRepository.save(e);}
 
+    public void deleteExamination(Examination e){examinationRepository.delete(e);}
+
     public List<Examination> getExaminations(){return examinationRepository.findAll();}
 
     public Examination getById(Long id){return examinationRepository.findById(id);}

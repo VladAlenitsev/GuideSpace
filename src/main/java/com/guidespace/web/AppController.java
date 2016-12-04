@@ -1,9 +1,6 @@
 package com.guidespace.web;
 
-import com.guidespace.domain.Classificator;
-import com.guidespace.domain.ExamQuestion;
-import com.guidespace.domain.ExamQuestionAnswer;
-import com.guidespace.domain.Person;
+import com.guidespace.domain.*;
 import com.guidespace.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +27,9 @@ public class AppController {
 
     @Autowired
     private ExamQuestionService examQuestionService;
+
+    @Autowired
+    private ExaminationService examinationService;
 
     @Autowired
     private ExamQuestionAnswerService examQuestionAnswerService;
@@ -62,6 +63,8 @@ public class AppController {
         return "html/exam.html";
     }
 
+    @RequestMapping("/examreg")
+    public String examreg(){ return "html/examreg.html"; }
 
     @RequestMapping("/question")
     public String question() {
@@ -88,13 +91,6 @@ public class AppController {
         }
         return false;
     }
-
-//    @RequestMapping(value = "/isAdmin", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Boolean isAdmin() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
-//    }
 
     @RequestMapping(value = "/isVerified", method = RequestMethod.GET)
     @ResponseBody
@@ -263,6 +259,56 @@ public class AppController {
         System.out.println("Hibernate: New exam question saved. Question id: " + q.getId());
     }
 
+    @RequestMapping(value = "/addExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void addExamination(@RequestBody Map<String, String> params) throws ParseException {
+
+        Examination e = new Examination(params.get("startdate"), params.get("enddate"));
+        e.setClassif_id(Long.valueOf(params.get("classif")));
+        e.setIs_open(false);
+        examinationService.addExamination(e);
+        System.out.println("Hibernate: New examination saved. Examination id: " + e.getId());
+    }
+
+    @RequestMapping(value = "/getExaminations", method = {RequestMethod.GET} , produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<HashMap<String, String>> getExaminations() {
+        ArrayList<HashMap<String, String>> r = new ArrayList<HashMap<String,String>>();
+        for(Examination e: examinationService.getExaminations()){
+           HashMap<String, String> map = new HashMap<>();
+            map.put("id", e.getId().toString());
+            map.put("startdate", e.getStart_date().toString());
+            map.put("enddate", e.getEnd_date().toString());
+            map.put("participants", e.getParticipants_amount().toString());
+            map.put("classif_id", e.getClassif_id().toString());
+            map.put("classif_name", classificatorService.getClassifById(e.getClassif_id()).getClassif_name());
+            map.put("is_open", e.getIs_open().toString());
+            r.add(map);
+        }
+        return r;
+    }
+
+    @RequestMapping(value = "/startExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void startExamination(@RequestBody Map<String, String> params) throws ParseException {
+        Examination e = examinationService.getById(Long.valueOf(params.get("id")));
+        e.setIs_open(true);
+        examinationService.addExamination(e);
+    }
+
+    @RequestMapping(value = "/closeExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void closeExamination(@RequestBody Map<String, String> params) throws ParseException {
+        Examination e = examinationService.getById(Long.valueOf(params.get("id")));
+        e.setIs_open(false);
+        examinationService.addExamination(e);
+    }
+
+    @RequestMapping(value = "/deleteExamination", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void deleteExamination(@RequestBody Map<String, String> params) throws ParseException {
+        examinationService.deleteExamination(examinationService.getById(Long.valueOf(params.get("id"))));
+    }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -279,7 +325,7 @@ public class AppController {
     public ArrayList<Classificator> getClassificators() {
         ArrayList<Classificator> result = new ArrayList<Classificator>();
         for (Classificator eq : classificatorService.getClassificators()) {
-            if(eq.getId() != 506) result.add(eq); //classif 'General Question' with id=506 added by default
+            result.add(eq);
         }
         return result;
     }
@@ -318,6 +364,18 @@ public class AppController {
         return result;
     }
 
+    /**
+     * this method use for developing adding
+     * classificator
+     * question
+     * answer
+     * etc
+     * to local database which is blown up after app restart
+     *
+     * keep method empty on master & heroku or if you
+     * don't want to add anything
+     *
+     * */
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
@@ -412,8 +470,9 @@ public class AppController {
                 }
             } else counter += 1;
         }
-        return "Valesti vastatuid on: " + Integer.toString(counter);
+        return "Wrong answers: " + Integer.toString(counter);
     }
+
 
 
 }
