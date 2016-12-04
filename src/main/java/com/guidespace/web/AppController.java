@@ -378,6 +378,8 @@ public class AppController {
         return userService.getUser(username);
     }
 
+
+
     @RequestMapping(value = "/getAllQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public HashMap<String, List<String>> getAllQuestions() {
@@ -385,12 +387,12 @@ public class AppController {
         HashMap<String, List<String>> uus = new HashMap<>();
         for (ExamQuestion eq : examQuestionService.getQuestions()) {
             if(Objects.equals(eq.getClassificator().getId(), exam.getClassif_id())) {
-            ArrayList<String> result = new ArrayList<String>();
-            for (ExamQuestionAnswer eq2 : eq.getAnswers()) {
-                result.add(eq2.getAnswer());
+                ArrayList<String> result = new ArrayList<String>();
+                for (ExamQuestionAnswer eq2 : eq.getAnswers()) {
+                    result.add(eq2.getAnswer());
+                }
+                uus.put(eq.getQuestion(), result);
             }
-            uus.put(eq.getQuestion(), result);
-        }
         }
         return uus;
     }
