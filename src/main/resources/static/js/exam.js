@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
     var submit = $('#checkAnswers');
+    var submit2 = $('#start');
     $.ajax({
         url: "/getAll", success: function (result) {
             var radioInput;
@@ -21,15 +22,21 @@ jQuery(document).ready(function($) {
                         radioInput.setAttribute('name', list[j]);
                         label.appendChild(radioInput);
                         label.innerHTML += list[j];
+                        var lineBr = document.createElement("br");
                         ul.appendChild(label);
+                        ul.appendChild(lineBr);
                     }
                     div.appendChild(ul);
                 }
             }
         }
     });
-
+    $("#questions").css("display","none");
+    $("#checkAnswers").css("display","none");
     submit.click(function () {
+        sendAnswers();
+    });
+    function sendAnswers(){
         var map = {};
         var x = document.getElementById("questions").querySelectorAll("ul");
         for (s = 0; s < x.length; s++) {
@@ -57,5 +64,60 @@ jQuery(document).ready(function($) {
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert("Failed");
         });
+
+    }
+
+    var Timer;
+    var TotalSeconds;
+    var myVar;
+
+    $.ajax({
+        url: "/time", success: function (result) {
+            myVar = result;
+        }
     });
+
+    submit2.click(function () {
+        $("#questions").css("display","block");
+        $("#checkAnswers").css("display","block");
+        submit2.css("display","none");
+        CreateTimer(myVar);
+    });
+
+
+    function CreateTimer(Time)
+    {
+        TotalSeconds = Time;
+        UpdateTimer();
+        alert(TotalSeconds+"create");
+        Tick();
+    }
+
+    function Tick() {
+        console.log(TotalSeconds);
+        TotalSeconds -= 1;
+        if(TotalSeconds ==-1)
+        {
+            alert("Time Up");
+            sendAnswers();
+            // Show alert Plus redirect any other page
+        }
+        else
+        {
+            UpdateTimer();
+            setTimeout(function(){Tick();}, 1000);
+
+        }
+    }
+
+    function UpdateTimer() {
+
+        if (TotalSeconds > 60) {
+            var rounded = Math.floor(TotalSeconds/60);
+            document.getElementById("showTime").innerHTML = "Time Left: "+rounded.toString() + ":" + (TotalSeconds-(rounded*60)).toString();
+        } else {
+            document.getElementById("showTime").innerHTML = "Time Left: "+TotalSeconds.toString();
+        }
+
+    }
 });
