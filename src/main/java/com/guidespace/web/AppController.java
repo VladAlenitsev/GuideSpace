@@ -491,6 +491,7 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() throws ParseException {
+        /**
         Classificator classifi = new Classificator("type1","code2","name3");
         classificatorService.save(classifi);
         Examination e = new Examination("29-06-2016 10:30", "29-06-2016 11:30");
@@ -566,6 +567,6 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed1);
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
-         examQuestionAnswerService.addQuestionAnswer(ed4);
+         examQuestionAnswerService.addQuestionAnswer(ed4);*/
     }
 }
