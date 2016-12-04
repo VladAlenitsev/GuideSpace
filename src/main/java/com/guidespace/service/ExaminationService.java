@@ -23,4 +23,14 @@ public class ExaminationService {
     public List<Examination> getExaminations(){return examinationRepository.findAll();}
 
     public Examination getById(Long id){return examinationRepository.findById(id);}
+
+    public Examination getOpenedExam(){
+        List<Examination> exams = getExaminations();
+        for(Examination ex : exams){
+            if(ex.getIs_open()){
+                return ex;
+            }
+        }
+        return null;
+    }
 }

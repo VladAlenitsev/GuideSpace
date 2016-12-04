@@ -31,9 +31,11 @@ public class ExamResult extends BaseEntity{
 
     public ExamResult(){}
 
-    public ExamResult(Boolean b, Integer s){
+    public ExamResult(Boolean b, Integer s, Person p, Examination e){
         this.passed = b;
         this.score = s;
+        this.person = p;
+        this.examination = e;
     }
 
     public Boolean getPassed() {
