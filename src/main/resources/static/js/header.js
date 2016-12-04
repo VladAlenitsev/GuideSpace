@@ -24,7 +24,17 @@ $('#examregNavbar').on('click', function(event) {
 });
 $('#examNavbar').on('click', function(event) {
     if (isAuth() == "true") {
-        window.location = '//exam';
+        $.ajax({
+            url: "/examDone", success: function (result) {
+                if(result==true){
+                    window.location = '/exam';
+                }
+                else{
+                    alert("You have already done that exam!");
+                }
+
+            }});
+
     } else {
         displayLoginWindow();
     }
