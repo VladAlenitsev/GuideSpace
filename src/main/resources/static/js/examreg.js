@@ -33,7 +33,7 @@ $(document).ready(function() {
             type: 'POST',
             url: '/addExamination',
             success: function(data){
-                $.notify("Exam has been added successfully", "success");
+                $.notify("Exam has been added successfully.", "success");
                 location.reload();
             },
             error: function(errorThrown){
@@ -79,7 +79,7 @@ $(document).ready(function() {
                 document.getElementById("outputDiv").innerHTML = "Exam has been closed.";
             },
             error: function(errorThrown){
-                console.log(errorThrown)
+                console.log(errorThrown);
                 document.getElementById("outputDiv").innerHTML = "Couldn't close the exam.";
             }
         })

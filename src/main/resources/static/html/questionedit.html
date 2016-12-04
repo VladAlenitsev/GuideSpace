@@ -20,6 +20,7 @@
 <div id="headers"></div>
 
 <div>
+    <input id="classifadd" type="button" value="add classif">
     <h1>Edit Question:</h1>
     <input type="text" id="searchtext">
     <input type="submit" id="submitsearch" value="Search">
@@ -28,6 +29,42 @@
         <select id="questionSelection" name="selection" size="6">
         </select>
     </div>
+
+    <input type="submit" id="edit" value="Edit">
+
+    <label for="question"><br/>
+        <span>Question:</span><br/>
+        <input id="question" type="text" placeholder="Choose question to edit." required><br/>
+        <select id="classificatorSelection" name="selection">
+        </select>
+    </label>
+    <label>
+        <span>Answers:</span><br/>
+        <div class="input_fields_wrap">
+            <div>
+                <input id="answer1" type="text" name="answer" placeholder="First answer should be here">
+                <input id='atf1' type="checkbox" name="aTF" value="correct">
+                Is CORRECT answer<br/>
+            </div>
+            <div>
+                <input id="answer2" type="text" name="answer" placeholder="Second answer should be here">
+                <input id='atf2' type="checkbox" name="aTF" value="correct">
+                Is CORRECT answer<br/>
+            </div>
+            <div>
+                <input id="answer3" type="text" name="answer" placeholder="Third answer should be here">
+                <input id='atf3' type="checkbox" name="aTF" value="correct">
+                Is CORRECT answer<br/>
+            </div>
+            <div>
+                <input id="answer4" type="text" name="answer" placeholder="Fourth answer should be here">
+                <input id='atf4' type="checkbox" name="aTF" value="correct">
+                Is CORRECT answer<br/>
+            </div>
+            <p></p>
+            <input style="color:black" type="button" value="Save changes" id="saveQuestion" name="addQuestion" />
+        </div>
+    </label>
 
 </div>
 

@@ -378,7 +378,25 @@ public class AppController {
         return userService.getUser(username);
     }
 
+    @RequestMapping(value = "/findQuestionById", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<String> findQuestionById() {
+        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(1));
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add(eq.getId().toString());
+        lst.add(eq.getQuestion());
 
+    }
+
+    @RequestMapping(value = "/findAllQuestions", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public HashMap<String, Long> findAllQuestions(@RequestBody String searchString) {
+        HashMap<String, Long> m = new HashMap<>();
+        for(ExamQuestion eq: examQuestionService.getQuestions()) {
+            if(eq.getQuestion().contains(searchString)) m.put(eq.getQuestion(), eq.getId());
+        }
+        return m;
+    }
 
     @RequestMapping(value = "/getAllQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
