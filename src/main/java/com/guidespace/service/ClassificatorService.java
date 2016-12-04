@@ -16,6 +16,8 @@ public class ClassificatorService {
     @Autowired
     private ClassificatorRepository classificatorRepository;
 
+    public void  save(Classificator c){ classificatorRepository.save(c);}
+
     public void addClassificator(Classificator c){classificatorRepository.save(c);}
 
     public List<Classificator> getClassificators(){return classificatorRepository.findAll();}
