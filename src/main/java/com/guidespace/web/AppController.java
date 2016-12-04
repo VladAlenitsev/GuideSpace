@@ -1,6 +1,7 @@
 package com.guidespace.web;
 
 import com.guidespace.domain.*;
+import com.guidespace.repository.UserRepository;
 import com.guidespace.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -22,6 +23,9 @@ public class AppController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ExamQuestionService examQuestionService;
@@ -68,6 +72,9 @@ public class AppController {
     public String question() {
         return "html/question.html";
     }
+
+    @RequestMapping("/questionedit")
+    public String questionedit(){return "html/guestionedit.html";}
 
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
@@ -388,7 +395,14 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-        /**
+
+        //Admin123 Admin123
+        Person p = new Person("Admin123", "fY6ITvPFf/+aY8+0XiuTjCkI+cGT1uIJM1lVweLN4gXFpHTUepJFJVRQEp37OoF7/F+ve6FWoV2DbLx5yFEX6w==",
+                "12nkMg7gZbVWn8WqODi3DcrU46yZ3EWbUvh/miAlHHE=", "admin@gmail.com",
+                "admin", "surname", new Date(), "wurk lengs", "activ cert locs", new Date());
+        p.setUser_role_id(2);
+        userRepository.save(p);
+
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
          ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus(first 2 are correct)");
@@ -456,7 +470,7 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed1);
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
-         examQuestionAnswerService.addQuestionAnswer(ed4);*/
+         examQuestionAnswerService.addQuestionAnswer(ed4);
     }
 
 
