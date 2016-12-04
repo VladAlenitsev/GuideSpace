@@ -36,6 +36,8 @@ public class AppController {
     @Autowired
     private ClassificatorService classificatorService;
 
+    @Autowired
+    private ExamResultService examResultService;
     @Value("${exam.limit}")
     private int timeLimit;
 
@@ -134,6 +136,14 @@ public class AppController {
         return false;
     }
 
+    @RequestMapping(value = "/examDone", method = RequestMethod.GET)
+    @ResponseBody
+    public Boolean isDone() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        return examResultService.isNotDone(leo);
+    }
+
     @RequestMapping(value = "/giveAdminToSomeone", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public String isAuthenticated22(@RequestBody Long id) {
@@ -155,6 +165,9 @@ public class AppController {
         userService.update(leo);
         return authentication.getAuthorities().toString();
     }
+
+
+
 
     @RequestMapping(value = "/giveVerifiedToSomeone", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
@@ -362,14 +375,17 @@ public class AppController {
 
     @RequestMapping(value = "/getAll", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public HashMap<String, List<String>> getAll() {
+    public HashMap<String, List<String>> getAllQuestions() {
+        Examination exam = examinationService.getOpenedExam();
         HashMap<String, List<String>> uus = new HashMap<>();
         for (ExamQuestion eq : examQuestionService.getQuestions()) {
+            if(Objects.equals(eq.getClassificator().getId(), exam.getClassif_id())) {
             ArrayList<String> result = new ArrayList<String>();
             for (ExamQuestionAnswer eq2 : eq.getAnswers()) {
                 result.add(eq2.getAnswer());
             }
             uus.put(eq.getQuestion(), result);
+        }
         }
         return uus;
     }
@@ -396,9 +412,18 @@ public class AppController {
      * don't want to add anything
      *
      * */
+
+
     @RequestMapping(value = "/addQuests")
     @ResponseBody
-    public void addQuests() {
+    public void addQuests() throws ParseException {
+//        Classificator classifi = new Classificator("type1","code2","name3");
+//        classif.save(classifi);
+//        Examination e = new Examination("29-06-2016 10:30", "29-06-2016 11:30");
+//        e.setClassif_id(classifi.getId());
+//        e.setIs_open(true);
+//        examinationService.addExamination(e);
+//        System.out.println("Hibernate: New examination saved. Examination id: " + e.getId());
         /**
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
@@ -471,7 +496,7 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/listTest", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/userAnsw", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public String getValues(@RequestBody Map<String, List<String>> hmap) {
         int size = hmap.size();
@@ -490,7 +515,20 @@ public class AppController {
                 }
             } else counter += 1;
         }
-        return "Wrong answers: " + Integer.toString(counter);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        Examination ex = examinationService.getOpenedExam();
+        Integer passPercent = Math.round(((hmap.size()-counter)/hmap.size())*100);
+        ExamResult examResult;
+        if(!examResultService.isNotDone(leo)) return "You have already done that exam!";
+        if(passPercent>75){
+            examResult = new ExamResult(true,passPercent,leo,ex);
+            examResultService.save(examResult);
+            return "Good Job! You passed! You got: "+passPercent+"%";
+    }
+        examResult = new ExamResult(false,passPercent,leo,ex);
+        examResultService.save(examResult);
+        return "Sorry, but you did not pass. You got: "+passPercent+"%";
     }
 
 

@@ -1,32 +1,44 @@
 jQuery(document).ready(function($) {
     var submit = $('#checkAnswers');
     var submit2 = $('#start');
+    submit2.css("display","none");
     $.ajax({
-        url: "/getAll", success: function (result) {
-            var radioInput;
-            for (var i = 0, keys = Object.keys(result), ii = keys.length; i < ii; i++) {
-                console.log('key : ' + keys[i] + ' val : ' + result[keys[i]]);
-                var fileName = keys[i];
+        url: "/getAllQuestions", success: function (result) {
+            if (jQuery.isEmptyObject(result)) {
+                $("#questions").css("display", "block");
                 var div = document.getElementById("questions");
                 var p = document.createElement("h4");
-                var ul = document.createElement("ul");
-                ul.setAttribute('name', keys[i]);
-                p.appendChild(document.createTextNode(fileName));
-                ul.appendChild(p);
-                if (result[keys[i]] != '') {
-                    var list = result[keys[i]];
-                    for (j = 0; j < list.length; j++) {
-                        var label = document.createElement("label");
-                        radioInput = document.createElement('input');
-                        radioInput.setAttribute('type', 'checkbox');
-                        radioInput.setAttribute('name', list[j]);
-                        label.appendChild(radioInput);
-                        label.innerHTML += list[j];
-                        var lineBr = document.createElement("br");
-                        ul.appendChild(label);
-                        ul.appendChild(lineBr);
+                p.innerHTML = "Ühtegi eksamit pole hetkel avatud";
+                p.setAttribute("style","color:red");
+                div.appendChild(p);
+            }
+            else {
+                submit2.css("display", "block");
+                var radioInput;
+                for (var i = 0, keys = Object.keys(result), ii = keys.length; i < ii; i++) {
+                    console.log('key : ' + keys[i] + ' val : ' + result[keys[i]]);
+                    var fileName = keys[i];
+                    var div = document.getElementById("questions");
+                    var p = document.createElement("h4");
+                    var ul = document.createElement("ul");
+                    ul.setAttribute('name', keys[i]);
+                    p.appendChild(document.createTextNode(fileName));
+                    ul.appendChild(p);
+                    if (result[keys[i]] != '') {
+                        var list = result[keys[i]];
+                        for (j = 0; j < list.length; j++) {
+                            var label = document.createElement("p");
+                            radioInput = document.createElement('input');
+                            radioInput.setAttribute('type', 'checkbox');
+                            radioInput.setAttribute('name', list[j]);
+                            label.appendChild(radioInput);
+                            label.innerHTML += list[j];
+                            var lineBr = document.createElement("br");
+                            ul.appendChild(label);
+                            ul.appendChild(lineBr);
+                        }
+                        div.appendChild(ul);
                     }
-                    div.appendChild(ul);
                 }
             }
         }
@@ -56,10 +68,11 @@ jQuery(document).ready(function($) {
             timeout: 5000,
             contentType: "application/json",
             type: 'POST',
-            url: '/listTest'
+            url: '/userAnsw'
 
         }).done(function (data, textStatus, jqXHR) {
             alert(data);
+            window.location = "/";
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert("Failed");
@@ -78,7 +91,7 @@ jQuery(document).ready(function($) {
     });
 
     submit2.click(function () {
-        $("#questions").css("display","block");
+        $("#questions").css("display","inline-block");
         $("#checkAnswers").css("display","block");
         submit2.css("display","none");
         CreateTimer(myVar);
@@ -89,12 +102,10 @@ jQuery(document).ready(function($) {
     {
         TotalSeconds = Time;
         UpdateTimer();
-        alert(TotalSeconds+"create");
         Tick();
     }
 
     function Tick() {
-        console.log(TotalSeconds);
         TotalSeconds -= 1;
         if(TotalSeconds ==-1)
         {

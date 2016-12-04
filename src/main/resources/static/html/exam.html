@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>GuideSpace</title>
+    <link rel="stylesheet" href="/css/exam.css">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
@@ -21,12 +22,15 @@
     <img class="logo" src="images/sublogo_min.png" alt="">
 </div>
 <div id="headers"></div>
-
-<div id="questions">
+<p id="showTime" style="color:red;font-size:24px;"></p>
+<div style="text-align: center;">
+<div id="questions" style="display: inline-block; text-align: left">
 </div>
-<input type="button" value="Check answers" id="checkAnswers" name="checkAnswers" />
-<input type="button" value="Start" id="start" name="Start" />
-<p id="showTime" style="color:red"></p>
+</div>
+<div id="buttons" align="center">
+<input type="button" class="btn btn-success" value="Check answers" id="checkAnswers" name="checkAnswers" />
+<input type="button" class="btn btn-success" value="Start" id="start" name="Start" />
+</div>
 
 </body>
 </html>
