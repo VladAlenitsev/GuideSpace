@@ -7,17 +7,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
+mport java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.List;import java.text.SimpleDateFormat;
+import java.util.*;import java.text.DateFormat;
 
 @Controller
 public class AppController {
@@ -217,10 +213,14 @@ public class AppController {
         return authentication.getAuthorities().toString();
     }
 
+
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public void authenticate(String username, String password, String email) throws DuplicateEmailException, DuplicateUsernameException {
-        userService.register(username, password, email);
+    public void authenticate(String username, String password, String email, String name, String surname,
+                             String userBirthDate, String certWorkLangs, String active_cert_location,
+                             String cert_exp_date) throws Exception {
+        userService.register(username, password, email, name, surname, userBirthDate, certWorkLangs, active_cert_location, cert_exp_date);
     }
 
     @RequestMapping(value = "/getAnswers", method = RequestMethod.POST)
@@ -320,6 +320,14 @@ public class AppController {
         return result;
     }
 
+    @RequestMapping(value = "/getPerson?{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public Person getByUsername(
+            @PathVariable("id") Long id) {
+//            @RequestParam(value = "id") Long id) {
+        return userService.getUser(id);
+    }
+
     @RequestMapping(value = "/getClassificators", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<Classificator> getClassificators() {
@@ -358,8 +366,8 @@ public class AppController {
     @ResponseBody
     public ArrayList<String> getUsers() {
         ArrayList<String> result = new ArrayList<String>();
-        for (Person eq : userService.getUsers()) {
-            result.add(eq.getUsername());
+        for (Person p : userService.getUsers()) {
+            result.add(p.getUsername());
         }
         return result;
     }

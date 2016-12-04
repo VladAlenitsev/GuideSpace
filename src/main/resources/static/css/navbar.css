@@ -139,6 +139,10 @@ p{
 .kontakt{
     margin-left:20%;
 }
+#userSelection{
+   overflow:hidden;
+   overflow-y:scroll:
+}
 .leftpanel{
     background: #090a0a;
     margin: auto;
