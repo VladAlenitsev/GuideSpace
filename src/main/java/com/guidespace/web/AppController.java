@@ -1,6 +1,7 @@
 package com.guidespace.web;
 
 import com.guidespace.domain.*;
+import com.guidespace.repository.UserRepository;
 import com.guidespace.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,9 @@ public class AppController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ExamQuestionService examQuestionService;
@@ -74,6 +79,9 @@ public class AppController {
     public String question() {
         return "html/question.html";
     }
+
+    @RequestMapping("/questionedit")
+    public String questionedit(){return "html/questionedit.html";}
 
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
@@ -283,6 +291,45 @@ public class AppController {
         System.out.println("Hibernate: New exam question saved. Question id: " + q.getId());
     }
 
+    @RequestMapping(value = "/updateQuestion", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void updateQuestion(@RequestBody Map<String, List<String>> params) {
+        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(params.get("id").get(0)));
+        eq.setQuestion(params.get("question").get(0));
+        eq.setClassificator(classificatorService.getClassifById(Long.valueOf(params.get("classif").get(0))));
+
+        for(ExamQuestionAnswer eqa: eq.getAnswers()){
+            examQuestionAnswerService.deleteQuestionAnswer(eqa);
+        }
+
+        List<ExamQuestionAnswer> answers = new ArrayList<>();
+        for(String s: params.get("correctAnswers")){
+            answers.add(new ExamQuestionAnswer(true, s, eq));
+        }
+        for(String s: params.get("wrongAnswers")){
+            answers.add(new ExamQuestionAnswer(false, s, eq));
+        }
+        eq.setAnswers(answers);
+
+        examQuestionService.addQuestion(eq);
+        for (ExamQuestionAnswer a : answers) {
+            examQuestionAnswerService.addQuestionAnswer(a);
+        }
+        System.out.println("Hibernate: New exam question updated. Question id: " + eq.getId());
+
+    }
+
+    @RequestMapping(value = "/deleteQuestion", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void deleteQuestion(@RequestBody Map<String, List<String>> params) {
+        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(params.get("id").get(0)));
+        for(ExamQuestionAnswer eqa: eq.getAnswers()){
+            examQuestionAnswerService.deleteQuestionAnswer(eqa);
+        }
+        examQuestionService.deleteQuestion(eq);
+        System.out.println("Hibernate: exam question deleted.");
+    }
+
     @RequestMapping(value = "/addExamination", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public void addExamination(@RequestBody Map<String, String> params) throws ParseException {
@@ -371,6 +418,25 @@ public class AppController {
         return userService.getUser(username);
     }
 
+    @RequestMapping(value = "/findQuestionById/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ExamQuestion findQuestionById(
+            @PathVariable("id") String id) {
+        System.out.println(Long.valueOf(id));
+        System.out.println(Long.valueOf(id) instanceof Long);
+        return examQuestionService.getQuestionById(Long.valueOf(id));
+    }
+
+    @RequestMapping(value = "/findAllQuestions", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public HashMap<String, Long> findAllQuestions(@RequestBody String searchString) {
+        HashMap<String, Long> m = new HashMap<>();
+        for(ExamQuestion eq: examQuestionService.getQuestions()) {
+            if(eq.getQuestion().contains(searchString)) m.put(eq.getQuestion(), eq.getId());
+        }
+        return m;
+    }
+
     @RequestMapping(value = "/getAllQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public HashMap<String, List<String>> getAllQuestions() {
@@ -378,12 +444,12 @@ public class AppController {
         HashMap<String, List<String>> uus = new HashMap<>();
         for (ExamQuestion eq : examQuestionService.getQuestions()) {
             if(Objects.equals(eq.getClassificator().getId(), exam.getClassif_id())) {
-            ArrayList<String> result = new ArrayList<String>();
-            for (ExamQuestionAnswer eq2 : eq.getAnswers()) {
-                result.add(eq2.getAnswer());
+                ArrayList<String> result = new ArrayList<String>();
+                for (ExamQuestionAnswer eq2 : eq.getAnswers()) {
+                    result.add(eq2.getAnswer());
+                }
+                uus.put(eq.getQuestion(), result);
             }
-            uus.put(eq.getQuestion(), result);
-        }
         }
         return uus;
     }
@@ -406,28 +472,50 @@ public class AppController {
      * ,
      * ...
      * }
-     */
-    @RequestMapping(value = "/getAllQuestionsWithAnswers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+
+    @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> getAllQuestionsWithAnswer() {
-        HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> map = new HashMap<>();
+    public HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> findQuestionWithAnswers(
+            @PathVariable("id") String id)
+    {
+        HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> map = new HashMap<>();
         for (ExamQuestion eq : examQuestionService.getQuestions()) {
+            if (eq.getId().toString().equals(id)) {
+                HashMap<String, Long> key = new HashMap<>();
+                ArrayList<HashMap<String, Boolean>> val = new ArrayList<>();
 
-            ArrayList<String> key = new ArrayList<>();
-            ArrayList<ArrayList<String>> val = new ArrayList<>();
+                key.put(eq.getQuestion(), eq.getId());
 
-            key.add(eq.getQuestion());
-            key.add(eq.getId().toString());
-
-            for(ExamQuestionAnswer eqa: eq.getAnswers()){
-                ArrayList<String> answerComplect = new ArrayList<>();
-                answerComplect.add(eqa.getAnswer());
-                answerComplect.add(eqa.getIsCorrect().toString());
-                val.add(answerComplect);
+                for (ExamQuestionAnswer eqa : eq.getAnswers()) {
+                    HashMap<String, Boolean> answerComplect = new HashMap<>();
+                    answerComplect.put(eqa.getAnswer(), eqa.getIsCorrect());
+                    val.add(answerComplect);
+                }
+                map.put(key, val);
             }
-            map.put(key, val);
         }
         return map;
+    }*/
+
+    @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<String> findQuestionWithAnswers(@PathVariable("id") String id){
+        ArrayList<String> lst = new ArrayList<>();
+
+        for(ExamQuestion eq : examQuestionService.getQuestions()){
+            if(eq.getId().toString().equals(id)){
+
+                lst.add(eq.getId().toString());
+                lst.add(eq.getQuestion());
+                lst.add(eq.getClassificator().getId().toString());
+//[id, q, clas, an1, a1tf, ]
+                for(int i =0; i<4; i++) {
+                    lst.add(eq.getAnswers().get(i).getAnswer());
+                    lst.add(eq.getAnswers().get(i).getIsCorrect().toString());
+                }
+            }
+        }
+        return lst;
     }
 
     @RequestMapping(value = "/getUsers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
@@ -488,17 +576,28 @@ public class AppController {
      * don't want to add anything
      *
      * */
+
+    /**
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() throws ParseException {
-        /**
+
         Classificator classifi = new Classificator("type1","code2","name3");
         classificatorService.save(classifi);
+        Classificator classifii = new Classificator("1111t","2222c","3333n");
+        classificatorService.save(classifii);
         Examination e = new Examination("29-06-2016 10:30", "29-06-2016 11:30");
         e.setClassif_id(classifi.getId());
         e.setIs_open(true);
         examinationService.addExamination(e);
         System.out.println("Hibernate: New examination saved. Examination id: " + e.getId());
+
+        //Admin123 Admin123
+        Person p = new Person("Admin123", "fY6ITvPFf/+aY8+0XiuTjCkI+cGT1uIJM1lVweLN4gXFpHTUepJFJVRQEp37OoF7/F+ve6FWoV2DbLx5yFEX6w==",
+                "12nkMg7gZbVWn8WqODi3DcrU46yZ3EWbUvh/miAlHHE=", "admin@gmail.com",
+                "admin", "surname", new Date(), "wurk lengs", "activ cert locs", new Date());
+        p.setUser_role_id(2);
+        userRepository.save(p);
 
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
@@ -567,6 +666,6 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed1);
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
-         examQuestionAnswerService.addQuestionAnswer(ed4);*/
-    }
+         examQuestionAnswerService.addQuestionAnswer(ed4);
+    }*/
 }

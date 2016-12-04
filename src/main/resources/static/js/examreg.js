@@ -33,7 +33,7 @@ $(document).ready(function() {
             type: 'POST',
             url: '/addExamination',
             success: function(data){
-                $.notify("Exam has been added successfully", "success");
+                $.notify("Exam has been added successfully.", "success");
                 location.reload();
             },
             error: function(errorThrown){

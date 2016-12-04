@@ -29,10 +29,12 @@ jQuery(document).ready(function($) {
 
     // Navbari laadimine
 
-    $.ajax({url: "/addQuests", success: function(result){
-            console.log("loaded");
-        }
-    });
+
+//    $.ajax({url: "/addQuests", success: function(result){
+//        console.log("loaded");
+//        }
+//    });
+
 
 });
 

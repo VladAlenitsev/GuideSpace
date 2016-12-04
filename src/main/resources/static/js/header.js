@@ -40,6 +40,13 @@
             displayLoginWindow();
         }
     });
+$('#questioneditNavbar').on('click', function(event) {
+    if (isAuth() == "true") {
+        window.location = '/questionedit';
+    } else {
+        displayLoginWindow();
+    }
+});
 //    Navbaril login akna avamine
     $('#loginNavbar').on('click', function (event) {
         displayLoginWindow();
@@ -75,9 +82,11 @@
             hideAdminPanel();
             hideQuestion();
             hideManageExamination();
+        hideQuestionEdit();
         }
         else if (isQuestionAdder() == "true") {
             displayQuestion();
+        displayQuestionEdit();
             hideAdminPanel();
             hideExam();
             hideManageExamination();
@@ -85,14 +94,17 @@
         else if (isAdmin() == "true") {
             displayExam();
             displayQuestion();
+        displayQuestionEdit();
             displayAdminPanel();
             displayManageExamination();
+
         }
         else if (isUnVerified() == "true") {
             hideAdminPanel();
             hideQuestion();
             hideExam();
             hideManageExamination();
+        hideQuestionEdit();
         }
     }
 
@@ -101,6 +113,7 @@
         hideAdminPanel();
         hideQuestion();
         hideExam();
+    hideQuestionEdit();
         hideManageExamination();
     }
 
@@ -130,6 +143,10 @@
         $("#questionNavbar").css("display", "none");
     }
 
+function hideQuestionEdit() {
+    $("#questioneditNavbar").css("display", "none");
+}
+
     function hideAdminPanel() {
         $("#adminNavbar").css("display", "none")
     }
@@ -149,6 +166,10 @@
     function displayQuestion() {
         $("#questionNavbar").css("display", "block");
     }
+
+function displayQuestionEdit() {
+    $("#questioneditNavbar").css("display", "block");
+}
 
     function displayExam() {
         $("#examNavbar").css("display", "block");

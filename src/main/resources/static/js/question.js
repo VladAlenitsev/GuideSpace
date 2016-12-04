@@ -23,7 +23,6 @@ $(document).ready(function() {
              url: '/addQuestion',
              success: function(data){
                 $.notify("Questions has been added successfully", "success");
-                document.getElementById("outputDiv").innerHTML = "New question was added: " + question.val();
                 document.getElementById("question").value = "";
                 document.getElementById("answer1").value = "";
                 document.getElementById("answer2").value = "";
@@ -34,8 +33,9 @@ $(document).ready(function() {
                 $("#atf3").prop("checked", false);
                 $("#atf4").prop("checked", false);
              },
-             error: function(){
-                $.notify("There has been a problem with adding question. CONTACT ADMIN IMMEDIATELY", "error");
+             error: function(error){
+                console.log(error);
+                $.notify("There has been a problem with adding question.", "error");
              }
          })
     });

@@ -26,6 +26,8 @@ public class ExamQuestionService {
         return examQuestionRepository.findByQuestion(question).get(0);
     }
 
+    public void deleteQuestion(ExamQuestion e){examQuestionRepository.delete(e);}
+
     public ExamQuestion getQuestionById(Long id) {return examQuestionRepository.findById(id);}
 }
 

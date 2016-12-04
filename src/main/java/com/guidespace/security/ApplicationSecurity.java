@@ -33,7 +33,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/rest/**").authenticated();
         http.authorizeRequests().antMatchers("/question").hasAnyAuthority("ADMIN","INFOADDER");//TODO  Laseb url's ükskõik mis useriga läbi. Teha hasRole('someRoleHere');
-        http.authorizeRequests().antMatchers("/adminpanel","/examreg","/giveAdminToSomeone","/giveUnverifiedToSomeone","/giveVerifiedToSomeone","/giveQuestionAdderToSomeone").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("/adminpanel","/questionedit","/examreg","/giveAdminToSomeone","/giveUnverifiedToSomeone","/giveVerifiedToSomeone","/giveQuestionAdderToSomeone").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers("/exam").hasAnyAuthority("ADMIN","VERIFIED");
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.formLogin().successHandler(authenticationSuccessHandler);

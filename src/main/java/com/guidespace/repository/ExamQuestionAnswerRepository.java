@@ -15,4 +15,6 @@ public interface ExamQuestionAnswerRepository extends Repository<ExamQuestionAns
     List<ExamQuestionAnswer> findAll();
 
     ExamQuestionAnswer findById(Long id);
+
+    void delete(ExamQuestionAnswer examination);
 }
