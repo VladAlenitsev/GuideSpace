@@ -102,6 +102,7 @@ else {
     hideAdminPanel();
     hideQuestion();
     hideExam();
+    hideQuestionEdit();
     hideManageExamination();
 }
 

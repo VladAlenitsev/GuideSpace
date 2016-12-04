@@ -72,7 +72,7 @@ public class AppController {
     }
 
     @RequestMapping("/questionedit")
-    public String questionedit(){return "html/guestionedit.html";}
+    public String questionedit(){return "html/questionedit.html";}
 
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
