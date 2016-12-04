@@ -76,11 +76,11 @@ $(document).ready(function() {
             type: 'POST',
             url: '/closeExamination',
             success: function(data){
-                document.getElementById("outputDiv").innerHTML = "Exam has been closed.";
+                $.notify("Exam has been closed.", "success");
             },
             error: function(errorThrown){
-                console.log(errorThrown)
-                document.getElementById("outputDiv").innerHTML = "Couldn't close the exam.";
+                console.log(errorThrown);
+                $.notify("Couldn't close the exam.", "error");
             }
         })
     });
@@ -101,7 +101,7 @@ $(document).ready(function() {
             },
             error: function(errorThrown){
                 console.log(errorThrown)
-                document.getElementById("outputDiv").innerHTML = "Couldn't delete the exam.";
+                $.notify("Couldn't delete the exam.", "error");
             }
         })
     });

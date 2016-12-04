@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
             url: '/userAnsw'
 
         }).done(function (data, textStatus, jqXHR) {
-            alert(data);
+            $.notify(data, "success");
             window.location = "/";
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
