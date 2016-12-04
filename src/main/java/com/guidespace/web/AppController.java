@@ -13,9 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.text.DateFormat;
 
 @Controller
 public class AppController {
@@ -363,6 +361,48 @@ public class AppController {
         return uus;
     }
 
+    /**
+     *
+     * @return map{list, list(list)}
+     * {
+     * "[question, id]" :
+     *         [[answer, true/false],
+     *          [answer2, true/false],
+     *          [answer3, true/false],
+     *          [answer4, true/false]]
+     * ,
+     * "[question2, id2]":
+     *         [[answer, true/false],
+     *          [answer2, true/false],
+     *          [answer3, true/false],
+     *          [answer4, true/false]]
+     * ,
+     * ...
+     * }
+     */
+    @RequestMapping(value = "/getAllQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> getAllQuestions() {
+        HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> map = new HashMap<>();
+        for (ExamQuestion eq : examQuestionService.getQuestions()) {
+
+            ArrayList<String> key = new ArrayList<>();
+            ArrayList<ArrayList<String>> val = new ArrayList<>();
+
+            key.add(eq.getQuestion());
+            key.add(eq.getId().toString());
+
+            for(ExamQuestionAnswer eqa: eq.getAnswers()){
+                ArrayList<String> answerComplect = new ArrayList<>();
+                answerComplect.add(eqa.getAnswer());
+                answerComplect.add(eqa.getIsCorrect().toString());
+                val.add(answerComplect);
+            }
+            map.put(key, val);
+        }
+        return map;
+    }
+
     @RequestMapping(value = "/getUsers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<String> getUsers() {
@@ -388,7 +428,7 @@ public class AppController {
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() {
-        /**
+
          ExamQuestion b = new ExamQuestion("Esimene Küsimus(first 2 are correct)");
          ExamQuestion b1 = new ExamQuestion("Teine Küsimus(first 2 are correct)");
          ExamQuestion b2 = new ExamQuestion("Kolmas Küsimus(first 2 are correct)");
@@ -456,7 +496,7 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed1);
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
-         examQuestionAnswerService.addQuestionAnswer(ed4);*/
+         examQuestionAnswerService.addQuestionAnswer(ed4);
     }
 
 

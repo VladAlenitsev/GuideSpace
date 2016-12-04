@@ -21,7 +21,7 @@ $(document).ready(function() {
                 $('#certWorkLangs').text(result["certWorkLangs"]);
                 $('#active_cert_location').text(result["active_cert_location"]);
                 $('#cert_exp_date').text(new Date(result["cert_exp_date"]).customFormat("#DD#/#MM#/#YYYY#"));
-                $('#user_role_id').text(result["user_role_id"]);
+                $('#user_role_id').text(translateRole(result["user_role_id"]));
                 $('#registered_exam_id').text(result["registered_exam_id"]);
                 $('#exam_register_date').text(result["exam_register_date"]);
             }
@@ -39,19 +39,24 @@ $(document).ready(function() {
          contentType: 'application/json',
          timeout: 5000,
          type: 'POST',
-         url: perSel(), /// /data.get...   -> giveAdminToSomeone
-                                    // data.get ,.. -> giveVerficationToSomeone
-
+         url: perSel(),
          success: function(data){
             $.notify("User right has been successfully changed", "success");
          },
          error: function(errorThrown){
-
             $.notify("There has been a problem with submitting the change", "error");
          }
         })
     });
 });
+
+function translateRole(roleId){
+    if(roleId=="2") return "ADMIN";
+    if(roleId=="1") return "Unverified user";
+    if(roleId=="6") return "QUESTION ADDER";
+    if(roleId=="4") return "VERIFIED USER";
+    else return "No role id found. " + roleId;
+}
 
 function perSel(){
     return $('#permissionSelection').val();
@@ -59,6 +64,7 @@ function perSel(){
 function userSel(){
     return $('#userSelection').val().valueOf();
 }
+
 Date.prototype.customFormat = function(formatString){
   var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
   YY = ((YYYY=this.getFullYear())+"").slice(-2);
