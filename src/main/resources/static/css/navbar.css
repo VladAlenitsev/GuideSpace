@@ -141,7 +141,8 @@ p{
 }
 #userSelection{
    overflow:hidden;
-   overflow-y:scroll:
+   overflow-y:scroll;
+   width: 35%;
 }
 .leftpanel{
     background: #090a0a;
@@ -192,4 +193,7 @@ li span {
 
 option{
     color:black;
+}
+.permissionSelectionDiv{
+  float:right;
 }

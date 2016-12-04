@@ -7,30 +7,36 @@
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="prefetch" href="css/navbar.css">
     <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
     <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
     <script src="/js/jquery.datetimepicker.full.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/examreg.js"></script>
+    <script src="/js/notify.js"></script>
 </head>
 <body>
+<div>
+    <img class="logo" src="images/sublogo_min.png" alt="">
+</div>
 <div id="headers"></div>
-    <h1>Add Exam:</h1>
-    <input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
-    <input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
-    <select id="classifSelect" name="selection">
+<h1>Add Exam:</h1>
+<input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
+<input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
+<select id="classifSelect" name="selection">
+</select>
+<input id="examreg" type="button" value="Add exam" name="examreg">
+<div id="outputDiv"> </div>
+<div id="createdExams">
+    <br/>
+    <select id="examSelect" name="selection">
+        <option>Created examinations..</option>
     </select>
-    <input id="examreg" type="button" value="Add exam" name="examreg">
-    <div id="outputDiv"> </div>
-    <div id="createdExams">
-        <br/>
-        <select id="examSelect" name="selection">
-            <option>Created examinations..</option>
-        </select>
-        <input id="examopen" type="button" value="Start">
-        <input id="examclose" type="button" value="Close">
-        <input id="examdelete" type="button" value="Delete">
-    </div>
+    <input id="examopen" type="button" value="Start">
+    <input id="examclose" type="button" value="Close">
+    <input id="examdelete" type="button" value="Delete">
+</div>
 </body>
 </html>

@@ -17,6 +17,7 @@ $(document).on("submit", "#loginform", function(event){
 
     }).fail(function(jqXHR, textStatus, errorThrown) {
         $("#signupWarning").text("Invalid username or password");
+
     });
 });
 
@@ -82,7 +83,3 @@ $(document).on("submit", "#registerForm", function(event){
         }
             password.onchange = validatePassword;
             confirm_password.onkeyup = validatePassword;
-
-//"adaf sdf asdf"
-//var langs = document.getElementById("certWorkLangRegister").val();
-//var langsList = langs.split(" ");

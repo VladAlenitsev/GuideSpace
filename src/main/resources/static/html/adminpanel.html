@@ -5,33 +5,34 @@
     <title>GuideSpace</title>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="prefetch" href="css/navbar.css">
     <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
     <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/exam.js"></script>
     <script src="/js/adminpanel.js"></script>
+    <script src="/js/notify.js"></script>
+
 
 </head>
 <body>
+<div>
+    <img class="logo" src="images/sublogo_min.png" alt="">
+</div>
 <div id="headers"></div>
 
 <div>
     <div class="leftpanel">
         <span>Change user permission</span>
         <div class="dropdown">
-        <select id="userSelection" name="selection">
+        <select id="userSelection" name="selection" size="6">
             <!--<ul class="dropdown-menu" id="userSelectionUl">-->
             <!--</ul>-->
         </select>
         </div>
-        <select id="permissionSelection" name="selection">
-            <option value="/giveAdminToSomeone">Admin</option>
-            <option value=/giveUnverifiedToSomeone>Unverified user</option>
-            <option value="/giveVerifiedToSomeone">Verified user</option>
-            <option value="/giveQuestionAdderToSomeone">Question adder</option>
-        </select>
-        <input style="color:black" type="button" value="Muuda" id="changePermissions" name="changePermissions"/>
+
     </div>
     <div class="rightpanel">
         <ul>
@@ -80,6 +81,17 @@
                 <span id="exam_register_date"></span>
             </li>
         </ul>
+        <div class="permissionSelectionDiv">
+            <span>Change role: </span>
+            <select id="permissionSelection" name="selection">
+                <option value="/giveAdminToSomeone">Admin</option>
+                <option value=/giveUnverifiedToSomeone>Unverified     user</option>
+                <option value="/giveVerifiedToSomeone">Verified user</option>
+                <option value="/giveQuestionAdderToSomeone">Question adder</option>
+            </select>
+            <input style="color:black" type="button" value="Apply change" id="changePermissions" name="changePermissions"/>
+        </div>
+    </div>
     </div>
 </div>
 </body>
