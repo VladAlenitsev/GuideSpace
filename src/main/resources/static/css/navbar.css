@@ -167,6 +167,29 @@ select[name=selection]{
     color:black;
 }
 
+.rightpanel{
+    background: #090a0a;
+    margin: auto;
+    position: relative;
+    width: 40%;
+    font-family: 'FontAwesome';
+    line-height: 24px;
+    font-weight: bold;
+    color: #fbfbfb;
+    padding: 10px;
+    border: 1px solid #3d4242;
+    border: inset 1px solid #3d4242;
+    float:left;
+}
+
+ul {
+    list-style-type:none;
+}
+li span {
+    display:inline-block;
+    width:40%;
+}
+
 option{
     color:black;
 }

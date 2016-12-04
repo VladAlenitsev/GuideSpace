@@ -16,7 +16,7 @@ class BaseEntity {
     private Date createdAt = new Date(Calendar.getInstance(TimeZone.getTimeZone("EET")).getTime().getTime());
 
     @Column(name = "changedAt")
-    private Date changeddAt;
+    private Date changedAt;
 
     public Long getId() {
         return id;
@@ -26,8 +26,8 @@ class BaseEntity {
         return createdAt;
     }
 
-    public Date getChangeddAt() {
-        return changeddAt;
+    public Date getChangedAt() {
+        return changedAt;
     }
 
     public void setId(Long id) {
@@ -38,8 +38,8 @@ class BaseEntity {
         this.createdAt = createdAt;
     }
 
-    public void setChangeddAt(Date changeddAt) {
-        this.changeddAt = changeddAt;
+    public void setChangedAt(Date changedAt) {
+        this.changedAt = changedAt;
     }
 
 }

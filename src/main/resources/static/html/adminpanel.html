@@ -19,15 +19,67 @@
 <div>
     <div class="leftpanel">
         <span>Change user permission</span>
-        <select id="userSelection" name="selection" size="2">
+        <div class="dropdown">
+        <select id="userSelection" name="selection">
+            <!--<ul class="dropdown-menu" id="userSelectionUl">-->
+            <!--</ul>-->
         </select>
-        <select id="permissionSelection" name="selection" >
+        </div>
+        <select id="permissionSelection" name="selection">
             <option value="/giveAdminToSomeone">Admin</option>
             <option value=/giveUnverifiedToSomeone>Unverified user</option>
             <option value="/giveVerifiedToSomeone">Verified user</option>
             <option value="/giveQuestionAdderToSomeone">Question adder</option>
         </select>
         <input style="color:black" type="button" value="Muuda" id="changePermissions" name="changePermissions"/>
+    </div>
+    <div class="rightpanel">
+        <ul>
+            <li>
+                <span>Username: </span>
+                <span id="username"></span>
+            </li>
+            <li>
+                <span>Name: </span>
+                <span id="name"></span>
+            </li>
+            <li>
+                <span>Surname: </span>
+                <span id="surname"></span>
+            </li>
+            <li>
+                <span>Email: </span>
+                <span id="emailAddress"></span>
+            </li>
+            <li>
+                <span>User birth date: </span>
+                <span id="userBirthDate"></span>
+            </li>
+            <li>
+                <span>Certified working languages: </span>
+                <span id="certWorkLangs"></span>
+            </li>
+            <li>
+                <span>Active certificate location: </span>
+                <span id="active_cert_location"></span>
+            </li>
+            <li>
+                <span>Certificate expiration date: </span>
+                <span id="cert_exp_date"></span>
+            </li>
+            <li>
+                <span>Role id: </span>
+                <span id="user_role_id"></span>
+            </li>
+            <li>
+                <span>Registered exam id: </span>
+                <span id="registered_exam_id"></span>
+            </li>
+            <li>
+                <span>Registered exam date: </span>
+                <span id="exam_register_date"></span>
+            </li>
+        </ul>
     </div>
 </div>
 </body>

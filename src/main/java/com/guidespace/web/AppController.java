@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;import java.text.SimpleDateFormat;
-import java.util.*;import java.text.DateFormat;
+import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.text.DateFormat;
 
 @Controller
 public class AppController {
@@ -320,14 +322,6 @@ public class AppController {
         return result;
     }
 
-    @RequestMapping(value = "/getPerson?{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public Person getByUsername(
-            @PathVariable("id") Long id) {
-//            @RequestParam(value = "id") Long id) {
-        return userService.getUser(id);
-    }
-
     @RequestMapping(value = "/getClassificators", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<Classificator> getClassificators() {
@@ -346,6 +340,13 @@ public class AppController {
             persons.add(p);
         }
         return persons;
+    }
+
+    @RequestMapping(value = "/getPerson/{username}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public Person getByUsername(
+            @PathVariable("username") String username) {
+        return userService.getUser(username);
     }
 
     @RequestMapping(value = "/getAll", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")

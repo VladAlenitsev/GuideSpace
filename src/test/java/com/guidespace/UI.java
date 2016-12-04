@@ -34,51 +34,53 @@ public class UI {
     public void aregistrationTest() throws InterruptedException {
         webDriver.findElement(By.id("loginNavbar")).click();
         synchronized (webDriver) {
-            webDriver.wait(1600);
+            webDriver.wait(800);
             webDriver.findElement(By.id("signuptab")).click();
-            webDriver.wait(1600);
+            webDriver.wait(800);
             webDriver.findElement(By.id("emailRegister")).sendKeys("test"+randNum+"@gmail.com");
             webDriver.findElement(By.id("usernameRegister")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("nameRegister")).sendKeys("Test");
             webDriver.findElement(By.id("surnameRegister")).sendKeys("Test");
-            webDriver.findElement(By.id("dateOfBirthRegister")).sendKeys(""+12121212);
+            webDriver.findElement(By.id("dateOfBirthRegister")).sendKeys(""+12122015);
             webDriver.findElement(By.id("certMarkLoc")).sendKeys("Test");
-            webDriver.findElement(By.id("certExpirationDateRegister")).sendKeys(""+12121212);
+            webDriver.findElement(By.id("certExpirationDateRegister")).sendKeys(""+12122014);
             webDriver.findElement(By.id("certWorkLangRegister")).sendKeys("estonian");
             webDriver.findElement(By.id("passwordRegister")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("passwordRegister2")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("confirmsignup")).click();
-            webDriver.wait(1800);
+            webDriver.wait(600);
             if (!webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) { //ei olnud redirecti
                 webDriver.findElement(By.id("signintab")).click();
+                webDriver.wait(200);
                 webDriver.findElement(By.id("username")).sendKeys("test" + randNum);
                 webDriver.findElement(By.id("password")).sendKeys("Test" + randNum + "123");
+                webDriver.findElement(By.id("signinButton")).click();
             }
+            webDriver.wait(1800);
             webDriver.get("http://localhost:8080/giveAdmin");
-            webDriver.wait(2000);
+            webDriver.wait(800);
             webDriver.get("http://localhost:8080");
-            webDriver.wait(2000);
+            webDriver.wait(800);
             System.out.println(randNum);
             Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
             webDriver.findElement(By.id("logoutNavbar")).click();
-            bloginTest();
         }
     }
 
     @Test
     public void bloginTest() throws InterruptedException {
         synchronized (webDriver) {
-            webDriver.wait(1600);
+            webDriver.wait(800);
             if(webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out")) {
                 webDriver.findElement(By.id("logoutNavbar")).click();
-                webDriver.wait(1600);
+                webDriver.wait(800);
             }
             webDriver.findElement(By.id("loginNavbar")).click();
-            webDriver.wait(1600);
+            webDriver.wait(800);
             webDriver.findElement(By.id("username")).sendKeys("test"+randNum);
             webDriver.findElement(By.id("password")).sendKeys("Test"+randNum+"123");
             webDriver.findElement(By.id("signinButton")).click();
-            webDriver.wait(1500);
+            webDriver.wait(800);
         }
         Assert.assertTrue(webDriver.findElement(By.id("logoutNavbar")).getText() ,webDriver.findElement(By.id("logoutNavbar")).getText().equalsIgnoreCase("log out"));
     }
@@ -109,12 +111,12 @@ public class UI {
 
 
 
-//    @AfterClass
-//    public static void cleanUp(){
-//
-//        if (webDriver != null) {
-//            webDriver.close();
-//            webDriver.quit();
-//        }
-//    }
+    @AfterClass
+    public static void cleanUp(){
+
+        if (webDriver != null) {
+            webDriver.close();
+            webDriver.quit();
+        }
+    }
 }
