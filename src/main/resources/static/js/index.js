@@ -31,6 +31,12 @@ jQuery(document).ready(function($) {
     $('#headers').load('/html/components/header.html');
 
 
+//    $.ajax({url: "/addQuests", success: function(result){
+//        console.log("loaded");
+//        }
+//    });
+
+
 });
 
 

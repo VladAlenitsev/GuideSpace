@@ -10,6 +10,7 @@
     <script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
     <script src="/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
     <script src="/webjars/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="/js/index.js"></script>
     <script src="/js/questionedit.js"></script>
     <script src="/js/notify.js"></script>
 </head>
@@ -20,7 +21,6 @@
 <div id="headers"></div>
 
 <div>
-    <input id="classifadd" type="button" value="add classif">
     <h1>Edit Question:</h1>
     <input type="text" id="searchtext">
     <input type="submit" id="submitsearch" value="Search">
@@ -32,6 +32,7 @@
 
     <label for="question"><br/>
         <span>Question:</span><br/>
+        <input type="hidden" id="idCarrier" value="">
         <input id="question" type="text" placeholder="Choose question to edit." required><br/>
         <select id="classificatorSelection" name="selection">
         </select>
@@ -61,6 +62,7 @@
             </div>
             <p></p>
             <input style="color:black" type="button" value="Save changes" id="saveQuestion" name="addQuestion" />
+            <input style="color:black" type="button" value="Delete question" id="deleteQuestion" name="deleteQuestion" />
         </div>
     </label>
 

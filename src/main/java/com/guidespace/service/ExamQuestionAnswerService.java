@@ -25,4 +25,6 @@ public class ExamQuestionAnswerService {
     public List<ExamQuestionAnswer>  getAllAnswers(){return examQuestionAnswerRepository.findAll();}
 
     public ExamQuestionAnswer getAnswerById(Long id){return examQuestionAnswerRepository.findById(id);}
+
+    public void deleteQuestionAnswer(ExamQuestionAnswer answer){ examQuestionAnswerRepository.delete(answer);}
 }

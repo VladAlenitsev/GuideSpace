@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -290,6 +291,45 @@ public class AppController {
         System.out.println("Hibernate: New exam question saved. Question id: " + q.getId());
     }
 
+    @RequestMapping(value = "/updateQuestion", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void updateQuestion(@RequestBody Map<String, List<String>> params) {
+        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(params.get("id").get(0)));
+        eq.setQuestion(params.get("question").get(0));
+        eq.setClassificator(classificatorService.getClassifById(Long.valueOf(params.get("classif").get(0))));
+
+        for(ExamQuestionAnswer eqa: eq.getAnswers()){
+            examQuestionAnswerService.deleteQuestionAnswer(eqa);
+        }
+
+        List<ExamQuestionAnswer> answers = new ArrayList<>();
+        for(String s: params.get("correctAnswers")){
+            answers.add(new ExamQuestionAnswer(true, s, eq));
+        }
+        for(String s: params.get("wrongAnswers")){
+            answers.add(new ExamQuestionAnswer(false, s, eq));
+        }
+        eq.setAnswers(answers);
+
+        examQuestionService.addQuestion(eq);
+        for (ExamQuestionAnswer a : answers) {
+            examQuestionAnswerService.addQuestionAnswer(a);
+        }
+        System.out.println("Hibernate: New exam question updated. Question id: " + eq.getId());
+
+    }
+
+    @RequestMapping(value = "/deleteQuestion", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public void deleteQuestion(@RequestBody Map<String, List<String>> params) {
+        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(params.get("id").get(0)));
+        for(ExamQuestionAnswer eqa: eq.getAnswers()){
+            examQuestionAnswerService.deleteQuestionAnswer(eqa);
+        }
+        examQuestionService.deleteQuestion(eq);
+        System.out.println("Hibernate: exam question deleted.");
+    }
+
     @RequestMapping(value = "/addExamination", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public void addExamination(@RequestBody Map<String, String> params) throws ParseException {
@@ -378,16 +418,6 @@ public class AppController {
         return userService.getUser(username);
     }
 
-//    @RequestMapping(value = "/findQuestionById", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
-//    @ResponseBody
-//    public ArrayList<String> findQuestionById() {
-//        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(1));
-//        ArrayList<String> lst = new ArrayList<>();
-//        lst.add(eq.getId().toString());
-//        lst.add(eq.getQuestion());
-//
-//    }
-
     @RequestMapping(value = "/findQuestionById/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ExamQuestion findQuestionById(
@@ -442,7 +472,7 @@ public class AppController {
      * ,
      * ...
      * }
-     */
+
     @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> findQuestionWithAnswers(
@@ -465,6 +495,27 @@ public class AppController {
             }
         }
         return map;
+    }*/
+
+    @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<String> findQuestionWithAnswers(@PathVariable("id") String id){
+        ArrayList<String> lst = new ArrayList<>();
+
+        for(ExamQuestion eq : examQuestionService.getQuestions()){
+            if(eq.getId().toString().equals(id)){
+
+                lst.add(eq.getId().toString());
+                lst.add(eq.getQuestion());
+                lst.add(eq.getClassificator().getId().toString());
+//[id, q, clas, an1, a1tf, ]
+                for(int i =0; i<4; i++) {
+                    lst.add(eq.getAnswers().get(i).getAnswer());
+                    lst.add(eq.getAnswers().get(i).getIsCorrect().toString());
+                }
+            }
+        }
+        return lst;
     }
 
     @RequestMapping(value = "/getUsers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
@@ -525,12 +576,16 @@ public class AppController {
      * don't want to add anything
      *
      * */
+
+    /**
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() throws ParseException {
 
         Classificator classifi = new Classificator("type1","code2","name3");
         classificatorService.save(classifi);
+        Classificator classifii = new Classificator("1111t","2222c","3333n");
+        classificatorService.save(classifii);
         Examination e = new Examination("29-06-2016 10:30", "29-06-2016 11:30");
         e.setClassif_id(classifi.getId());
         e.setIs_open(true);
@@ -612,5 +667,5 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
          examQuestionAnswerService.addQuestionAnswer(ed4);
-    }
+    }*/
 }
