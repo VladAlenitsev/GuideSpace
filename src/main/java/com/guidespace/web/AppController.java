@@ -311,6 +311,7 @@ public class AppController {
         }
         eq.setAnswers(answers);
 
+        eq.setChangedAt(new Date());
         examQuestionService.addQuestion(eq);
         for (ExamQuestionAnswer a : answers) {
             examQuestionAnswerService.addQuestionAnswer(a);
@@ -454,49 +455,7 @@ public class AppController {
         return uus;
     }
 
-    /**
-     *
-     * @return map{list, list(list)}
-     * {
-     * "[question, id]" :
-     *         [[answer, true/false],
-     *          [answer2, true/false],
-     *          [answer3, true/false],
-     *          [answer4, true/false]]
-     * ,
-     * "[question2, id2]":
-     *         [[answer, true/false],
-     *          [answer2, true/false],
-     *          [answer3, true/false],
-     *          [answer4, true/false]]
-     * ,
-     * ...
-     * }
-
-    @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> findQuestionWithAnswers(
-            @PathVariable("id") String id)
-    {
-        HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> map = new HashMap<>();
-        for (ExamQuestion eq : examQuestionService.getQuestions()) {
-            if (eq.getId().toString().equals(id)) {
-                HashMap<String, Long> key = new HashMap<>();
-                ArrayList<HashMap<String, Boolean>> val = new ArrayList<>();
-
-                key.put(eq.getQuestion(), eq.getId());
-
-                for (ExamQuestionAnswer eqa : eq.getAnswers()) {
-                    HashMap<String, Boolean> answerComplect = new HashMap<>();
-                    answerComplect.put(eqa.getAnswer(), eqa.getIsCorrect());
-                    val.add(answerComplect);
-                }
-                map.put(key, val);
-            }
-        }
-        return map;
-    }*/
-
+    //[id, q, clas, an1, a1tf, ]
     @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<String> findQuestionWithAnswers(@PathVariable("id") String id){
@@ -508,7 +467,7 @@ public class AppController {
                 lst.add(eq.getId().toString());
                 lst.add(eq.getQuestion());
                 lst.add(eq.getClassificator().getId().toString());
-//[id, q, clas, an1, a1tf, ]
+
                 for(int i =0; i<4; i++) {
                     lst.add(eq.getAnswers().get(i).getAnswer());
                     lst.add(eq.getAnswers().get(i).getIsCorrect().toString());

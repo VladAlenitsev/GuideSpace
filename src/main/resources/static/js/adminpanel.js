@@ -32,6 +32,7 @@ $(document).ready(function() {
     submit.click(function() {
         var permissionSelection = $('#permissionSelection');
         var map = userSel();
+        var role = $('#permissionSelection').find(":selected").text();
         var cookie = JSON.parse($.cookie('CSRF'));
         $.ajax({
          data: JSON.stringify(map),
@@ -41,6 +42,7 @@ $(document).ready(function() {
          type: 'POST',
          url: perSel(),
          success: function(data){
+            $('#user_role_id').text(role);
             $.notify("User right has been successfully changed", "success");
          },
          error: function(errorThrown){
@@ -51,10 +53,10 @@ $(document).ready(function() {
 });
 
 function translateRole(roleId){
-    if(roleId=="2") return "ADMIN";
+    if(roleId=="2") return "Admin";
     if(roleId=="1") return "Unverified user";
-    if(roleId=="6") return "QUESTION ADDER";
-    if(roleId=="4") return "VERIFIED USER";
+    if(roleId=="6") return "Info ADDER";
+    if(roleId=="4") return "Verified user";
     else return "No role id found. " + roleId;
 }
 
