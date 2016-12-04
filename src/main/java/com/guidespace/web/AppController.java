@@ -378,14 +378,23 @@ public class AppController {
         return userService.getUser(username);
     }
 
-    @RequestMapping(value = "/findQuestionById", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public ArrayList<String> findQuestionById() {
-        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(1));
-        ArrayList<String> lst = new ArrayList<>();
-        lst.add(eq.getId().toString());
-        lst.add(eq.getQuestion());
+//    @RequestMapping(value = "/findQuestionById", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+//    @ResponseBody
+//    public ArrayList<String> findQuestionById() {
+//        ExamQuestion eq = examQuestionService.getQuestionById(Long.valueOf(1));
+//        ArrayList<String> lst = new ArrayList<>();
+//        lst.add(eq.getId().toString());
+//        lst.add(eq.getQuestion());
+//
+//    }
 
+    @RequestMapping(value = "/findQuestionById/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ExamQuestion findQuestionById(
+            @PathVariable("id") String id) {
+        System.out.println(Long.valueOf(id));
+        System.out.println(Long.valueOf(id) instanceof Long);
+        return examQuestionService.getQuestionById(Long.valueOf(id));
     }
 
     @RequestMapping(value = "/findAllQuestions", method = RequestMethod.POST, consumes = "application/json")
@@ -434,25 +443,26 @@ public class AppController {
      * ...
      * }
      */
-    @RequestMapping(value = "/getAllQuestionsWithAnswers", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> getAllQuestionsWithAnswer() {
-        HashMap<ArrayList<String>, ArrayList<ArrayList<String>>> map = new HashMap<>();
+    public HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> findQuestionWithAnswers(
+            @PathVariable("id") String id)
+    {
+        HashMap<HashMap<String, Long>, ArrayList<HashMap<String, Boolean>>> map = new HashMap<>();
         for (ExamQuestion eq : examQuestionService.getQuestions()) {
+            if (eq.getId().toString().equals(id)) {
+                HashMap<String, Long> key = new HashMap<>();
+                ArrayList<HashMap<String, Boolean>> val = new ArrayList<>();
 
-            ArrayList<String> key = new ArrayList<>();
-            ArrayList<ArrayList<String>> val = new ArrayList<>();
+                key.put(eq.getQuestion(), eq.getId());
 
-            key.add(eq.getQuestion());
-            key.add(eq.getId().toString());
-
-            for(ExamQuestionAnswer eqa: eq.getAnswers()){
-                ArrayList<String> answerComplect = new ArrayList<>();
-                answerComplect.add(eqa.getAnswer());
-                answerComplect.add(eqa.getIsCorrect().toString());
-                val.add(answerComplect);
+                for (ExamQuestionAnswer eqa : eq.getAnswers()) {
+                    HashMap<String, Boolean> answerComplect = new HashMap<>();
+                    answerComplect.put(eqa.getAnswer(), eqa.getIsCorrect());
+                    val.add(answerComplect);
+                }
+                map.put(key, val);
             }
-            map.put(key, val);
         }
         return map;
     }
