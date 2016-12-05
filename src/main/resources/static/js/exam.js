@@ -79,56 +79,42 @@ jQuery(document).ready(function($) {
         });
 
     }
-
     var Timer;
     var TotalSeconds;
     var myVar;
-
     $.ajax({
         url: "/time", success: function (result) {
             myVar = result;
         }
     });
-
     submit2.click(function () {
         $("#questions").css("display","inline-block");
         $("#checkAnswers").css("display","block");
         submit2.css("display","none");
         CreateTimer(myVar);
     });
-
-
-    function CreateTimer(Time)
-    {
+    function CreateTimer(Time){
         TotalSeconds = Time;
         UpdateTimer();
         Tick();
     }
-
     function Tick() {
         TotalSeconds -= 1;
-        if(TotalSeconds ==-1)
-        {
+        if(TotalSeconds ==-1){
             alert("Time Up");
             sendAnswers();
-            // Show alert Plus redirect any other page
         }
-        else
-        {
+        else{
             UpdateTimer();
             setTimeout(function(){Tick();}, 1000);
-
         }
     }
-
     function UpdateTimer() {
-
         if (TotalSeconds > 60) {
             var rounded = Math.floor(TotalSeconds/60);
             document.getElementById("showTime").innerHTML = "Time Left: "+rounded.toString() + ":" + (TotalSeconds-(rounded*60)).toString();
         } else {
             document.getElementById("showTime").innerHTML = "Time Left: "+TotalSeconds.toString();
         }
-
     }
 });

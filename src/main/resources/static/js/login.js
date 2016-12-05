@@ -1,7 +1,5 @@
-//  Login vormi esitamine
 $(document).on("submit", "#loginform", function(event){
     event.preventDefault();
-
     var cookie = JSON.parse($.cookie('CSRF'));
     var data = 'username=' + $('#username').val() + '&password=' + $('#password').val();
     $.ajax({
@@ -10,21 +8,14 @@ $(document).on("submit", "#loginform", function(event){
         timeout: 2000,
         type: 'POST',
         url: '/login'
-
     }).done(function(data, textStatus, jqXHR) {
         window.location = '/';
-
-
     }).fail(function(jqXHR, textStatus, errorThrown) {
         $("#signupWarning").text("Invalid username or password");
-
     });
 });
-
-//  Registreerimine
 $(document).on("submit", "#registerForm", function(event){
     event.preventDefault();
-
     var cookie = JSON.parse($.cookie('CSRF'));
     var data = 'username=' + $('#usernameRegister').val() +
     '&password=' + $('#passwordRegister').val() +
@@ -42,7 +33,6 @@ $(document).on("submit", "#registerForm", function(event){
         timeout: 3000,
         type: 'POST',
         url: '/register'
-
     }).done(function(data, textStatus, jqXHR) {
         var cookie2 = JSON.parse($.cookie('CSRF'));
         $.ajax({
@@ -51,14 +41,10 @@ $(document).on("submit", "#registerForm", function(event){
             timeout: 3000,
             type: 'POST',
             url: '/login'
-
         }).done(function(data, textStatus, jqXHR) {
             window.location = '/';
         });
-
-
     }).fail(function(jqXHR, textStatus, errorThrown) {
-
         if(jqXHR.status = 406){
             var data = JSON.parse(jqXHR.responseText);
             var errorMessage = data.message;
@@ -71,15 +57,14 @@ $(document).on("submit", "#registerForm", function(event){
         }
     });
 });
-
- var password = document.getElementById("passwordRegister");
-        var confirm_password = document.getElementById("passwordRegister2");
-        function validatePassword(){
-          if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-          } else {
-            confirm_password.setCustomValidity('');
-          }
-        }
-            password.onchange = validatePassword;
-            confirm_password.onkeyup = validatePassword;
+var password = document.getElementById("passwordRegister");
+var confirm_password = document.getElementById("passwordRegister2");
+function validatePassword(){
+    if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+        confirm_password.setCustomValidity('');
+    }
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;

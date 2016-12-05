@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $.ajax({url: "/getClassificators", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
@@ -8,10 +7,8 @@ $(document).ready(function() {
             $('#classificatorSelection').append(opt);
         }
     }});
-
     var submit = $('#addQuestion');
     submit.click(function() {
-         var question = $('#question');
          var map = getData();
          var cookie = JSON.parse($.cookie('CSRF'));
          $.ajax({
@@ -41,22 +38,17 @@ $(document).ready(function() {
     });
     $('#headers').load('/html/components/header.html');
 });
-
 function getData(){
-
     var answer1 = $('#answer1').val();
     var answer2 = $('#answer2').val();
     var answer3 = $('#answer3').val();
     var answer4 = $('#answer4').val();
-
     var correctAnswers = [];
     var wrongAnswers = [];
-
     document.getElementById('atf1').checked ? correctAnswers.push(answer1):wrongAnswers.push(answer1);
     document.getElementById('atf2').checked ? correctAnswers.push(answer2):wrongAnswers.push(answer2);
     document.getElementById('atf3').checked ? correctAnswers.push(answer3):wrongAnswers.push(answer3);
     document.getElementById('atf4').checked ? correctAnswers.push(answer4):wrongAnswers.push(answer4);
-
     return {'question' :[$('#question').val()], 'correctAnswers' : correctAnswers,
         'wrongAnswers' : wrongAnswers, 'classif' : [$('#classificatorSelection').val()]};
 }

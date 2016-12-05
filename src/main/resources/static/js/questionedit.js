@@ -7,7 +7,6 @@ $(document).ready(function() {
             $('#classificatorSelection').append(opt);
         }
     }});
-
     $('#submitsearch').click(function() {
         $('#questionSelection').empty();
         var searchText = document.getElementById("searchtext").value;
@@ -34,7 +33,6 @@ $(document).ready(function() {
                 $.notify("Error while searching for questions", "error");
             }
         });
-
     });
     $('#questionSelection').change(function() {
         var optionVal = document.getElementById("questionSelection").value;
@@ -57,14 +55,12 @@ $(document).ready(function() {
                 $('#answer4').val(result[9]);
                 if(result[10]=='true') $('#atf4').prop("checked", true);
                 if(result[10]=='false') $('#atf4').prop("checked", false);
-
             },
             error: function(errorThrown){
                 $.notify(errorThrown, "error");
             }
         });
     });
-
     $('#saveQuestion').click(function(){
         var map = getData();
         var cookie = JSON.parse($.cookie('CSRF'));
@@ -92,10 +88,8 @@ $(document).ready(function() {
                 console.log(error);
                 $.notify("Couldn't update the question.", "error");
             }
-
         });
     });
-
     $('#deleteQuestion').click(function(){
         var map = getData();
         var cookie = JSON.parse($.cookie('CSRF'));
@@ -129,20 +123,16 @@ $(document).ready(function() {
 });
 
 function getData(){
-
     var answer1 = $('#answer1').val();
     var answer2 = $('#answer2').val();
     var answer3 = $('#answer3').val();
     var answer4 = $('#answer4').val();
-
     var correctAnswers = [];
     var wrongAnswers = [];
-
     document.getElementById('atf1').checked ? correctAnswers.push(answer1):wrongAnswers.push(answer1);
     document.getElementById('atf2').checked ? correctAnswers.push(answer2):wrongAnswers.push(answer2);
     document.getElementById('atf3').checked ? correctAnswers.push(answer3):wrongAnswers.push(answer3);
     document.getElementById('atf4').checked ? correctAnswers.push(answer4):wrongAnswers.push(answer4);
-
     return {'id':[$('#idCarrier').val()] ,'question' :[$('#question').val()], 'correctAnswers' : correctAnswers,
         'wrongAnswers' : wrongAnswers, 'classif' : [$('#classificatorSelection').val()]};
 };

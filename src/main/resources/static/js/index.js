@@ -11,8 +11,6 @@ jQuery(document).ready(function($) {
             cookie.csrf = csrfToken;
             $.cookie('CSRF', JSON.stringify(cookie));
         }
-
-
     }).fail(function(jqXHR, textStatus, errorThrown) {
         if (jqXHR.status === 401) { // HTTP Status 401: Unauthorized
             var cookie = JSON.stringify({
@@ -25,17 +23,10 @@ jQuery(document).ready(function($) {
             console.error('Houston, we have a problem...');
         }
     });
-
-
-    // Navbari laadimine
-
-
 //    $.ajax({url: "/addQuests", success: function(result){
 //        console.log("loaded");
 //        }
 //    });
-
-
 });
 
 

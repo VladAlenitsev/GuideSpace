@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $("#startdate").datetimepicker({
         format:'d-m-Y H:i',
     	minDate:'0',
@@ -10,7 +9,6 @@ $(document).ready(function() {
     	minDate:'0',
     	dayOfWeekStart:1
     });
-
     $.ajax({url: "/getClassificators", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
@@ -19,9 +17,7 @@ $(document).ready(function() {
             $('#classifSelect').append(opt);
         }
     }});
-
     refresh();
-
     $('#examreg').click(function(){
         var cookie = JSON.parse($.cookie('CSRF'));
         var map = getExamData();
@@ -55,16 +51,13 @@ $(document).ready(function() {
             url: '/startExamination',
             success: function(data){
                 $.notify("Exam has been started.", "success");
-
             },
             error: function(errorThrown){
                 console.log(errorThrown)
                 $.notify("Couldn't start the exam.", "error");
-
             }
         })
     });
-
     $('#examclose').click(function(){
         var cookie = JSON.parse($.cookie('CSRF'));
         var examid = {'id': $('#examSelect').val()}
@@ -84,8 +77,6 @@ $(document).ready(function() {
             }
         })
     });
-
-    //not implemented
     $('#examdelete').click(function(){
         var cookie = JSON.parse($.cookie('CSRF'));
         var examid = {'id': $('#examSelect').val()}
@@ -105,14 +96,11 @@ $(document).ready(function() {
             }
         })
     });
-
     $('#headers').load('/html/components/header.html');
 });
-
 function getExamData(){
     return {'startdate': $('#startdate').val(),'enddate': $('#enddate').val(),'classif':$('#classifSelect').val()}
 }
-
 function refresh(){
     var select = document.getElementById("examSelect");
     var length = select.options.length;

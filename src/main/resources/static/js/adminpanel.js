@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $.ajax({url: "/getPersons", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
@@ -27,7 +26,6 @@ $(document).ready(function() {
             }
         });
     });
-
     var submit = $('#changePermissions');
     submit.click(function() {
         var permissionSelection = $('#permissionSelection');
@@ -51,7 +49,6 @@ $(document).ready(function() {
         })
     });
 });
-
 function translateRole(roleId){
     if(roleId=="2") return "Admin";
     if(roleId=="1") return "Unverified user";
@@ -59,14 +56,12 @@ function translateRole(roleId){
     if(roleId=="4") return "Verified user";
     else return "No role id found. " + roleId;
 }
-
 function perSel(){
     return $('#permissionSelection').val();
 }
 function userSel(){
     return $('#userSelection').val().valueOf();
 }
-
 Date.prototype.customFormat = function(formatString){
   var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
   YY = ((YYYY=this.getFullYear())+"").slice(-2);
