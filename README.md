@@ -2,11 +2,13 @@
 
 ### [new heroku WITH autodeploy](https://guidespace.herokuapp.com/)
 
-## [Iteration 1](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-1)
+## [Iteration 4](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-4)
+
+## [Iteration 3](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-3)
 
 ## [Iteration 2](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-2)
 
-## [Iteration 3](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-3)
+## [Iteration 1](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-1)
 
 ### [WIKI](https://github.com/VladAlenitsev/GuideSpace/wiki)
 
