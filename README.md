@@ -1,6 +1,6 @@
 ### GuideSpace
 
-### [new heroku WITH autodeploy](https://guidespace.herokuapp.com/)
+### [heroku app](https://guidespace.herokuapp.com/)
 
 ## [Iteration 4](https://github.com/VladAlenitsev/GuideSpace/wiki/Iteration-4)
 
