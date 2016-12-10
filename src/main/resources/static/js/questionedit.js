@@ -115,7 +115,6 @@ $(document).ready(function() {
                 $("#atf4").prop("checked", false);
             },
             error: function(){
-                console.log(error);
                 $.notify("Couldn't delete the question.", "error");
             }
         });
