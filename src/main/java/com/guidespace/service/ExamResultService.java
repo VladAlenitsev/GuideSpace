@@ -1,6 +1,7 @@
 package com.guidespace.service;
 
 import com.guidespace.domain.ExamResult;
+import com.guidespace.domain.Examination;
 import com.guidespace.domain.Person;
 import com.guidespace.repository.ExamResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ public class ExamResultService {
 
     public void save(ExamResult result){examResultRepository.save(result);}
 
-    public boolean isNotDone(Person p){
+    public boolean isNotDone(Person p, Examination exam){
         for(ExamResult ex : getExamResults()){
-            if(ex.getPerson().equals(p)){
+            if(ex.getPerson().equals(p) && exam.getId().equals(ex.getExamination().getId())){
                 return false;
             }
         }

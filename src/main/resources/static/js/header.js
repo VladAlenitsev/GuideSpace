@@ -12,6 +12,14 @@ $('#adminNavbar').on('click', function (event) {
         displayLoginWindow();
     }
 });
+
+$('#examResults').on('click', function (event) {
+    if (isAuth() == "true") {
+        window.location = '/examresults';
+    } else {
+        displayLoginWindow();
+    }
+});
 $('#examregNavbar').on('click', function (event) {
     if (isAuth() == "true") {
         window.location = '/examreg';
@@ -67,19 +75,22 @@ if (isAuth() == "true") {
         hideAdminPanel();
         hideQuestion();
         hideManageExamination();
-    hideQuestionEdit();
+        hideQuestionEdit();
+        displayResults();
     }
     else if (isQuestionAdder() == "true") {
         displayQuestion();
-    displayQuestionEdit();
+        displayQuestionEdit();
         hideAdminPanel();
+        hideResults();
         hideExam();
         hideManageExamination();
     }
     else if (isAdmin() == "true") {
+        displayResults();
         displayExam();
         displayQuestion();
-    displayQuestionEdit();
+        displayQuestionEdit();
         displayAdminPanel();
         displayManageExamination();
     }
@@ -88,7 +99,8 @@ if (isAuth() == "true") {
         hideQuestion();
         hideExam();
         hideManageExamination();
-    hideQuestionEdit();
+        hideQuestionEdit();
+        hideResults();
     }
 }
 else {
@@ -96,8 +108,9 @@ else {
     hideAdminPanel();
     hideQuestion();
     hideExam();
-hideQuestionEdit();
+    hideQuestionEdit();
     hideManageExamination();
+    hideResults();
 }
 function isUnVerified() {
     var xmlHttp = new XMLHttpRequest();
@@ -129,6 +142,10 @@ function hideAdminPanel() {
 function hideExam() {
     $("#examNavbar").css("display", "none")
 }
+
+function hideResults() {
+    $("#examResults").css("display", "none")
+}
 function hideManageExamination() {
     $("#examregNavbar").css("display", "none")
 }
@@ -143,6 +160,9 @@ function displayQuestionEdit() {
 }
 function displayExam() {
     $("#examNavbar").css("display", "block");
+}
+function displayResults() {
+    $("#examResults").css("display", "block");
 }
 function displayAdminPanel() {
     $("#adminNavbar").css("display", "block");

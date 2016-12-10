@@ -34,7 +34,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/rest/**").authenticated();
         http.authorizeRequests().antMatchers("/question").hasAnyAuthority("ADMIN","INFOADDER");//TODO  Laseb url's ükskõik mis useriga läbi. Teha hasRole('someRoleHere');
         http.authorizeRequests().antMatchers("/adminpanel","/questionedit","/examreg","/giveAdminToSomeone","/giveUnverifiedToSomeone","/giveVerifiedToSomeone","/giveQuestionAdderToSomeone").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers("/exam").hasAnyAuthority("ADMIN","VERIFIED");
+        http.authorizeRequests().antMatchers("/exam","/examresults").hasAnyAuthority("ADMIN","VERIFIED");
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.formLogin().successHandler(authenticationSuccessHandler);
         http.formLogin().failureHandler(authenticationFailureHandler);

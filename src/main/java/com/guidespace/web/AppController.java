@@ -11,11 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.*;
 
 @Controller
@@ -60,6 +56,11 @@ public class AppController {
     @RequestMapping("/kontakt")
     public String kontakt() {
         return "html/kontakt.html";
+    }
+
+    @RequestMapping("/examresults")
+    public String examResults() {
+        return "html/result.html";
     }
 
     @RequestMapping("/adminpanel")
@@ -147,7 +148,8 @@ public class AppController {
     public Boolean isDone() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person leo = userService.getUser(authentication.getName());
-        return examResultService.isNotDone(leo);
+        Examination openedExam = examinationService.getOpenedExam();
+        return examResultService.isNotDone(leo,openedExam);
     }
 
     @RequestMapping(value = "/giveAdminToSomeone", method = RequestMethod.POST, consumes = "application/json")
@@ -345,7 +347,7 @@ public class AppController {
     @RequestMapping(value = "/getExaminations", method = {RequestMethod.GET} , produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ArrayList<HashMap<String, String>> getExaminations() {
-        ArrayList<HashMap<String, String>> r = new ArrayList<HashMap<String,String>>();
+        ArrayList<HashMap<String, String>> r = new ArrayList<>();
         for(Examination e: examinationService.getExaminations()){
            HashMap<String, String> map = new HashMap<>();
             map.put("id", e.getId().toString());
@@ -455,6 +457,46 @@ public class AppController {
         return uus;
     }
 
+
+    @RequestMapping(value = "/showResultsAdmin", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<HashMap<String, String>> showAdminResults() {
+        ArrayList<HashMap<String, String>> r = new ArrayList<>();
+        for(ExamResult ex: examResultService.getExamResults()){
+            HashMap<String, String> map = new HashMap<>();
+            map.put("id", String.valueOf(ex.getId()));
+            map.put("passed", String.valueOf(ex.getPassed()));
+            map.put("score", String.valueOf(ex.getScore()));
+            map.put("name", ex.getPerson().getName()+ " "+ ex.getPerson().getSurname());
+            map.put("examstart", String.valueOf(ex.getExamination().getStart_date()));
+            map.put("examend", String.valueOf(ex.getExamination().getEnd_date()));
+            map.put("examclassif", classificatorService.getClassifById(ex.getExamination().getClassif_id()).getClassif_name());
+            r.add(map);
+        }
+        return r;
+    }
+    @RequestMapping(value = "/showResultsUser", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ArrayList<HashMap<String, String>> showUserResults() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person leo = userService.getUser(authentication.getName());
+        ArrayList<HashMap<String, String>> r = new ArrayList<>();
+        for(ExamResult ex: examResultService.getExamResults()){
+            if(ex.getPerson().equals(leo)) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("id", String.valueOf(ex.getId()));
+                map.put("passed", String.valueOf(ex.getPassed()));
+                map.put("score", String.valueOf(ex.getScore()));
+                map.put("name", ex.getPerson().getName() + " " + ex.getPerson().getSurname());
+                map.put("examstart", String.valueOf(ex.getExamination().getStart_date()));
+                map.put("examend", String.valueOf(ex.getExamination().getEnd_date()));
+                map.put("examclassif", classificatorService.getClassifById(ex.getExamination().getClassif_id()).getClassif_name());
+                r.add(map);
+            }
+        }
+        return r;
+    }
+
     //[id, q, clas, an1, a1tf, ]
     @RequestMapping(value = "/findQuestionWithAnswers/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -491,10 +533,9 @@ public class AppController {
     @ResponseBody
     public String getValues(@RequestBody Map<String, List<String>> hmap) {
         int size = hmap.size();
-        int counter = 0;
+        double counter = 0;
         for (String key : hmap.keySet()) {
             ExamQuestion examQuestion = examQuestionService.getQuestion(key);
-            System.err.println(examQuestion.getQuestion());
             List<String> trueQuestionAnswers = examQuestion.getRightAnswers();
             List<String> gotQuestionAnswers = hmap.get(key);
             if (trueQuestionAnswers.size() == gotQuestionAnswers.size()) {
@@ -509,9 +550,9 @@ public class AppController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Person leo = userService.getUser(authentication.getName());
         Examination ex = examinationService.getOpenedExam();
-        Integer passPercent = Math.round(((hmap.size()-counter)/hmap.size())*100);
+        Integer passPercent = Math.toIntExact(Math.round(((hmap.size() - counter) / hmap.size()) * 100));
         ExamResult examResult;
-        if(!examResultService.isNotDone(leo)) return "You have already done that exam!";
+        if(!examResultService.isNotDone(leo,ex)) return "You have already done that exam!";
         if(passPercent>75){
             examResult = new ExamResult(true,passPercent,leo,ex);
             examResultService.save(examResult);

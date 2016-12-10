@@ -72,8 +72,7 @@ jQuery(document).ready(function($) {
 
         }).done(function (data, textStatus, jqXHR) {
             $.notify(data, "success");
-            window.location = "/";
-
+            setTimeout(function(){window.location = "/";}, 3000);
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert("Failed");
         });
