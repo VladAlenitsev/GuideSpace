@@ -35,31 +35,43 @@ public class Examination extends BaseEntity{
     private Long classif_id;
 
     @Column(name = "IS_OPEN")
-    private Boolean is_open = false;
+    private Boolean is_open;
 
     @Column(name = "IS_DEACTIVATED")
-    private Boolean is_deactivated = false;
+    private Boolean is_deactivated;
 
-    public Examination(){}
+    public Examination(){
+        this.is_open = false;
+        this.is_deactivated = false;
+    }
 
     //date format "dd-MM-yyyy HH:mm"
     private static final DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     public Examination(String start, String end) throws ParseException{
+        this.is_open = false;
+        this.is_deactivated = false;
         this.start_date = df.parse(start);
         this.end_date = df.parse(end);
     }
 
     public Examination(String start) throws ParseException{
         this.start_date = df.parse(start);
+        this.is_open = false;
+        this.is_deactivated = false;
     }
 
     public Examination(Date start, Date end){
         this.start_date = start;
         this.end_date = end;
+        this.is_open = false;
+        this.is_deactivated = false;
     }
 
     public Examination(Date start){
+
         this.start_date = start;
+        this.is_open = false;
+        this.is_deactivated = false;
     }
 
     public Date getStart_date() {
