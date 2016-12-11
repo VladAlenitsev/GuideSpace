@@ -379,7 +379,8 @@ public class AppController {
     @RequestMapping(value = "/deleteExamination", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public void deleteExamination(@RequestBody Map<String, String> params) throws ParseException {
-        examinationService.deleteExamination(examinationService.getById(Long.valueOf(params.get("id"))));
+        System.out.println(params);
+        //examinationService.deleteExamination(examinationService.getById(Long.valueOf(params.get("id"))));
     }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
