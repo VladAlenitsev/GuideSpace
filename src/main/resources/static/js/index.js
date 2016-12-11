@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
             });
             $.cookie('CSRF', cookie);
         } else {
-            console.error('Houston, we have a problem...');
+            $.notify(errorThrown, "error");
         }
     });
 //    $.ajax({url: "/addQuests", success: function(result){

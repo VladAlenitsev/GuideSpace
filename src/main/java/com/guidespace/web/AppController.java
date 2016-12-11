@@ -536,7 +536,7 @@ public class AppController {
      *
      * */
 
-    /**
+
     @RequestMapping(value = "/addQuests")
     @ResponseBody
     public void addQuests() throws ParseException {
@@ -626,5 +626,5 @@ public class AppController {
          examQuestionAnswerService.addQuestionAnswer(ed2);
          examQuestionAnswerService.addQuestionAnswer(ed3);
          examQuestionAnswerService.addQuestionAnswer(ed4);
-    }*/
+    }
 }

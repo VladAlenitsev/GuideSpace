@@ -49,6 +49,7 @@ $(document).ready(function() {
         })
     });
 });
+
 function translateRole(roleId){
     if(roleId=="2") return "Admin";
     if(roleId=="1") return "Unverified user";
@@ -56,12 +57,17 @@ function translateRole(roleId){
     if(roleId=="4") return "Verified user";
     else return "No role id found. " + roleId;
 }
+
 function perSel(){
     return $('#permissionSelection').val();
 }
+
 function userSel(){
     return $('#userSelection').val().valueOf();
 }
+
+//*** This code is copyright 2002-2016 by Gavin Kistner, !@phrogz.net
+//*** It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
 Date.prototype.customFormat = function(formatString){
   var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
   YY = ((YYYY=this.getFullYear())+"").slice(-2);

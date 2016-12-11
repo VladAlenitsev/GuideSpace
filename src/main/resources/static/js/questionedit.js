@@ -1,15 +1,21 @@
 $(document).ready(function() {
+    var classificatorMap = {};
     $.ajax({url: "/getClassificators", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
             opt.value = result[i].id;
             opt.innerHTML = result[i].classif_name;
-            $('#classificatorSelection').append(opt);
+            classificatorMap[i] = result[i].classif_name;
+            var opt2 = opt.cloneNode(true);
+            $('#classificatorSelectionSearch').append(opt);
+            $('#classificatorSelection').append(opt2);
         }
     }});
     $('#submitsearch').click(function() {
         $('#questionSelection').empty();
         var searchText = document.getElementById("searchtext").value;
+        var classificator = classificatorMap.getKeyByValue(document.getElementById("classificatorSelectionSearch").value);
+        console.log(classificator);
         var cookie = JSON.parse($.cookie('CSRF'));
         $.ajax({
             data: searchText,
@@ -19,14 +25,15 @@ $(document).ready(function() {
             type: 'POST',
             url: "/findAllQuestions",
             success: function(result) {
-                 for (var key in result) {
+                for (var key in result) {
+                    console.log(result[key]);
                     if (result.hasOwnProperty(key)) {
                         var opt = document.createElement('option');
                         opt.value = result[key];
                         opt.innerHTML = key;
                         $('#questionSelection').append(opt);
                     }
-                 }
+                }
             },
             error:function(errorThrown){
                 console.log(errorThrown);
@@ -42,7 +49,7 @@ $(document).ready(function() {
                 //[id, q, clas, an1, a1tf, a2, a2tf, a3, a3tf, a4, a4tf ]
                 $('#idCarrier').val(result[0]);
                 $('#question').val(result[1]);
-                $("#classificatorSelection").val(result[2]);
+                $("#classificatorSelection").val(classificatorMap[parseInt(result[2])]);
                 $('#answer1').val(result[3]);
                 if(result[4]=='true') $('#atf1').prop("checked", true);
                 if(result[4]=='false') $('#atf1').prop("checked", false);
@@ -71,21 +78,22 @@ $(document).ready(function() {
             timeout: 5000,
             type: 'POST',
             url: '/updateQuestion',
-            success: function(date){
+            success: function(){
                 $.notify("Questions has been updated successfully", "success");
-                $('#idCarrier').val("");
-                document.getElementById("question").value = "";
-                document.getElementById("answer1").value = "";
-                document.getElementById("answer2").value = "";
-                document.getElementById("answer3").value = "";
-                document.getElementById("answer4").value = "";
-                $("#atf1").prop("checked", false);
-                $("#atf2").prop("checked", false);
-                $("#atf3").prop("checked", false);
-                $("#atf4").prop("checked", false);
+                clean();
+//                $('#idCarrier').val("");
+//                document.getElementById("question").value = "";
+//                document.getElementById("answer1").value = "";
+//                document.getElementById("answer2").value = "";
+//                document.getElementById("answer3").value = "";
+//                document.getElementById("answer4").value = "";
+//                $("#atf1").prop("checked", false);
+//                $("#atf2").prop("checked", false);
+//                $("#atf3").prop("checked", false);
+//                $("#atf4").prop("checked", false);
             },
-            error: function(){
-                console.log(error);
+            error: function(errorThrown){
+                console.log(errorThrown);
                 $.notify("Couldn't update the question.", "error");
             }
         });
@@ -100,22 +108,23 @@ $(document).ready(function() {
             timeout: 5000,
             type: 'POST',
             url: '/deleteQuestion',
-            success: function(date){
+            success: function(){
                 $("#questionSelection option[value="+$('#idCarrier').val()+"]").remove();
                 $.notify("Questions has been deleted", "success");
-                $('#idCarrier').val("");
-                document.getElementById("question").value = "";
-                document.getElementById("answer1").value = "";
-                document.getElementById("answer2").value = "";
-                document.getElementById("answer3").value = "";
-                document.getElementById("answer4").value = "";
-                $("#atf1").prop("checked", false);
-                $("#atf2").prop("checked", false);
-                $("#atf3").prop("checked", false);
-                $("#atf4").prop("checked", false);
+                clean();
+//                $('#idCarrier').val("");
+//                document.getElementById("question").value = "";
+//                document.getElementById("answer1").value = "";
+//                document.getElementById("answer2").value = "";
+//                document.getElementById("answer3").value = "";
+//                document.getElementById("answer4").value = "";
+//                $("#atf1").prop("checked", false);
+//                $("#atf2").prop("checked", false);
+//                $("#atf3").prop("checked", false);
+//                $("#atf4").prop("checked", false);
             },
-            error: function(){
-                console.log(error);
+            error: function(errorThrown){
+                console.log(errorThrown);
                 $.notify("Couldn't delete the question.", "error");
             }
         });
@@ -136,3 +145,25 @@ function getData(){
     return {'id':[$('#idCarrier').val()] ,'question' :[$('#question').val()], 'correctAnswers' : correctAnswers,
         'wrongAnswers' : wrongAnswers, 'classif' : [$('#classificatorSelection').val()]};
 };
+
+function clean(){
+    $('#idCarrier').val("");
+    document.getElementById("question").value = "";
+    document.getElementById("answer1").value = "";
+    document.getElementById("answer2").value = "";
+    document.getElementById("answer3").value = "";
+    document.getElementById("answer4").value = "";
+    $("#atf1").prop("checked", false);
+    $("#atf2").prop("checked", false);
+    $("#atf3").prop("checked", false);
+    $("#atf4").prop("checked", false);
+}
+
+Object.prototype.getKeyByValue = function( value ) {
+    for( var prop in this ) {
+        if( this.hasOwnProperty( prop ) ) {
+             if( this[ prop ] === value )
+                 return prop;
+        }
+    }
+}
