@@ -92,7 +92,7 @@ $(document).ready(function() {
             },
             error: function(errorThrown){
                 console.log(errorThrown)
-                $.notify("Couldn't delete the exam.", "error");
+                $.notify("Couldn't deactivate the exam.", "error");
             }
         })
     });
@@ -112,13 +112,15 @@ function refresh(){
     $('#examSelect').append(opt);
     $.ajax({url: "/getExaminations", success: function(result){
         for (i = 0; i < result.length; i++) {
-            var m = result[i]
-            var opt = document.createElement('option');
-            opt.value = m['id'];
-            var d1 = m['startdate'].slice(0,-5);
-            var d2 = m['enddate'].slice(0,-5);
-            opt.innerHTML = d1 + " to " + d2 + "; Question catergory: " + m['classif_name'];
-            $('#examSelect').append(opt);
+                var m = result[i]
+                if(m['is_deactivated']=='false'){
+                    var opt = document.createElement('option');
+                    opt.value = m['id'];
+                    var d1 = m['startdate'].slice(0,-5);
+                    var d2 = m['enddate'].slice(0,-5);
+                    opt.innerHTML = d1 + " to " + d2 + "; Question catergory: " + m['classif_name'];
+                    $('#examSelect').append(opt);
+                }
         }
     }});
 }
