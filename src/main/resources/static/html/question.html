@@ -18,44 +18,48 @@
     <img class="logo" src="images/sublogo_min.png" alt="">
 </div>
 <div id="headers"></div>
-<form class="teine">
-    <div>
-        <h1>Add question:</h1>
-        <label for="question"><br/>
-            <span>Question:</span><br/>
-            <input id="question" type="text" placeholder="Write new question here" required><br/>
-            <select id="classificatorSelection" name="selection">
-            </select>
-        </label>
-        <label>
-            <span>Answers:</span><br/>
-            <div class="input_fields_wrap">
-                <div>
-                    <input id="answer1" type="text" name="answer" placeholder="Write first answer here">
-                    <input id='atf1' type="checkbox" name="aTF" value="correct">
-                    Is CORRECT answer<br/>
+<div class="mainpanel">
+    <form class="teine">
+        <div>
+            <h1 class="h1Title"> Add question:</h1>
+            <label class="questionsLabel" for="question"><br/>
+                <span>Question:</span><br/>
+                <input id="question" type="text" placeholder="Write new question here" required><br/>
+                <select id="classificatorSelection" name="selection">
+                </select>
+            </label>
+            <label class="answersLabel">
+                <span>Answers:</span><br/>
+                <div class="input_fields_wrap">
+                    <div >
+                        <input id="answer1" type="text" name="answer" placeholder="Write first answer here">
+                        <input id='atf1' type="checkbox" name="aTF" value="correct">
+                        Is CORRECT answer<br/>
+                    </div>
+                    <div>
+                        <input id="answer2" type="text" name="answer" placeholder="Write second answer here">
+                        <input id='atf2' type="checkbox" name="aTF" value="correct">
+                        Is CORRECT answer<br/>
+                    </div>
+                    <div >
+                        <input id="answer3" type="text" name="answer" placeholder="Write third answer here">
+                        <input id='atf3' type="checkbox" name="aTF" value="correct">
+                        Is CORRECT answer<br/>
+                    </div>
+                    <div >
+                        <input id="answer4" type="text" name="answer" placeholder="Write fourth answer here">
+                        <input id='atf4' type="checkbox" name="aTF" value="correct">
+                        Is CORRECT answer<br/>
+                    </div>
+                    <p></p>
+                    <input style="color:black" type="button" value="Add question" id="addQuestion" name="addQuestion" />
+                    <div id="outputDiv"></div>
                 </div>
-                <div>
-                    <input id="answer2" type="text" name="answer" placeholder="Write second answer here">
-                    <input id='atf2' type="checkbox" name="aTF" value="correct">
-                    Is CORRECT answer<br/>
-                </div>
-                <div>
-                    <input id="answer3" type="text" name="answer" placeholder="Write third answer here">
-                    <input id='atf3' type="checkbox" name="aTF" value="correct">
-                    Is CORRECT answer<br/>
-                </div>
-                <div>
-                    <input id="answer4" type="text" name="answer" placeholder="Write fourth answer here">
-                    <input id='atf4' type="checkbox" name="aTF" value="correct">
-                    Is CORRECT answer<br/>
-                </div>
-                <p></p>
-                <input style="color:black" type="button" value="Add question" id="addQuestion" name="addQuestion" />
-                <div id="outputDiv"></div>
-            </div>
-        </label>
-    </div>
-</form>
+            </label>
+
+    </form>
+</div>
+</div>
+
 </body>
 </html>

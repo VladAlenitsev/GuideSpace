@@ -357,6 +357,7 @@ public class AppController {
             map.put("classif_id", e.getClassif_id().toString());
             map.put("classif_name", classificatorService.getClassifById(e.getClassif_id()).getClassif_name());
             map.put("is_open", e.getIs_open().toString());
+            map.put("is_deactivated", e.getIs_deactivated().toString());
             r.add(map);
         }
         return r;
@@ -381,7 +382,10 @@ public class AppController {
     @RequestMapping(value = "/deleteExamination", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public void deleteExamination(@RequestBody Map<String, String> params) throws ParseException {
-        examinationService.deleteExamination(examinationService.getById(Long.valueOf(params.get("id"))));
+        Examination e = examinationService.getById(Long.valueOf(params.get("id")));
+        e.setIs_deactivated(true);
+        e.setIs_open(false);
+        examinationService.addExamination(e);
     }
 
     @RequestMapping(value = "/getQuestions", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")

@@ -22,21 +22,24 @@
     <img class="logo" src="images/sublogo_min.png" alt="">
 </div>
 <div id="headers"></div>
-<h1>Add Exam:</h1>
-<input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
-<input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
-<select id="classifSelect" name="selection">
-</select>
-<input id="examreg" type="button" value="Add exam" name="examreg">
-<div id="outputDiv"> </div>
-<div id="createdExams">
-    <br/>
-    <select id="examSelect" name="selection">
-        <option>Created examinations..</option>
+<div class="mainpanel">
+    <h1>Add Exam:</h1>
+    <input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
+    <input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
+    <select id="classifSelect" name="selection">
     </select>
-    <input id="examopen" type="button" value="Start">
-    <input id="examclose" type="button" value="Close">
-    <input id="examdelete" type="button" value="Delete">
+    <input id="examreg" type="button" value="Add exam" name="examreg">
+    <div id="outputDiv"></div>
+    <div id="createdExams">
+        <br/>
+        <select id="examSelect" name="selection">
+            <option>Created examinations..</option>
+        </select>
+        <input id="examopen" type="button" value="Start">
+        <input id="examclose" type="button" value="Close">
+        <input id="examdelete" type="button" value="Deactivate & End">
+    </div>
 </div>
+
 </body>
 </html>

@@ -35,7 +35,10 @@ public class Examination extends BaseEntity{
     private Long classif_id;
 
     @Column(name = "IS_OPEN")
-    private Boolean is_open;
+    private Boolean is_open = false;
+
+    @Column(name = "IS_DEACTIVATED")
+    private Boolean is_deactivated = false;
 
     public Examination(){}
 
@@ -109,5 +112,13 @@ public class Examination extends BaseEntity{
 
     public void setIs_open(Boolean is_open) {
         this.is_open = is_open;
+    }
+
+    public Boolean getIs_deactivated() {
+        return is_deactivated;
+    }
+
+    public void setIs_deactivated(Boolean is_deactivated) {
+        this.is_deactivated = is_deactivated;
     }
 }

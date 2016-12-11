@@ -19,8 +19,12 @@
     <img class="logo" src="images/sublogo_min.png" alt="">
 </div>
 <div id="headers"></div>
-<div>
-    <h1>Edit Question:</h1>
+<div class="mainpanel">
+    <h1 class="h1Title2">Edit Question:</h1>
+    <div class="questionSearchCss">
+        <div class="dropdown">
+            <div class="searchText">
+                <span>Insert keywords:</span>
     <input type="text" id="searchtext">
     <div class="dropdown">
         <select id="classificatorSelectionSearch" name="selection">
@@ -28,20 +32,22 @@
         </select>
     </div>
     <input type="submit" id="submitsearch" value="Search">
-
-    <div class="dropdown">
+            </div>
         <select id="questionSelection" name="selection" size="6">
         </select>
     </div>
-
-    <label for="question"><br/>
+    </div>
+    <div class="questionEditFull">
+        <div class="answerEdit2Half">
+            <label class="questionEditCss" for="question"><br/>
         <span>Question:</span><br/>
         <input type="hidden" id="idCarrier" value="">
         <input id="question" type="text" placeholder="Choose question to edit." required><br/>
         <select id="classificatorSelection" name="selection">
         </select>
     </label>
-    <label>
+
+            <label class="answerEditCss">
         <span>Answers:</span><br/>
         <div class="input_fields_wrap">
             <div>
@@ -69,6 +75,8 @@
             <input style="color:black" type="button" value="Delete question" id="deleteQuestion" name="deleteQuestion" />
         </div>
     </label>
+</div>
+    </div>
 </div>
 </body>
 </html>
