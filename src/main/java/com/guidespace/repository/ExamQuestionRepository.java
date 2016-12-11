@@ -16,6 +16,8 @@ public interface ExamQuestionRepository extends Repository<ExamQuestion, Long> {
 
     List<ExamQuestion> findByQuestion(String question);
 
+    List<ExamQuestion> findByClassificatorId(Long id);
+
     ExamQuestion findById(Long id);
 
     void delete(ExamQuestion question);

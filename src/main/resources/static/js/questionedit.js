@@ -1,11 +1,9 @@
 $(document).ready(function() {
-    var classificatorMap = {};
     $.ajax({url: "/getClassificators", success: function(result){
         for (i = 0; i < result.length; i++) {
             var opt = document.createElement('option');
             opt.value = result[i].id;
             opt.innerHTML = result[i].classif_name;
-            classificatorMap[i+1] = result[i].classif_name;
             var opt2 = opt.cloneNode(true);
             $('#classificatorSelectionSearch').append(opt);
             $('#classificatorSelection').append(opt2);
@@ -13,17 +11,11 @@ $(document).ready(function() {
     }});
     $('#submitsearch').click(function() {
         $('#questionSelection').empty();
-        var searchText = document.getElementById("searchtext").value;
-        var classificator = document.getElementById("classificatorSelectionSearch").options[document.getElementById("classificatorSelectionSearch").selectedIndex].text;
-        for (var key in classificatorMap) {
-            if (classificatorMap.hasOwnProperty(key)){
-                 if(classificatorMap[key]==classificator)
-                     classificator = key;
-            }
-        }
+        var searchMap = getSearchData();
+        console.log(searchMap);
         var cookie = JSON.parse($.cookie('CSRF'));
         $.ajax({
-            data: searchText,
+            data: JSON.stringify(searchMap),
             headers: {'X-CSRF-TOKEN': cookie.csrf},
             contentType: 'application/json',
             timeout: 5000,
@@ -50,24 +42,10 @@ $(document).ready(function() {
         $.ajax({
             url: "/findQuestionWithAnswers/"+optionVal,
             success: function(result) {
-                console.log(classificatorMap[parseInt(result[2])]);
                 //[id, q, clas, an1, a1tf, a2, a2tf, a3, a3tf, a4, a4tf ]
                 $('#idCarrier').val(result[0]);
                 $('#question').val(result[1]);
-                var classificatorSelection = $("#classificatorSelection");
-                //Here it breaks, select.options <- undefined, why he doesn't see options??
-                for (var i = 0; i < classificatorSelection.options.length; i++) {
-                    console.log(classificatorSelection.options[i].text);
-                    console.log(classificatorMap[parseInt(result[2])]);
-                    console.log(classificatorSelection.options[i].text === classificatorMap[parseInt(result[2])]);
-                    console.log(classificatorSelection.options[i].text == classificatorMap[parseInt(result[2])]);
-                    if (classificatorSelection.options[i].text === classificatorMap[parseInt(result[2])]) {
-                        console.log("DONe");
-                        classificatorSelection.selectedIndex = i;
-                        break;
-                    }
-                }
-//                $("#classificatorSelection").val(classificatorMap[parseInt(result[2])]);
+                $("#classificatorSelection").val(result[2]);
                 $('#answer1').val(result[3]);
                 if(result[4]=='true') $('#atf1').prop("checked", true);
                 if(result[4]=='false') $('#atf1').prop("checked", false);
@@ -163,6 +141,9 @@ function getData(){
     return {'id':[$('#idCarrier').val()] ,'question' :[$('#question').val()], 'correctAnswers' : correctAnswers,
         'wrongAnswers' : wrongAnswers, 'classif' : [$('#classificatorSelection').val()]};
 };
+function getSearchData(){
+    return {'searchText': $('#searchtext').val() ,'classif': $('#classificatorSelectionSearch').val()};
+}
 
 function clean(){
     $('#idCarrier').val("");

@@ -5,6 +5,7 @@ import com.guidespace.repository.ExamQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,5 +30,15 @@ public class ExamQuestionService {
     public void deleteQuestion(ExamQuestion e){examQuestionRepository.delete(e);}
 
     public ExamQuestion getQuestionById(Long id) {return examQuestionRepository.findById(id);}
+
+    public List<ExamQuestion> getQuestionsByClassificatorId(Long id){
+        ArrayList<ExamQuestion> result = new ArrayList<>();
+        for(ExamQuestion eq: examQuestionRepository.findAll()){
+            if (eq.getClassificator().getId() == id){
+                result.add(eq);
+            }
+        }
+        return result;
+    }
 }
 

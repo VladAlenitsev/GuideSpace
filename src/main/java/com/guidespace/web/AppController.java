@@ -423,19 +423,42 @@ public class AppController {
 
     @RequestMapping(value = "/findQuestionById/{id}", method = {RequestMethod.GET}, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public ExamQuestion findQuestionById(
-            @PathVariable("id") String id) {
-        System.out.println(Long.valueOf(id));
-        System.out.println(Long.valueOf(id) instanceof Long);
+    public ExamQuestion findQuestionById(@PathVariable("id") String id) {
         return examQuestionService.getQuestionById(Long.valueOf(id));
     }
 
-    @RequestMapping(value = "/findAllQuestions", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/findAllQuestions", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8")
     @ResponseBody
-    public HashMap<String, Long> findAllQuestions(@RequestBody String searchString) {
+    public HashMap<String, Long> findAllQuestions(@RequestBody Map<String, String> params) {
+        Classificator classif = classificatorService.getClassifById(Long.valueOf(params.get("classif")));
         HashMap<String, Long> m = new HashMap<>();
-        for(ExamQuestion eq: examQuestionService.getQuestions()) {
-            if(eq.getQuestion().contains(searchString)) m.put(eq.getQuestion(), eq.getId());
+        // no text, has classif
+        if(params.get("searchText").isEmpty() && !params.get("classif").equals("-1")){
+            for(ExamQuestion eq:examQuestionService.getQuestions()) {
+                if (eq.getClassificator().equals(classif)) {
+                    m.put(eq.getQuestion(), eq.getId());
+                }
+            }
+        // has text, has classif
+        }else if(!params.get("searchText").isEmpty() && !params.get("classif").equals("-1")){
+            for(ExamQuestion eq:examQuestionService.getQuestions()){
+                if(eq.getQuestion().contains(params.get("searchText")) &&
+                        eq.getClassificator().equals(classif)){
+                    m.put(eq.getQuestion(), eq.getId());
+                }
+            }
+        //has text, no classif
+        }else if(!params.get("searchText").isEmpty() && params.get("classif").equals("-1")){
+            for(ExamQuestion eq:examQuestionService.getQuestions()){
+                if(eq.getQuestion().contains(params.get("searchText"))){
+                    m.put(eq.getQuestion(), eq.getId());
+                }
+            }
+        //no text no classif
+        }else{
+            for(ExamQuestion eq: examQuestionService.getQuestions()){
+                m.put(eq.getQuestion(), eq.getId());
+            }
         }
         return m;
     }
