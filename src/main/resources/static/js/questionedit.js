@@ -5,7 +5,7 @@ $(document).ready(function() {
             var opt = document.createElement('option');
             opt.value = result[i].id;
             opt.innerHTML = result[i].classif_name;
-            classificatorMap[i] = result[i].classif_name;
+            classificatorMap[i+1] = result[i].classif_name;
             var opt2 = opt.cloneNode(true);
             $('#classificatorSelectionSearch').append(opt);
             $('#classificatorSelection').append(opt2);
@@ -14,8 +14,13 @@ $(document).ready(function() {
     $('#submitsearch').click(function() {
         $('#questionSelection').empty();
         var searchText = document.getElementById("searchtext").value;
-        var classificator = classificatorMap.getKeyByValue(document.getElementById("classificatorSelectionSearch").value);
-        console.log(classificator);
+        var classificator = document.getElementById("classificatorSelectionSearch").options[document.getElementById("classificatorSelectionSearch").selectedIndex].text;
+        for (var key in classificatorMap) {
+            if (classificatorMap.hasOwnProperty(key)){
+                 if(classificatorMap[key]==classificator)
+                     classificator = key;
+            }
+        }
         var cookie = JSON.parse($.cookie('CSRF'));
         $.ajax({
             data: searchText,
@@ -26,7 +31,6 @@ $(document).ready(function() {
             url: "/findAllQuestions",
             success: function(result) {
                 for (var key in result) {
-                    console.log(result[key]);
                     if (result.hasOwnProperty(key)) {
                         var opt = document.createElement('option');
                         opt.value = result[key];
@@ -46,10 +50,24 @@ $(document).ready(function() {
         $.ajax({
             url: "/findQuestionWithAnswers/"+optionVal,
             success: function(result) {
+                console.log(classificatorMap[parseInt(result[2])]);
                 //[id, q, clas, an1, a1tf, a2, a2tf, a3, a3tf, a4, a4tf ]
                 $('#idCarrier').val(result[0]);
                 $('#question').val(result[1]);
-                $("#classificatorSelection").val(classificatorMap[parseInt(result[2])]);
+                var classificatorSelection = $("#classificatorSelection");
+                //Here it breaks, select.options <- undefined, why he doesn't see options??
+                for (var i = 0; i < classificatorSelection.options.length; i++) {
+                    console.log(classificatorSelection.options[i].text);
+                    console.log(classificatorMap[parseInt(result[2])]);
+                    console.log(classificatorSelection.options[i].text === classificatorMap[parseInt(result[2])]);
+                    console.log(classificatorSelection.options[i].text == classificatorMap[parseInt(result[2])]);
+                    if (classificatorSelection.options[i].text === classificatorMap[parseInt(result[2])]) {
+                        console.log("DONe");
+                        classificatorSelection.selectedIndex = i;
+                        break;
+                    }
+                }
+//                $("#classificatorSelection").val(classificatorMap[parseInt(result[2])]);
                 $('#answer1').val(result[3]);
                 if(result[4]=='true') $('#atf1').prop("checked", true);
                 if(result[4]=='false') $('#atf1').prop("checked", false);
@@ -159,11 +177,3 @@ function clean(){
     $("#atf4").prop("checked", false);
 }
 
-Object.prototype.getKeyByValue = function( value ) {
-    for( var prop in this ) {
-        if( this.hasOwnProperty( prop ) ) {
-             if( this[ prop ] === value )
-                 return prop;
-        }
-    }
-}
