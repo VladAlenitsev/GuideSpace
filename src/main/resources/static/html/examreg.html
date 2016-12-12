@@ -24,14 +24,25 @@
 <div id="headers"></div>
 <div class="mainpanel">
     <h1>Add Exam:</h1>
-    <input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
-    <input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
-    <select id="classifSelect" name="selection">
-    </select>
+    <div class="examEditTab">
+        <p> Select starting date for exam:</p>
+        <input id="startdate" type="text" name="startdate" placeholder="dd-MM-yy H:i">
+    </div>
+    <div class="examEditTab">
+        <p> Select ending date for exam:</p>
+        <input id="enddate" type="text" name="enddate" placeholder="dd-MM-yy H:i">
+    </div>
+    <div class="examEditTab">
+        <p>Select subject for the exam: </p>
+        <select id="classifSelect" name="selection">
+        </select>
+    </div>
+
     <input id="examreg" type="button" value="Add exam" name="examreg">
     <div id="outputDiv"></div>
     <div id="createdExams">
         <br/>
+        <p class="unnecessaryP">Start a created exam or close existing one.</p>
         <select id="examSelect" name="selection">
             <option>Created examinations..</option>
         </select>

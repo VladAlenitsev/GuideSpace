@@ -21,6 +21,7 @@ jQuery(document).ready(function($) {
                     var div = document.getElementById("questions");
                     var p = document.createElement("h4");
                     var ul = document.createElement("ul");
+                    ul.setAttribute('class',"questionsinExam")
                     ul.setAttribute('name', keys[i]);
                     p.appendChild(document.createTextNode(fileName));
                     ul.appendChild(p);

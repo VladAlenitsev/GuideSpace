@@ -24,6 +24,18 @@
     margin-bottom: auto;
     width: 45%;
 }
+.questionsinExam{
+    margin-left: 20%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 25px;
+    height: 10%;
+    margin-right: 10%;
+    box-shadow: rgb(176, 177, 178) 2px 2px 2px;
+    border-radius: 12px;
+    width: 150%;
+    padding-top: 5%;
+}
+
 .answerEditCss{
     margin: 10px;
     width: 45%;
@@ -45,6 +57,8 @@
     margin-right: 10%;
     border-radius: 12px;
     box-shadow: 2px 2px 2px #b0b1b2;
+    padding-top: 0.5%;
+    padding-left: 5%;
 }
 .questionsLabel {
     margin-left: 5%;
@@ -63,9 +77,7 @@
     margin-bottom: auto;
     margin-top: auto;
 }
-.h1Title{
-    margin-left: 5%;
-}
+
 .leftpanelS{
     float:center;
 }
@@ -230,8 +242,11 @@ select[name=selection]{
     width: 60%;
 
 }
-.h1Title2{
-    margin-top:20px;
+.unnecessaryP{
+    font-size:20px;
+}
+.examEditTab p{
+    font-size:20px;
 }
 .rightpanel {
     margin: auto;
