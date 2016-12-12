@@ -19,64 +19,67 @@
     <img class="logo" src="images/sublogo_min.png" alt="">
 </div>
 <div id="headers"></div>
-<div class="mainpanel">
-    <h1>Edit Question:</h1>
-    <div class="questionSearchCss">
-        <div class="dropdown">
-            <div class="searchText">
-                <span>Insert keywords:</span>
-    <input type="text" id="searchtext">
-    <div class="dropdown">
-        <select id="classificatorSelectionSearch" name="selection">
-            <option value="-1">    </option>
-        </select>
-    </div>
-    <input type="submit" id="submitsearch" value="Search">
+ <div class="mainpanel">
+        <h1>Edit Question:</h1>
+        <div class="questionSearchCss">
+            <div class="dropdown">
+                <div class="searchText">
+                    <span>Insert keywords:</span>
+                    <input type="text" id="searchtext">
+                    <div class="dropdown">
+                        <select id="classificatorSelectionSearch" name="selection">
+                            <option value="-1">    </option>
+                        </select>
+                    </div>
+                    <input type="submit" id="submitsearch" value="Search">
+                </div>
+                <select id="questionSelection" name="selection" size="6">
+                </select>
             </div>
-        <select id="questionSelection" name="selection" size="6">
-        </select>
-    </div>
-    </div>
-    <div class="questionEditFull">
-        <div class="answerEdit2Half">
-            <label class="questionEditCss" for="question"><br/>
-        <span>Question:</span><br/>
-        <input type="hidden" id="idCarrier" value="">
-        <input id="question" type="text" placeholder="Choose question to edit." required><br/>
-        <select id="classificatorSelection" name="selection">
-        </select>
-    </label>
-
-            <label class="answerEditCss">
-        <span>Answers:</span><br/>
-        <div class="input_fields_wrap">
-            <div>
-                <input id="answer1" type="text" name="answer" placeholder="First answer should be here">
-                <input id='atf1' type="checkbox" name="aTF" value="correct">
-                Is CORRECT answer<br/>
-            </div>
-            <div>
-                <input id="answer2" type="text" name="answer" placeholder="Second answer should be here">
-                <input id='atf2' type="checkbox" name="aTF" value="correct">
-                Is CORRECT answer<br/>
-            </div>
-            <div>
-                <input id="answer3" type="text" name="answer" placeholder="Third answer should be here">
-                <input id='atf3' type="checkbox" name="aTF" value="correct">
-                Is CORRECT answer<br/>
-            </div>
-            <div>
-                <input id="answer4" type="text" name="answer" placeholder="Fourth answer should be here">
-                <input id='atf4' type="checkbox" name="aTF" value="correct">
-                Is CORRECT answer<br/>
-            </div>
-            <p></p>
-            <input style="color:black" type="button" value="Save changes" id="saveQuestion" name="addQuestion" />
-            <input style="color:black" type="button" value="Delete question" id="deleteQuestion" name="deleteQuestion" />
         </div>
-    </label>
-</div>
+        <div class="questionEditFull">
+            <div class="answerEdit2Half">
+                <label class="questionEditCss" for="question"><br/>
+                    <span>Question:</span><br/>
+                    <input type="hidden" id="idCarrier" value="">
+                    <input id="question" type="text" placeholder="Choose question to edit." required><br/>
+                    <select id="classificatorSelection" name="selection">
+                    </select>
+                </label>
+
+                <label class="answerEditCss">
+                    <span>Answers:</span><br/>
+                    <div class="input_fields_wrap">
+                        <div>
+                            <input class="answers" id="answer1" type="text" name="answer" placeholder="First answer should be here">
+                            <input id='atf1' type="checkbox" name="aTF" value="correct">
+                            Is CORRECT answer<br/>
+                        </div>
+                        <div>
+                            <input class="answers" id="answer2" type="text" name="answer" placeholder="Second answer should be here">
+                            <input id='atf2' type="checkbox" name="aTF" value="correct">
+                            Is CORRECT answer<br/>
+                        </div>
+                        <div>
+                            <input class="answers" id="answer3" type="text" name="answer" placeholder="Third answer should be here">
+                            <input id='atf3' type="checkbox" name="aTF" value="correct">
+                            Is CORRECT answer<br/>
+                        </div>
+                        <div>
+                            <input class="answers" id="answer4" type="text" name="answer" placeholder="Fourth answer should be here">
+                            <input id='atf4' type="checkbox" name="aTF" value="correct">
+                            Is CORRECT answer<br/>
+                        </div>
+                        <p></p>
+                        <input style="color:black" type="button" value="Save changes" id="saveQuestion" name="addQuestion" />
+                        <input style="color:black" type="button" value="Delete question" id="deleteQuestion" name="deleteQuestion" />
+                    </div>
+                </label>
+            </div>
+        </div>
     </div>
-</div>
+
+
+
 </body>
 </html>

@@ -49,11 +49,17 @@
 .questionEditFull{
     margin:30px;
 }
+#question{
+    width: 100%;
+}
+.answers{
+    width: 90%
+}
 .mainpanel {
     margin-left: 20%;
     background-color: #ffffff;
     margin-top: 25px;
-    height: 400px;
+    height: 450px;
     margin-right: 10%;
     border-radius: 12px;
     box-shadow: 2px 2px 2px #b0b1b2;
