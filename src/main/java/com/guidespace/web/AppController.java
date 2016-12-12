@@ -40,9 +40,6 @@ public class AppController {
     @Value("${exam.limit}")
     private int timeLimit;
 
-
-
-
     @RequestMapping("/")
     public String index() {
         return "html/index.html";
