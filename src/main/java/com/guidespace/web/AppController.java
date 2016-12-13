@@ -81,6 +81,9 @@ public class AppController {
     @RequestMapping("/questionedit")
     public String questionedit(){return "html/questionedit.html";}
 
+    @RequestMapping("/check")
+    public String check(){return "html/check.html";}
+
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
     public Boolean isAuthenticated() {
@@ -552,6 +555,7 @@ public class AppController {
         }
         return result;
     }
+
 
     @RequestMapping(value = "/userAnsw", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody

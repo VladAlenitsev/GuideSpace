@@ -9,7 +9,15 @@ $(document).on("submit", "#loginform", function(event){
         type: 'POST',
         url: '/login'
     }).done(function(data, textStatus, jqXHR) {
-        window.location = '/';
+        $.get("/isUnVerified").done(function( status ) {
+            if (status.toString() === 'true'){
+                window.location = '/check';
+            } else{
+                window.location = '/';
+            }
+        }).fail(function(){
+            window.location = '/';
+        });
     }).fail(function(jqXHR, textStatus, errorThrown) {
         $("#signupWarning").text("Invalid username or password");
     });
@@ -42,7 +50,15 @@ $(document).on("submit", "#registerForm", function(event){
             type: 'POST',
             url: '/login'
         }).done(function(data, textStatus, jqXHR) {
-            window.location = '/';
+            $.get("/isUnVerified").done(function( status ) {
+                if (status.toString() === 'true'){
+                  window.location = '/check';
+                } else{
+                  window.location = '/';
+                }
+            }).fail(function(){
+                window.location = '/';
+            });
         });
     }).fail(function(jqXHR, textStatus, errorThrown) {
         if(jqXHR.status = 406){

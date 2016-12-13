@@ -23,10 +23,6 @@ jQuery(document).ready(function($) {
             console.log(errorThrown);
         }
     });
-//    $.ajax({url: "/addQuests", success: function(result){
-//        console.log("loaded");
-//        }
-//    });
 });
 
 
