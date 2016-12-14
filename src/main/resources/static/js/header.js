@@ -142,7 +142,6 @@ function hideAdminPanel() {
 function hideExam() {
     $("#examNavbar").css("display", "none")
 }
-
 function hideResults() {
     $("#examResults").css("display", "none")
 }

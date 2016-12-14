@@ -211,10 +211,7 @@ form.teine input[type=text]{
 p{
     font-family:FontAwesome;
 }
-.kkk{
-    margin-left:20%;
-}
-.kontakt{
+.kkk, .checkInfo, .kontakt {
     margin-left:20%;
 }
 #userSelection{

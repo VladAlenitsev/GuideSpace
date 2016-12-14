@@ -81,9 +81,6 @@ public class AppController {
     @RequestMapping("/questionedit")
     public String questionedit(){return "html/questionedit.html";}
 
-    @RequestMapping("/check")
-    public String check(){return "html/check.html";}
-
     @RequestMapping(value = "/isAuth", method = RequestMethod.GET)
     @ResponseBody
     public Boolean isAuthenticated() {
@@ -125,10 +122,13 @@ public class AppController {
     @ResponseBody
     public Boolean isUnVerified() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Person leo = userService.getUser(authentication.getName());
-        if (leo.getUser_role_id() == 1){
-            return true;
+        try{
+            Person leo = userService.getUser(authentication.getName());
+            if (leo.getUser_role_id() == 1){
+                return true;
+            }
         }
+        catch (Exception e){}
         return false;
     }
 

@@ -1,5 +1,12 @@
 jQuery(document).ready(function($) {
     $('#headers').load('/html/components/header.html');
+    if (isAuth().toString() === 'true'){
+        if (isUnVerified().toString() === 'true'){
+            displayCheckInfo();
+        }
+    } else{
+        hideCheckInfo();
+    }
 //  CSRF tokeni küsimine sessiooni alguses
     $.ajax({
         type: 'GET',
@@ -25,8 +32,25 @@ jQuery(document).ready(function($) {
     });
 });
 
+function hideCheckInfo() {
+    $("#checkInfo").css("display", "none")
+}
+function displayCheckInfo() {
+    $("#checkInfo").css("display", "block");
+}
+function isUnVerified() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isUnVerified", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
 
-
+function isAuth() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "/isAuth", false);
+    xmlHttp.send(null);
+    return (xmlHttp.responseText);
+}
 
 
 
